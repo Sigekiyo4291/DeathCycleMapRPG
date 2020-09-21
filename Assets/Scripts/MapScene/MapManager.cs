@@ -31,6 +31,11 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         // 道を設定
+        CreateLoad();
+    }
+
+    void CreateLoad()
+    {
         foreach (MapData MapPoint in MapData)
         {
             foreach (int near_index in MapPoint.NearMapData)
@@ -46,8 +51,8 @@ public class MapManager : MonoBehaviour
                 MapLoadList.Last().positionCount++;
                 MapLoadList.Last().SetPosition(MapLoadList.Last().positionCount - 1, MapPoint.MapObject.transform.position);
                 MapLoadList.Last().positionCount++;
-                MapLoadList.Last().SetPosition(MapLoadList.Last().positionCount-1, MapData.Find(x => x.id==near_index).MapObject.transform.position);
-            }      
+                MapLoadList.Last().SetPosition(MapLoadList.Last().positionCount - 1, MapData.Find(x => x.id == near_index).MapObject.transform.position);
+            }
         }
     }
 }

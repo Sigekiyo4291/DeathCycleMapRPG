@@ -1,8 +1,9 @@
 ﻿<Properties StartupConfiguration="{5C5C1117-23AD-5169-369F-B3232EEA117B}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MapScene/MapManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MapScene/PlayerManager.cs">
     <Files>
-      <File FileName="Assets/Scripts/MapScene/MapManager.cs" Line="45" Column="62" />
-      <File FileName="Assets/Scripts/MapScene/PlayerManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/MapScene/MapManager.cs" Line="30" Column="1" />
+      <File FileName="Assets/Scripts/MapScene/PlayerManager.cs" Line="41" Column="12" />
+      <File FileName="Assets/Scripts/MapScene/ArrowButtonManager.cs" Line="13" Column="64" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -11,7 +12,7 @@
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
                 <Node name="MapScene" expanded="True">
-                  <Node name="MapManager.cs" selected="True" />
+                  <Node name="PlayerManager.cs" selected="True" />
                 </Node>
               </Node>
             </Node>
@@ -22,7 +23,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="d79121d2-ff96-4877-8914-7cc759c6b3b8" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="ba5a7d89-7d8f-48ac-b728-f6fb9f307134" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
