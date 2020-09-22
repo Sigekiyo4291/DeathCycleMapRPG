@@ -5,18 +5,18 @@ using UnityEngine;
 public class ArrowButtonManager : MonoBehaviour
 {
     public int next_point;
-    private GameObject PlayerManagerObject;
-    PlayerManager Player;
+    private GameObject playerManagerObject;
+    PlayerManager player;
 
     void Awake()
     {
-        PlayerManagerObject = GameObject.Find("PlayerManager");
-        Player = PlayerManagerObject.GetComponent<PlayerManager>();
+        playerManagerObject = GameObject.Find("PlayerManager");
+        player = playerManagerObject.GetComponent<PlayerManager>();
     }
 
     public void OnClick()
     {
-        Player.SetPosition(next_point);
-        Player.MoveEnd();
+        player.SetPosition(next_point);
+        player.MoveEnd();
     }
 }

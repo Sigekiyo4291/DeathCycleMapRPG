@@ -983,22 +983,22 @@ MonoBehaviour:
   lineMaterial: {fileID: 0}
   lineColor: {r: 0.7843138, g: 0.98823535, b: 0.44705886, a: 0}
   lineWidth: 0.2
-  MapData:
+  mapData:
   - id: 0
-    MapObject: {fileID: 1616678388}
-    NearMapData: 010000000200000003000000
+    mapObject: {fileID: 1616678388}
+    nearMapData: 010000000200000003000000
   - id: 1
-    MapObject: {fileID: 581674227}
-    NearMapData: 0000000003000000
+    mapObject: {fileID: 581674227}
+    nearMapData: 0000000003000000
   - id: 2
-    MapObject: {fileID: 43171161}
-    NearMapData: 00000000
+    mapObject: {fileID: 43171161}
+    nearMapData: 00000000
   - id: 3
-    MapObject: {fileID: 1778518029}
-    NearMapData: 0000000004000000
+    mapObject: {fileID: 1778518029}
+    nearMapData: 000000000100000004000000
   - id: 4
-    MapObject: {fileID: 1646962740}
-    NearMapData: 03000000
+    mapObject: {fileID: 1646962740}
+    nearMapData: 03000000
 --- !u!4 &745188704
 Transform:
   m_ObjectHideFlags: 0
@@ -1917,14 +1917,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d655ebdd0bfbb4838888e90c25c7eb8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 2003641331}
-  MapManager: {fileID: 745188702}
-  PlayerUI: {fileID: 1436946709}
-  MapMoveUI: {fileID: 110785836}
-  MainCamara: {fileID: 0}
-  ArrowButtonPrefab: {fileID: 8018793931175259893, guid: b2d14ce2748104bb6b63086e88904485,
+  player: {fileID: 2003641331}
+  mapManager: {fileID: 745188702}
+  playerUI: {fileID: 1436946709}
+  mapMoveUI: {fileID: 110785836}
+  mainCamara: {fileID: 519420028}
+  arrowButtonPrefab: {fileID: 8018793931175259893, guid: b2d14ce2748104bb6b63086e88904485,
     type: 3}
-  ArrowButtons: []
+  arrowButtons: []
 --- !u!1 &2003641331
 GameObject:
   m_ObjectHideFlags: 0
