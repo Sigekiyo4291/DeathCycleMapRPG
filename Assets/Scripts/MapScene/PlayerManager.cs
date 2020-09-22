@@ -23,6 +23,8 @@ public class PlayerManager : MonoBehaviour
     public GameObject Player;
     public GameObject MapManager;
     public GameObject PlayerUI;
+    public GameObject MapMoveUI;
+    public GameObject MainCamara;
     public GameObject ArrowButtonPrefab;
     public List<GameObject> ArrowButtons = new List<GameObject>();
 
@@ -31,6 +33,7 @@ public class PlayerManager : MonoBehaviour
     {
         PlayerData.CurrentPoint = 0;
         SetPosition(PlayerData.CurrentPoint);
+        MainCamara = GameObject.Find("Main Camera");
     }
 
     // Update is called once per frame
@@ -39,14 +42,20 @@ public class PlayerManager : MonoBehaviour
         
     }
 
-    public void OnMoveClick()
+    public void OnMoveSelectButtonClick()
     {
-        PlayerUI.SetActive(false);
         MoveReady(PlayerData.CurrentPoint);
+    }
+
+    public void OnMoveCancelButtonClick()
+    {
+        MoveEnd();
     }
 
     void MoveReady(int current_point)
     {
+        PlayerUI.SetActive(false);
+        MapMoveUI.SetActive(true);
         MapManager Map = MapManager.GetComponent<MapManager>();
         List<int> NearData = Map.MapData[current_point].NearMapData;
         foreach (int next_point_id in NearData)
@@ -66,6 +75,9 @@ public class PlayerManager : MonoBehaviour
             Destroy(ArrowButtons[i]);
         }
         ArrowButtons.Clear();
+        PlayerUI.SetActive(true);
+        MapMoveUI.SetActive(false);
+        MainCamara.GetComponent<CameraManager>().CameraSetPositionToPlayer();
     }
 
     public void SetPosition(int point)

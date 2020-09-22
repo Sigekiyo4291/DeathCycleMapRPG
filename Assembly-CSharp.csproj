@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\MapScene\ArrowButtonManager.cs" />
+    <Compile Include="Assets\Scripts\MapScene\CameraManager.cs" />
     <Compile Include="Assets\Scripts\MapScene\MapManager.cs" />
     <Compile Include="Assets\Scripts\MapScene\PlayerManager.cs" />
     <Reference Include="UnityEngine">

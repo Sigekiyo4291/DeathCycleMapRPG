@@ -1,9 +1,10 @@
 ﻿<Properties StartupConfiguration="{5C5C1117-23AD-5169-369F-B3232EEA117B}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MapScene/PlayerManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MapScene/CamaraManager.cs">
     <Files>
       <File FileName="Assets/Scripts/MapScene/MapManager.cs" Line="30" Column="1" />
-      <File FileName="Assets/Scripts/MapScene/PlayerManager.cs" Line="41" Column="12" />
-      <File FileName="Assets/Scripts/MapScene/ArrowButtonManager.cs" Line="13" Column="64" />
+      <File FileName="Assets/Scripts/MapScene/PlayerManager.cs" Line="56" Column="35" />
+      <File FileName="Assets/Scripts/MapScene/ArrowButtonManager.cs" Line="20" Column="26" />
+      <File FileName="Assets/Scripts/MapScene/CamaraManager.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,7 +13,7 @@
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
                 <Node name="MapScene" expanded="True">
-                  <Node name="PlayerManager.cs" selected="True" />
+                  <Node name="CamaraManager.cs" selected="True" />
                 </Node>
               </Node>
             </Node>

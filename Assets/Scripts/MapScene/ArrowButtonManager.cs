@@ -18,6 +18,5 @@ public class ArrowButtonManager : MonoBehaviour
     {
         Player.SetPosition(next_point);
         Player.MoveEnd();
-        Player.PlayerUI.SetActive(true);
     }
 }
