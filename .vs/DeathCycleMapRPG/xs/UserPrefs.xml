@@ -1,19 +1,26 @@
 ﻿<Properties StartupConfiguration="{5C5C1117-23AD-5169-369F-B3232EEA117B}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/MapScene/CamaraManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/DeathCycleMapRPG/Scripts/MapScene/MapManager.cs">
     <Files>
-      <File FileName="Assets/Scripts/MapScene/MapManager.cs" Line="30" Column="1" />
-      <File FileName="Assets/Scripts/MapScene/PlayerManager.cs" Line="56" Column="35" />
-      <File FileName="Assets/Scripts/MapScene/ArrowButtonManager.cs" Line="20" Column="26" />
-      <File FileName="Assets/Scripts/MapScene/CamaraManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/DeathCycleMapRPG/Editor/SerializableDictionary.cs" Line="10" Column="2" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/FormScene/FormManager.cs" Line="5" Column="1" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/MapScene/ArrowButtonManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/MapScene/PlayerManager.cs" Line="53" Column="42" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/MapScene/MapManager.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="DeathCycleMapRPG" expanded="True">
             <Node name="Assets" expanded="True">
-              <Node name="Scripts" expanded="True">
-                <Node name="MapScene" expanded="True">
-                  <Node name="CamaraManager.cs" selected="True" />
+              <Node name="DeathCycleMapRPG" expanded="True">
+                <Node name="Editor" expanded="True" />
+                <Node name="Scripts" expanded="True">
+                  <Node name="FormScene" expanded="True" />
+                  <Node name="Item" expanded="True" />
+                  <Node name="MapScene" expanded="True">
+                    <Node name="MapManager.cs" selected="True" />
+                  </Node>
+                  <Node name="Status" expanded="True" />
                 </Node>
               </Node>
             </Node>
