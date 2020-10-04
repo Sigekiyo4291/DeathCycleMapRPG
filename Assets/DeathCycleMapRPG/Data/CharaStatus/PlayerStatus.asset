@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aab4cfaffb90c4b48a9a5b4906bc05e2, type: 3}
+  m_Script: {fileID: 0}
   m_Name: PlayerStatus
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::AllyStatus
   characterName: "\u305F\u3064\u307D\u3093"
   isPoisonState: 0
   isNumbnessState: 0
@@ -24,9 +24,18 @@ MonoBehaviour:
   power: 10
   strikingStrength: 10
   magicPower: 10
-  earnedExperience: 0
+  skillList:
+  - {fileID: 11400000, guid: 0bd8d242e5b28486385a2e99b22a6b20, type: 2}
+  - {fileID: 11400000, guid: 699d2c371c54b45df8230ff9983c6913, type: 2}
+  - {fileID: 11400000, guid: f86d5fa7fc7114b149806911098d6f8b, type: 2}
+  - {fileID: 11400000, guid: 670e8952f2a99406da8d2e667a75500c, type: 2}
+  - {fileID: 11400000, guid: 57cdfcb685c8d4ee38018b183fb464f4, type: 2}
+  - {fileID: 11400000, guid: 0f875a811cf74420183da23051f0474a, type: 2}
+  earnedExperience: 15
   equipWeapon: {fileID: 0}
   equipArmor: {fileID: 0}
   itemDictionary:
-    m_keys: []
-    m_values: 
+    m_keys:
+    - {fileID: 11400000, guid: 5cda25a4df5b8455c9c9f37d25c2c3a6, type: 2}
+    m_values: 02000000
+  levelUpData: {fileID: 11400000, guid: 2dd86fb5637d3451b896f9530ad1bb3c, type: 2}

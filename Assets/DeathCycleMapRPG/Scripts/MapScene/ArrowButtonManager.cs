@@ -18,5 +18,6 @@ public class ArrowButtonManager : MonoBehaviour
     {
         player.SetPosition(next_point);
         player.MoveEnd();
+        player.RandomEncount();
     }
 }

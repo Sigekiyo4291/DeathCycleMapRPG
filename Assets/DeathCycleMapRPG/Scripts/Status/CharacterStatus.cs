@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class CharacterStatus : ScriptableObject
@@ -39,6 +40,9 @@ public class CharacterStatus : ScriptableObject
     //　魔法力
     [SerializeField]
     private int magicPower = 10;
+    //　持っているスキル
+    [SerializeField]
+    private List<Skill> skillList = null;
 
     public void SetCharacterName(string characterName)
     {
@@ -158,5 +162,15 @@ public class CharacterStatus : ScriptableObject
     public int GetMagicPower()
     {
         return magicPower;
+    }
+
+    public void SetSkillList(List<Skill> skillList)
+    {
+        this.skillList = skillList;
+    }
+
+    public List<Skill> GetSkillList()
+    {
+        return skillList;
     }
 }

@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aab4cfaffb90c4b48a9a5b4906bc05e2, type: 3}
+  m_Script: {fileID: 0}
   m_Name: WitchStatus
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::AllyStatus
   characterName: "\u30A6\u30A4\u30C3\u30C1"
   isPoisonState: 0
   isNumbnessState: 0
@@ -24,9 +24,15 @@ MonoBehaviour:
   power: 10
   strikingStrength: 10
   magicPower: 10
+  skillList:
+  - {fileID: 11400000, guid: 0bd8d242e5b28486385a2e99b22a6b20, type: 2}
+  - {fileID: 11400000, guid: 699d2c371c54b45df8230ff9983c6913, type: 2}
+  - {fileID: 11400000, guid: 57cdfcb685c8d4ee38018b183fb464f4, type: 2}
+  - {fileID: 11400000, guid: bea536ca64f824acf86ce2981044bdc8, type: 2}
   earnedExperience: 0
   equipWeapon: {fileID: 0}
   equipArmor: {fileID: 0}
   itemDictionary:
     m_keys: []
     m_values: 
+  levelUpData: {fileID: 11400000, guid: 698b17cd082484d868b5e3e7b114bd02, type: 2}

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8790badb8a49a4d588687e8871f3c954, type: 3}
+  m_Name: BattlePartyStatus
+  m_EditorClassIdentifier: 
+  partyMembers:
+  - {fileID: 8072876657919884432, guid: 7478358658da44249804131d9e83d042, type: 3}
+  - {fileID: 9110552013070586454, guid: cdfbe3d078514495d85861fbf46c7692, type: 3}

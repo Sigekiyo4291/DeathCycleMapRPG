@@ -33,7 +33,7 @@ public class FormManager : MonoBehaviour
         statusTitleText.Add(statusPanel[0].transform.Find("StatusParamPanel/Title").GetComponent<Text>());
         statusParam1Text.Add(statusPanel[0].transform.Find("StatusParamPanel/Param1").GetComponent<Text>());
         statusParam2Text.Add(statusPanel[0].transform.Find("StatusParamPanel/Param2").GetComponent<Text>());
-        ShowStatus(partyStatus.GetPlayerStatus()[0], statusPanel[0], characterNameText[0], statusTitleText[0], statusParam1Text[0], statusParam2Text[0]);
+        ShowStatus(partyStatus.GetAllyStatus()[0], statusPanel[0], characterNameText[0], statusTitleText[0], statusParam1Text[0], statusParam2Text[0]);
 
         statusPanel.Add(GameObject.Find("FormCanvas/StatusPanel2"));
         //　ステータス用テキスト
@@ -41,7 +41,7 @@ public class FormManager : MonoBehaviour
         statusTitleText.Add(statusPanel[1].transform.Find("StatusParamPanel/Title").GetComponent<Text>());
         statusParam1Text.Add(statusPanel[1].transform.Find("StatusParamPanel/Param1").GetComponent<Text>());
         statusParam2Text.Add(statusPanel[1].transform.Find("StatusParamPanel/Param2").GetComponent<Text>());
-        ShowStatus(partyStatus.GetPlayerStatus()[1], statusPanel[1], characterNameText[1], statusTitleText[1], statusParam1Text[1], statusParam2Text[1]);
+        ShowStatus(partyStatus.GetAllyStatus()[1], statusPanel[1], characterNameText[1], statusTitleText[1], statusParam1Text[1], statusParam2Text[1]);
     }
 
     // Update is called once per frame
@@ -56,7 +56,7 @@ public class FormManager : MonoBehaviour
     }
 
     //　キャラクターのステータス表示
-    public void ShowStatus(PlayerStatus allyStatus,GameObject statusPanel, Text characterNameText, Text statusTitleText, Text statusParam1Text, Text statusParam2Text)
+    public void ShowStatus(AllyStatus allyStatus,GameObject statusPanel, Text characterNameText, Text statusTitleText, Text statusParam1Text, Text statusParam2Text)
     {
         statusPanel.SetActive(true);
         //　キャラクターの名前を表示

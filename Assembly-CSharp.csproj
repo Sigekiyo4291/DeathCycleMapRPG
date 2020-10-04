@@ -63,16 +63,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\BattleScene\BattleData.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\BattleScene\BattleManager.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\BattleScene\BattlePartyStatus.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\BattleScene\BattleResult.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\BattleScene\BattleStatusScript.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\BattleScene\CharacterBattleScript.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\BattleScene\CommandSelectButton.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Dictionary\ItemDictionary.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Dictionary\LevelUpDictionary.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\FormScene\FormManager.cs" />
-    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Item\ItemDictionary.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\LoadSceneManager.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\MapScene\ArrowButtonManager.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\MapScene\CameraManager.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\MapScene\MapManager.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\MapScene\PlayerManager.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\MapScene\StatusUIManager.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Skill\Magic.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Skill\Skill.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\CharacterStatus.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\Enemy\EnemyPartyStatus.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\Enemy\EnemyPartyStatusList.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\Enemy\EnemyStatus.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\Item.cs" />
-    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\PartyStatus.cs" />
-    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\PlayerStatus.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\LevelUpData.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\Player\AllyStatus.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\Player\PartyStatus.cs" />
     <Compile Include="Assets\SerializableDictionary\Example\SerializableDictionaryExample.cs" />
     <Compile Include="Assets\SerializableDictionary\Example\UserSerializableDictionaries.cs" />
     <Compile Include="Assets\SerializableDictionary\SerializableDictionary.cs" />

@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b24411d7b7584a6f8a80d421ee996a2, type: 3}
+  m_Name: MonoEyeStatus
+  m_EditorClassIdentifier: 
+  characterName: "\u4E00\u3064\u76EE\u304F\u3093"
+  isPoisonState: 0
+  isNumbnessState: 0
+  level: 1
+  maxHp: 30
+  hp: 30
+  maxMp: 50
+  mp: 50
+  agility: 5
+  power: 5
+  strikingStrength: 5
+  magicPower: 5
+  skillList:
+  - {fileID: 11400000, guid: 0bd8d242e5b28486385a2e99b22a6b20, type: 2}
+  - {fileID: 11400000, guid: 699d2c371c54b45df8230ff9983c6913, type: 2}
+  - {fileID: 11400000, guid: 57cdfcb685c8d4ee38018b183fb464f4, type: 2}
+  gettingExperience: 5
+  gettingMoney: 5
+  dropItemDictionary:
+    m_keys:
+    - {fileID: 11400000, guid: 5cda25a4df5b8455c9c9f37d25c2c3a6, type: 2}
+    m_values: 50000000

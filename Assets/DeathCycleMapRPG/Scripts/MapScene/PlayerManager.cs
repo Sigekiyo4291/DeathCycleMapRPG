@@ -94,4 +94,11 @@ public class PlayerManager : MonoBehaviour
         playerData.CurrentPoint = point;
     }
 
+    public void RandomEncount()
+    {
+        if (Random.value > 0.6)
+        {
+            SceneManager.LoadScene("BattleScene");
+        }
+    }
 }
