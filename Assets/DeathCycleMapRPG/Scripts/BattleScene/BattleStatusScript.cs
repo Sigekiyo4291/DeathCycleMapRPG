@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,13 +15,6 @@ public class BattleStatusScript : MonoBehaviour
     private PartyStatus partyStatus = null;
     //　キャラクターステータス表示Transformリスト
     private Dictionary<CharacterStatus, Transform> characterStatusDictionary = new Dictionary<CharacterStatus, Transform>();
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //　最初の全データ表示
-        DisplayStatus();
-    }
 
     //　ステータスデータの表示
     public void DisplayStatus()
@@ -48,18 +41,25 @@ public class BattleStatusScript : MonoBehaviour
         }
     }
 
+    //　攻撃選択ボタンの更新
+    public void UpdateSelect(CharacterStatus characterStatus, string skillName, Action<GameObject> action, GameObject allyObject)
+    {
+        characterStatusDictionary[characterStatus].Find("SelectActButton").Find("Text").GetComponent<Text>().text = skillName;
+        characterStatusDictionary[characterStatus].Find("SelectActButton").GetComponent<Button>().onClick.AddListener(() => action(allyObject));
+    }
+
     //　データの更新
     public void UpdateStatus(CharacterStatus characterStatus, Status status, int destinationValue)
     {
         if (status == Status.HP)
         {
             characterStatusDictionary[characterStatus].Find("HPSlider").GetComponent<Slider>().value = (float)destinationValue / characterStatus.GetMaxHp();
-            characterStatusDictionary[characterStatus].Find("HPText").GetComponent<Text>().text = destinationValue.ToString();
+            characterStatusDictionary[characterStatus].Find("HPText").GetComponent<Text>().text = "HP: " + destinationValue.ToString() + "/" + characterStatus.GetMaxHp().ToString();
         }
         else if (status == Status.MP)
         {
             characterStatusDictionary[characterStatus].Find("MPSlider").GetComponent<Slider>().value = (float)destinationValue / characterStatus.GetMaxMp();
-            characterStatusDictionary[characterStatus].Find("MPText").GetComponent<Text>().text = destinationValue.ToString();
+            characterStatusDictionary[characterStatus].Find("MPText").GetComponent<Text>().text = "HP: " + destinationValue.ToString() + "/" + characterStatus.GetMaxMp().ToString();
         }
     }
 }   

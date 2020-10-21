@@ -31,6 +31,8 @@ public class BattleManager : MonoBehaviour
     private bool isChoosing;
     //　戦闘が開始しているかどうか
     private bool isStartBattle;
+    //コマンド選択が終了しているかどうか
+    private bool isStartTarn;
     //　戦闘シーンの最初の攻撃が始まるまでの待機時間
     [SerializeField]
     private float firstWaitingTime = 1f;
@@ -45,7 +47,16 @@ public class BattleManager : MonoBehaviour
     private bool battleIsOver;
     //　現在のコマンド
     private CommandMode currentCommand;
+    // 現在のターン数
+    private int turn;
 
+
+    // ターン開始ボタン
+    [SerializeField]
+    private Button attackButton = null;
+    // コマンドキャンセルボタン
+    [SerializeField]
+    private Button cancelButton = null;
     //　味方パーティーのコマンドパネル
     [SerializeField]
     private Transform commandPanel = null;
@@ -79,6 +90,9 @@ public class BattleManager : MonoBehaviour
     //　ScrollManager
     //private ScrollManager scrollManager;
 
+    //ターン数表示用テキスト
+    [SerializeField]
+    private Text turnText;
     //　メッセージプレハブ
     [SerializeField]
     private GameObject messageImage;
@@ -93,6 +107,17 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     private GameObject battleResultManager;
 
+    private BattleStatusScript battleStatusScript;
+
+    public class NextAct
+    {
+        public Skill skill { get; set; }
+        public GameObject targetChara { get; set; }
+        public Item item { get; set; }
+    }
+
+    //味方キャラクターの選択した行動リスト
+    private Dictionary<string, NextAct> nextActs = new Dictionary<string, NextAct>();
 
     public enum CommandMode
     {
@@ -173,6 +198,22 @@ public class BattleManager : MonoBehaviour
         Random.InitState((int)Time.time);
 
         battleResult = battleResultManager.GetComponent<BattleResult>();
+
+        isStartTarn = false;
+
+        //　最初の全データ表示
+        battleStatusScript = GameObject.Find("BattleUICanvas/StatusPanel").GetComponent<BattleStatusScript>();
+        battleStatusScript.DisplayStatus();
+        // 選択コマンドボタンを設定
+        foreach (GameObject allyCharacterInBattle in allyCharacterInBattleList)
+        {
+            CharacterStatus allyCharacterStatus = allyCharacterInBattle.GetComponent<CharacterBattleScript>().GetCharacterStatus();
+            SetSelectCommand(allyCharacterInBattle, allyCharacterStatus.GetSkillList()[0], enemyCharacterInBattleList[0]);
+        }
+
+        //ターンの初期化と表示
+        turn = 1;
+        turnText.text = "ターン: " + turn.ToString();
     }
 
     // Update is called once per frame
@@ -187,25 +228,42 @@ public class BattleManager : MonoBehaviour
         //　戦闘開始
         if (isStartBattle)
         {
-            //　現在のキャラクターの攻撃が終わっている
-            if (!isChoosing)
+            //味方のコマンド選択が終了しているか
+            if (isStartTarn)
             {
-                elapsedTime += Time.deltaTime;
-                if (elapsedTime < waitTime)
+                //攻撃ボタンを使用不可能に
+                attackButton.interactable = false;
+                //キャンセルボタンを使用不可能に
+                cancelButton.interactable = false;
+                //　現在のキャラクターの攻撃が終わっている
+                if (!isChoosing)
                 {
-                    return;
-                }
-                elapsedTime = 0f;
-                isChoosing = true;
+                    elapsedTime += Time.deltaTime;
+                    if (elapsedTime < waitTime)
+                    {
+                        return;
+                    }
+                    elapsedTime = 0f;
+                    isChoosing = true;
 
-                //　キャラクターの攻撃の選択に移る
-                MakeAttackChoise(allCharacterInBattleList[currentAttackOrder]);
-                //　次のキャラクターのターンにする
-                currentAttackOrder++;
-                //　全員攻撃が終わったら最初から
-                if (currentAttackOrder >= allCharacterInBattleList.Count)
-                {
-                    currentAttackOrder = 0;
+                    //　キャラクターの攻撃の選択に移る
+                    MakeAttackChoise(allCharacterInBattleList[currentAttackOrder]);
+                    //　次のキャラクターのターンにする
+                    currentAttackOrder++;
+                    //　全員攻撃が終わったら最初から
+                    if (currentAttackOrder >= allCharacterInBattleList.Count)
+                    {
+                        //攻撃ボタンを使用可能に
+                        attackButton.interactable = true;
+                        //キャンセルボタンを使用可能に
+                        cancelButton.interactable = true;
+                        Debug.Log(allCharacterInBattleList.Count);
+                        isStartTarn = false;
+                        currentAttackOrder = 0;
+                        //ターンの表示
+                        turn++;
+                        turnText.text = "ターン: " + turn.ToString();
+                    }
                 }
             }
         }
@@ -225,11 +283,18 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    //攻撃開始ボタンを押した時の処理
+    public void OnClickAttacklButton()
+    {
+        isStartTarn = true;
+    }
+
     //キャンセルボタンを押した時の処理
     public void OnClickCancelButton()
     {
-        if (isChoosing)
+        if (!isStartTarn)
         {
+            commandPanel.gameObject.SetActive(false);
             if (currentCommand == CommandMode.SelectDirectAttacker)
             {
                 // キャラクター選択ボタンがあれば全て削除
@@ -327,13 +392,15 @@ public class BattleManager : MonoBehaviour
         {
             Debug.Log(characterStatus.GetCharacterName() + "の攻撃");
             ShowMessage(characterStatus.GetCharacterName() + "の攻撃");
-            AllyAttack(character);
+            AttackProcess(character, nextActs[characterStatus.GetCharacterName()].skill, nextActs[characterStatus.GetCharacterName()].targetChara, nextActs[characterStatus.GetCharacterName()].item);
         }
     }
 
     //　味方の攻撃処理
     public void AllyAttack(GameObject character)
     {
+        //キャンセルボタンを使用可能に
+        cancelButton.interactable = true;
 
         currentCommand = CommandMode.SelectCommand;
 
@@ -451,7 +518,11 @@ public class BattleManager : MonoBehaviour
         {
             battleCharacterButtonIns = Instantiate<GameObject>(battleCharacterButton, selectCharacterPanel);
             battleCharacterButtonIns.transform.Find("Text").GetComponent<Text>().text = enemy.gameObject.name;
-            battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => DirectAttack(attackCharacter, enemy));
+            //　攻撃するキャラのDirectAttackスキルを取得する
+            var characterSkill = attackCharacter.GetComponent<CharacterBattleScript>().GetCharacterStatus().GetSkillList();
+            Skill directAtatck = characterSkill.Find(skill => skill.GetSkillType() == Skill.Type.DirectAttack);
+            battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => SetSelectCommand(attackCharacter, directAtatck, enemy));
+            //battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => DirectAttack(attackCharacter, enemy));
         }
 
         selectCharacterPanel.GetComponent<CanvasGroup>().interactable = true;
@@ -563,7 +634,8 @@ public class BattleManager : MonoBehaviour
             {
                 battleCharacterButtonIns = Instantiate<GameObject>(battleCharacterButton, selectCharacterPanel);
                 battleCharacterButtonIns.transform.Find("Text").GetComponent<Text>().text = enemy.gameObject.name;
-                battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => UseMagic(user, enemy, skill));
+                battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => SetSelectCommand(user, skill, enemy));
+                //battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => UseMagic(user, enemy, skill));
             }
         }
         else
@@ -572,7 +644,8 @@ public class BattleManager : MonoBehaviour
             {
                 battleCharacterButtonIns = Instantiate<GameObject>(battleCharacterButton, selectCharacterPanel);
                 battleCharacterButtonIns.transform.Find("Text").GetComponent<Text>().text = allyCharacter.gameObject.name;
-                battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => UseMagic(user, allyCharacter, skill));
+                battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => SetSelectCommand(user, skill, allyCharacter));
+                //battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => UseMagic(user, allyCharacter, skill));
             }
         }
 
@@ -730,7 +803,11 @@ public class BattleManager : MonoBehaviour
         {
             battleCharacterButtonIns = Instantiate<GameObject>(battleCharacterButton, selectCharacterPanel);
             battleCharacterButtonIns.transform.Find("Text").GetComponent<Text>().text = allyCharacter.gameObject.name;
-            battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => UseItem(user, allyCharacter, item));
+            //　攻撃するキャラのDirectAttackスキルを取得する
+            var characterSkill = allyCharacter.GetComponent<CharacterBattleScript>().GetCharacterStatus().GetSkillList();
+            Skill useItem = characterSkill.Find(skill => skill.GetSkillType() == Skill.Type.Item);
+            battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => SetSelectCommand(user, useItem, allyCharacter, item));
+            //battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => UseItem(user, allyCharacter, item));
         }
 
         selectCharacterPanel.GetComponent<CanvasGroup>().interactable = true;
@@ -815,6 +892,104 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    //選択したコマンドをセットする
+    private void SetSelectCommand(GameObject allyCharacterInBattle, Skill skill, GameObject targetChara, Item item = null)
+    {
+        CharacterStatus allyCharacterStatus = allyCharacterInBattle.GetComponent<CharacterBattleScript>().GetCharacterStatus();
+        NextAct nextAct = new NextAct();
+        nextAct.skill = skill;
+        nextAct.targetChara = targetChara;
+        if (!item)
+        {
+            nextAct.item = item;
+        }
+        nextActs[allyCharacterStatus.GetCharacterName()] = nextAct;
+        battleStatusScript.UpdateSelect(allyCharacterStatus, skill.GetKanjiName(), AllyAttack, allyCharacterInBattle);
+        commandPanel.gameObject.SetActive(false);
+        magicOrItemPanel.gameObject.SetActive(false);
+        selectCharacterPanel.gameObject.SetActive(false);
+        //キャンセルボタンを使用不可能に
+        cancelButton.interactable = false;
+    }
+
+    //　攻撃処理
+    public void AttackProcess(GameObject character, Skill nowSkill, GameObject targetChara, Item item = null)
+    {
+        CharacterBattleScript characterBattleScript = character.GetComponent<CharacterBattleScript>();
+        CharacterStatus characterStatus = characterBattleScript.GetCharacterStatus();
+
+        if (characterStatus.GetSkillList().Count <= 0)
+        {
+            return;
+        }
+        //　敵がガード状態であればガードを解く
+        /*
+        if (character.GetComponent<Animator>().GetBool("Guard"))
+        {
+            character.GetComponent<CharacterBattleScript>().UnlockGuard();
+        }
+        */
+        character.GetComponent<CharacterBattleScript>().UnlockGuard();
+
+        if (nowSkill.GetSkillType() == Skill.Type.DirectAttack)
+        {
+            //　攻撃相手のCharacterBattleScript
+            characterBattleScript.ChooseAttackOptions(CharacterBattleScript.BattleState.DirectAttack, targetChara, nowSkill);
+            Debug.Log(character.name + "は" + nowSkill.GetKanjiName() + "を行った");
+            ShowMessage(character.name + "は" + nowSkill.GetKanjiName() + "を行った");
+        }
+        else if (nowSkill.GetSkillType() == Skill.Type.MagicAttack)
+        {
+            
+            if (characterBattleScript.GetMp() >= ((Magic)nowSkill).GetAmountToUseMagicPoints())
+            {
+                //　攻撃相手のCharacterBattleScript
+                characterBattleScript.ChooseAttackOptions(CharacterBattleScript.BattleState.MagicAttack, targetChara, nowSkill);
+                Debug.Log(character.name + "は" + nowSkill.GetKanjiName() + "を行った");
+                ShowMessage(character.name + "は" + nowSkill.GetKanjiName() + "を行った");
+            }
+            else
+            {
+                Debug.Log("MPが足りない！");
+                ShowMessage("MPが足りない！");
+                //　MPが足りない場合は直接攻撃を行う
+                characterBattleScript.ChooseAttackOptions(CharacterBattleScript.BattleState.DirectAttack, targetChara, characterStatus.GetSkillList().Find(skill => skill.GetSkillType() == Skill.Type.DirectAttack));
+                Debug.Log(character.name + "は攻撃を行った");
+                ShowMessage(character.name + "は攻撃を行った");
+            }
+        }
+        else if (nowSkill.GetSkillType() == Skill.Type.RecoveryMagic)
+        {
+            if (characterBattleScript.GetMp() >= ((Magic)nowSkill).GetAmountToUseMagicPoints())
+            {
+                //　回復相手のCharacterBattleScript
+                characterBattleScript.ChooseAttackOptions(CharacterBattleScript.BattleState.Healing, targetChara, nowSkill);
+                Debug.Log(character.name + "は" + nowSkill.GetKanjiName() + "を行った");
+                ShowMessage(character.name + "は" + nowSkill.GetKanjiName() + "を行った");
+            }
+            else
+            {
+                Debug.Log("MPが足りない！");
+                ShowMessage("MPが足りない！");
+                //　MPが足りない場合は直接攻撃を行う
+                characterBattleScript.ChooseAttackOptions(CharacterBattleScript.BattleState.DirectAttack, targetChara, characterStatus.GetSkillList().Find(skill => skill.GetSkillType() == Skill.Type.DirectAttack));
+                Debug.Log(character.name + "は攻撃を行った");
+                ShowMessage(character.name + "は攻撃を行った");
+            }
+        }else if (nowSkill.GetSkillType() == Skill.Type.Item)
+        {
+            UseItem(character, targetChara, item);
+        }
+        else if (nowSkill.GetSkillType() == Skill.Type.Guard)
+        {
+            characterBattleScript.Guard();
+            // Guardアニメはboolなのでアニメーション遷移させたらすぐに次のキャラクターに移行させる
+            ChangeNextChara();
+            Debug.Log(character.name + "は" + nowSkill.GetKanjiName() + "を行った");
+            ShowMessage(character.name + "は" + nowSkill.GetKanjiName() + "を行った");
+        }
+    }
+
     //　敵の攻撃処理
     public void EnemyAttack(GameObject character)
     {
@@ -832,6 +1007,7 @@ public class BattleManager : MonoBehaviour
             character.GetComponent<CharacterBattleScript>().UnlockGuard();
         }
         */
+        character.GetComponent<CharacterBattleScript>().UnlockGuard();
 
         //　敵の行動アルゴリズム
         int randomValue = (int)(Random.value * characterStatus.GetSkillList().Count);
@@ -950,6 +1126,7 @@ public class BattleManager : MonoBehaviour
     public void DeleteEnemyCharacterInBattleList(GameObject deleteObj)
     {
         enemyCharacterInBattleList.Remove(deleteObj);
+
         deleteObj.SetActive(false);
         if (enemyCharacterInBattleList.Count == 0)
         {
@@ -972,6 +1149,18 @@ public class BattleManager : MonoBehaviour
             }
             //　勝利時の結果表示
             battleResult.InitialProcessingOfVictoryResult(allCharacterList, allyCharacterInBattleList);
+        }
+        else
+        {
+            //選択対象のリセット
+            foreach (GameObject allyCharacterInBattle in allyCharacterInBattleList)
+            {
+                CharacterStatus allyCharacterStatus = allyCharacterInBattle.GetComponent<CharacterBattleScript>().GetCharacterStatus();
+                if (nextActs[allyCharacterStatus.GetCharacterName()].targetChara == deleteObj)
+                {
+                    nextActs[allyCharacterStatus.GetCharacterName()].targetChara = enemyCharacterInBattleList[0];
+                }
+            }
         }
     }
 
