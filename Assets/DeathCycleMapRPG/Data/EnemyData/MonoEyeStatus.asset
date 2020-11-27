@@ -16,20 +16,20 @@ MonoBehaviour:
   isPoisonState: 0
   isNumbnessState: 0
   level: 1
-  maxHp: 30
-  hp: 30
-  maxMp: 50
-  mp: 50
   agility: 5
   power: 5
   strikingStrength: 5
   magicPower: 5
+  maxHp: 30
+  hp: 30
+  maxMp: 50
+  mp: 50
   skillList:
   - {fileID: 11400000, guid: 0bd8d242e5b28486385a2e99b22a6b20, type: 2}
   - {fileID: 11400000, guid: 699d2c371c54b45df8230ff9983c6913, type: 2}
   - {fileID: 11400000, guid: 57cdfcb685c8d4ee38018b183fb464f4, type: 2}
-  gettingExperience: 5
-  gettingMoney: 5
+  gettingExperience: 50
+  gettingMoney: 50
   dropItemDictionary:
     m_keys:
     - {fileID: 11400000, guid: 5cda25a4df5b8455c9c9f37d25c2c3a6, type: 2}

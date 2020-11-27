@@ -228,12 +228,12 @@ public class BattleResult : MonoBehaviour
                 if (raisedHp > 0)
                 {
                     resultText.text += "最大HPが" + raisedHp + "上がった。\n";
-                    character.SetMaxHp(character.GetMaxHp() + raisedHp);
+                    character.SetMaxHp();
                 }
                 if (raisedMp > 0)
                 {
                     resultText.text += "最大MPが" + raisedMp + "上がった。\n";
-                    character.SetMaxMp(character.GetMaxMp() + raisedMp);
+                    character.SetMaxMp();
                 }
                 if (raisedAgility > 0)
                 {

@@ -48,6 +48,8 @@ public class CharacterBattleScript : MonoBehaviour
     private bool isNumbness;
     //　毒状態か
     private bool isPoison;
+    // ガードのカットりつ
+    private double guardPercentage;
 
     //　今選択したスキル
     private Skill currentSkill;
@@ -92,6 +94,8 @@ public class CharacterBattleScript : MonoBehaviour
 
         //　状態の設定
         battleState = BattleState.Idle;
+        //ガードの状態
+        guardPercentage = 1;
         //　コンポーネントの取得
         battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
         battleStatusScript = GameObject.Find("BattleUICanvas/StatusPanel").GetComponent<BattleStatusScript>();
@@ -391,7 +395,7 @@ public class CharacterBattleScript : MonoBehaviour
             var castedTargetStatus = (AllyStatus)targetCharacterBattleScript.GetCharacterStatus();
             //　攻撃相手の通常の防御力＋相手のキャラの補助値
             var targetDefencePower = castedTargetStatus.GetStrikingStrength() + (castedTargetStatus.GetEquipArmor()?.GetAmount() ?? 0) + targetCharacterBattleScript.GetAuxiliaryStrikingStrength();
-            damage = Mathf.Max(0, (characterStatus.GetPower() + auxiliaryPower) - targetDefencePower);
+            damage = Mathf.Max(0, (int)(((characterStatus.GetPower() + auxiliaryPower) - targetDefencePower)* guardPercentage));
             //　相手のステータスのHPをセット
             targetCharacterBattleScript.SetHp(targetCharacterBattleScript.GetHp() - damage);
             //　ステータスUIを更新
@@ -545,13 +549,13 @@ public class CharacterBattleScript : MonoBehaviour
         CheckIncreaseAttackPower();
         CheckIncreaseStrikingStrength();
         //animator.SetBool("Guard", true);
-        SetAuxiliaryStrikingStrength(GetAuxiliaryStrikingStrength() + 10);
+        guardPercentage = 0.5;
     }
     //　防御を解除
     public void UnlockGuard()
     {
         //animator.SetBool("Guard", false);
-        SetAuxiliaryStrikingStrength(GetAuxiliaryStrikingStrength() - 10);
+        guardPercentage = 1;
     }
 
     //　死んだときに実行する処理

@@ -16,14 +16,14 @@ MonoBehaviour:
   isPoisonState: 0
   isNumbnessState: 0
   level: 1
-  maxHp: 100
-  hp: 100
-  maxMp: 50
-  mp: 50
   agility: 5
   power: 10
   strikingStrength: 10
   magicPower: 10
+  maxHp: 100
+  hp: 100
+  maxMp: 50
+  mp: 50
   skillList:
   - {fileID: 11400000, guid: 0bd8d242e5b28486385a2e99b22a6b20, type: 2}
   - {fileID: 11400000, guid: 699d2c371c54b45df8230ff9983c6913, type: 2}
@@ -31,11 +31,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 670e8952f2a99406da8d2e667a75500c, type: 2}
   - {fileID: 11400000, guid: 57cdfcb685c8d4ee38018b183fb464f4, type: 2}
   - {fileID: 11400000, guid: 0f875a811cf74420183da23051f0474a, type: 2}
-  earnedExperience: 15
+  earnedExperience: 50
   equipWeapon: {fileID: 0}
   equipArmor: {fileID: 0}
   itemDictionary:
     m_keys:
     - {fileID: 11400000, guid: 5cda25a4df5b8455c9c9f37d25c2c3a6, type: 2}
-    m_values: 02000000
+    m_values: 08000000
   levelUpData: {fileID: 11400000, guid: 2dd86fb5637d3451b896f9530ad1bb3c, type: 2}

@@ -33,6 +33,8 @@ public class BattleManager : MonoBehaviour
     private bool isStartBattle;
     //コマンド選択が終了しているかどうか
     private bool isStartTarn;
+    // 前のターンに逃走に失敗しているか
+    private bool isFailGetAway;
     //　戦闘シーンの最初の攻撃が始まるまでの待機時間
     [SerializeField]
     private float firstWaitingTime = 1f;
@@ -57,6 +59,9 @@ public class BattleManager : MonoBehaviour
     // コマンドキャンセルボタン
     [SerializeField]
     private Button cancelButton = null;
+    // 逃げるボタン
+    [SerializeField]
+    private Button getAwayButton = null;
     //　味方パーティーのコマンドパネル
     [SerializeField]
     private Transform commandPanel = null;
@@ -201,6 +206,8 @@ public class BattleManager : MonoBehaviour
 
         isStartTarn = false;
 
+        isFailGetAway = false;
+
         //　最初の全データ表示
         battleStatusScript = GameObject.Find("BattleUICanvas/StatusPanel").GetComponent<BattleStatusScript>();
         battleStatusScript.DisplayStatus();
@@ -235,6 +242,8 @@ public class BattleManager : MonoBehaviour
                 attackButton.interactable = false;
                 //キャンセルボタンを使用不可能に
                 cancelButton.interactable = false;
+                //逃げるボタンを使用不可能に
+                getAwayButton.interactable = false;
                 //　現在のキャラクターの攻撃が終わっている
                 if (!isChoosing)
                 {
@@ -253,10 +262,14 @@ public class BattleManager : MonoBehaviour
                     //　全員攻撃が終わったら最初から
                     if (currentAttackOrder >= allCharacterInBattleList.Count)
                     {
+                        //前のターンに逃走に失敗しているなら戻す
+                        isFailGetAway = false;
                         //攻撃ボタンを使用可能に
                         attackButton.interactable = true;
                         //キャンセルボタンを使用可能に
                         cancelButton.interactable = true;
+                        //逃げるボタンを使用可能に
+                        getAwayButton.interactable = true;
                         Debug.Log(allCharacterInBattleList.Count);
                         isStartTarn = false;
                         currentAttackOrder = 0;
@@ -287,6 +300,29 @@ public class BattleManager : MonoBehaviour
     public void OnClickAttacklButton()
     {
         isStartTarn = true;
+    }
+
+    // 逃げるボタンを押した時
+    public void OnClickGetAwayButton()
+    {
+        var randomValue = Random.value;
+        if (0f <= randomValue && randomValue <= 0.5f)
+        {
+            Debug.Log("逃げるのに成功した。");
+            ShowMessage("逃げるのに成功した。");
+            battleIsOver = true;
+            commandPanel.gameObject.SetActive(false);
+            //　戦闘終了
+            battleResult.InitialProcessingOfRanAwayResult();
+        }
+        else
+        {
+            Debug.Log("逃げるのに失敗した。");
+            ShowMessage("逃げるのに失敗した。");
+            commandPanel.gameObject.SetActive(false);
+            isFailGetAway = true;
+            isStartTarn = true;
+        }
     }
 
     //キャンセルボタンを押した時の処理
@@ -389,9 +425,7 @@ public class BattleManager : MonoBehaviour
             EnemyAttack(character);
         }
         else
-        {
-            Debug.Log(characterStatus.GetCharacterName() + "の攻撃");
-            ShowMessage(characterStatus.GetCharacterName() + "の攻撃");
+        {            
             AttackProcess(character, nextActs[characterStatus.GetCharacterName()].skill, nextActs[characterStatus.GetCharacterName()].targetChara, nextActs[characterStatus.GetCharacterName()].item);
         }
     }
@@ -487,18 +521,6 @@ public class BattleManager : MonoBehaviour
         else
         {
             commandPanel.Find("Magic").gameObject.SetActive(false);
-        }
-        if (characterSkill.Exists(skill => skill.GetSkillType() == Skill.Type.GetAway))
-        {
-            var getAwayButtonObj = commandPanel.Find("GetAway").gameObject;
-            var getAwayButton = getAwayButtonObj.GetComponent<Button>();
-            getAwayButton.onClick.RemoveAllListeners();
-            getAwayButton.onClick.AddListener(() => GetAway(character));
-            getAwayButtonObj.SetActive(true);
-        }
-        else
-        {
-            commandPanel.Find("GetAway").gameObject.SetActive(false);
         }
 
         EventSystem.current.SetSelectedGameObject(commandPanel.transform.GetChild(1).gameObject);
@@ -870,28 +892,6 @@ public class BattleManager : MonoBehaviour
         selectCharacterPanel.gameObject.SetActive(false);
     }
 
-    //　逃げる
-    public void GetAway(GameObject character)
-    {
-        var randomValue = Random.value;
-        if (0f <= randomValue && randomValue <= 0.5f)
-        {
-            Debug.Log("逃げるのに成功した。");
-            ShowMessage("逃げるのに成功した。");
-            battleIsOver = true;
-            commandPanel.gameObject.SetActive(false);
-            //　戦闘終了
-            battleResult.InitialProcessingOfRanAwayResult();
-        }
-        else
-        {
-            Debug.Log("逃げるのに失敗した。");
-            ShowMessage("逃げるのに失敗した。");
-            commandPanel.gameObject.SetActive(false);
-            ChangeNextChara();
-        }
-    }
-
     //選択したコマンドをセットする
     private void SetSelectCommand(GameObject allyCharacterInBattle, Skill skill, GameObject targetChara, Item item = null)
     {
@@ -931,6 +931,14 @@ public class BattleManager : MonoBehaviour
         */
         character.GetComponent<CharacterBattleScript>().UnlockGuard();
 
+        //逃走失敗なら何もしない
+        if (isFailGetAway)
+        {
+            ChangeNextChara();
+            return;
+        }
+
+        ShowMessage(characterStatus.GetCharacterName() + "の攻撃");
         if (nowSkill.GetSkillType() == Skill.Type.DirectAttack)
         {
             //　攻撃相手のCharacterBattleScript
@@ -940,7 +948,7 @@ public class BattleManager : MonoBehaviour
         }
         else if (nowSkill.GetSkillType() == Skill.Type.MagicAttack)
         {
-            
+
             if (characterBattleScript.GetMp() >= ((Magic)nowSkill).GetAmountToUseMagicPoints())
             {
                 //　攻撃相手のCharacterBattleScript
@@ -976,7 +984,8 @@ public class BattleManager : MonoBehaviour
                 Debug.Log(character.name + "は攻撃を行った");
                 ShowMessage(character.name + "は攻撃を行った");
             }
-        }else if (nowSkill.GetSkillType() == Skill.Type.Item)
+        }
+        else if (nowSkill.GetSkillType() == Skill.Type.Item)
         {
             UseItem(character, targetChara, item);
         }
@@ -989,7 +998,6 @@ public class BattleManager : MonoBehaviour
             ShowMessage(character.name + "は" + nowSkill.GetKanjiName() + "を行った");
         }
     }
-
     //　敵の攻撃処理
     public void EnemyAttack(GameObject character)
     {

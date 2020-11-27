@@ -16,6 +16,18 @@ public class CharacterStatus : ScriptableObject
     //　キャラクターのレベル
     [SerializeField]
     private int level = 1;
+    //　素早さ
+    [SerializeField]
+    private int agility = 5;
+    //　力
+    [SerializeField]
+    private int power = 5;
+    //　打たれ強さ
+    [SerializeField]
+    private int strikingStrength = 5;
+    //　魔法力
+    [SerializeField]
+    private int magicPower = 5;
     //　最大HP
     [SerializeField]
     private int maxHp = 100;
@@ -28,18 +40,6 @@ public class CharacterStatus : ScriptableObject
     //　MP
     [SerializeField]
     private int mp = 50;
-    //　素早さ
-    [SerializeField]
-    private int agility = 5;
-    //　力
-    [SerializeField]
-    private int power = 10;
-    //　打たれ強さ
-    [SerializeField]
-    private int strikingStrength = 10;
-    //　魔法力
-    [SerializeField]
-    private int magicPower = 10;
     //　持っているスキル
     [SerializeField]
     private List<Skill> skillList = null;
@@ -84,9 +84,9 @@ public class CharacterStatus : ScriptableObject
         return level;
     }
 
-    public void SetMaxHp(int hp)
+    public void SetMaxHp()
     {
-        this.maxHp = hp;
+        this.maxHp = 50 + level + strikingStrength * 5;
     }
 
     public int GetMaxHp()
@@ -104,9 +104,9 @@ public class CharacterStatus : ScriptableObject
         return hp;
     }
 
-    public void SetMaxMp(int mp)
+    public void SetMaxMp()
     {
-        this.maxMp = mp;
+        this.maxMp = 30 + strikingStrength * 5;
     }
 
     public int GetMaxMp()
