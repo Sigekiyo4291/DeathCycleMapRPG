@@ -76,6 +76,12 @@ public class BattleManager : MonoBehaviour
     private Transform magicOrItemPanel = null;
     //　魔法やアイテム選択パネルのContent
     private Transform magicOrItemPanelContent = null;
+    // NoUseMPSkillボタンのプレハブ
+    [SerializeField]
+    private GameObject NoUseMPSkill = null;
+    // UseMPSkillボタンのプレハブ
+    [SerializeField]
+    private GameObject UseMPSkill = null;
     //　BattleItemPanelButtonプレハブ
     [SerializeField]
     private GameObject battleItemPanelButton = null;
@@ -325,6 +331,19 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    //　キャラクター選択パネルのリセット
+    private void ResetCharacterPanel()
+    {
+        // キャラクター選択ボタンがあれば全て削除
+        for (int i = selectCharacterPanel.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(selectCharacterPanel.transform.GetChild(i).gameObject);
+        }
+
+        selectCharacterPanel.GetComponent<CanvasGroup>().interactable = false;
+        selectCharacterPanel.gameObject.SetActive(false);
+    }
+
     //キャンセルボタンを押した時の処理
     public void OnClickCancelButton()
     {
@@ -333,14 +352,7 @@ public class BattleManager : MonoBehaviour
             commandPanel.gameObject.SetActive(false);
             if (currentCommand == CommandMode.SelectDirectAttacker)
             {
-                // キャラクター選択ボタンがあれば全て削除
-                for (int i = selectCharacterPanel.transform.childCount - 1; i >= 0; i--)
-                {
-                    Destroy(selectCharacterPanel.transform.GetChild(i).gameObject);
-                }
-
-                selectCharacterPanel.GetComponent<CanvasGroup>().interactable = false;
-                selectCharacterPanel.gameObject.SetActive(false);
+                ResetCharacterPanel();
                 commandPanel.GetComponent<CanvasGroup>().interactable = true;
                 EventSystem.current.SetSelectedGameObject(selectedGameObjectStack.Pop());
                 currentCommand = CommandMode.SelectCommand;
@@ -360,26 +372,14 @@ public class BattleManager : MonoBehaviour
             }
             else if (currentCommand == CommandMode.SelectMagicAttackTarget)
             {
-                // selectCharacterPanelにボタンがあれば全て削除
-                for (int i = selectCharacterPanel.transform.childCount - 1; i >= 0; i--)
-                {
-                    Destroy(selectCharacterPanel.transform.GetChild(i).gameObject);
-                }
-                selectCharacterPanel.GetComponent<CanvasGroup>().interactable = false;
-                selectCharacterPanel.gameObject.SetActive(false);
+                ResetCharacterPanel();
                 magicOrItemPanel.GetComponent<CanvasGroup>().interactable = true;
                 EventSystem.current.SetSelectedGameObject(selectedGameObjectStack.Pop());
                 currentCommand = CommandMode.SelectMagic;
             }
             else if (currentCommand == CommandMode.SelectUseMagicOnAlliesTarget)
             {
-                // selectCharacterPanelにボタンがあれば全て削除
-                for (int i = selectCharacterPanel.transform.childCount - 1; i >= 0; i--)
-                {
-                    Destroy(selectCharacterPanel.transform.GetChild(i).gameObject);
-                }
-                selectCharacterPanel.GetComponent<CanvasGroup>().interactable = false;
-                selectCharacterPanel.gameObject.SetActive(false);
+                ResetCharacterPanel();
                 magicOrItemPanel.GetComponent<CanvasGroup>().interactable = true;
                 EventSystem.current.SetSelectedGameObject(selectedGameObjectStack.Pop());
                 currentCommand = CommandMode.SelectMagic;
@@ -399,13 +399,7 @@ public class BattleManager : MonoBehaviour
             }
             else if (currentCommand == CommandMode.SelectRecoveryItemTarget)
             {
-                // selectCharacterPanelにボタンがあれば全て削除
-                for (int i = selectCharacterPanel.transform.childCount - 1; i >= 0; i--)
-                {
-                    Destroy(selectCharacterPanel.transform.GetChild(i).gameObject);
-                }
-                selectCharacterPanel.GetComponent<CanvasGroup>().interactable = false;
-                selectCharacterPanel.gameObject.SetActive(false);
+                ResetCharacterPanel();
                 magicOrItemPanel.GetComponent<CanvasGroup>().interactable = true;
                 EventSystem.current.SetSelectedGameObject(selectedGameObjectStack.Pop());
                 currentCommand = CommandMode.SelectItem;
@@ -438,10 +432,10 @@ public class BattleManager : MonoBehaviour
 
         currentCommand = CommandMode.SelectCommand;
 
-        // キャラクター選択ボタンがあれば全て削除
-        for (int i = selectCharacterPanel.transform.childCount - 1; i >= 0; i--)
+        // コマンドセレクトボタンがあれば全て削除
+        for (int i = commandPanel.transform.childCount - 1; i >= 0; i--)
         {
-            Destroy(selectCharacterPanel.transform.GetChild(i).gameObject);
+            Destroy(commandPanel.transform.GetChild(i).gameObject);
         }
 
         // 魔法やアイテムパネルの子要素のContentにボタンがあれば全て削除
@@ -467,62 +461,56 @@ public class BattleManager : MonoBehaviour
 
         var characterSkill = character.GetComponent<CharacterBattleScript>().GetCharacterStatus().GetSkillList();
         //　持っているスキルに応じてコマンドボタンの表示
-        if (characterSkill.Exists(skill => skill.GetSkillType() == Skill.Type.DirectAttack))
-        {
-            var directAttackButtonObj = commandPanel.Find("DirectAttack").gameObject;
-            var directAttackButton = directAttackButtonObj.GetComponent<Button>();
-            directAttackButton.onClick.RemoveAllListeners();
-            directAttackButtonObj.GetComponent<Button>().onClick.AddListener(() => SelectDirectAttacker(character));
-            directAttackButtonObj.SetActive(true);
-        }
-        else
-        {
-            commandPanel.Find("DirectAttack").gameObject.SetActive(false);
-        }
-        if (characterSkill.Exists(skill => skill.GetSkillType() == Skill.Type.Guard))
-        {
-            var guardButtonObj = commandPanel.Find("Guard").gameObject;
-            var guardButton = guardButtonObj.GetComponent<Button>();
-            guardButton.onClick.RemoveAllListeners();
-            guardButton.onClick.AddListener(() => Guard(character));
-            guardButtonObj.SetActive(true);
-        }
-        else
-        {
-            commandPanel.Find("Guard").gameObject.SetActive(false);
-        }
-        if (characterSkill.Exists(skill => skill.GetSkillType() == Skill.Type.Item))
-        {
-            var itemButtonObj = commandPanel.Find("Item").gameObject;
-            var itemButton = itemButtonObj.GetComponent<Button>();
-            itemButton.onClick.RemoveAllListeners();
-            itemButton.onClick.AddListener(() => SelectItem(character));
-            commandPanel.Find("Item").gameObject.SetActive(true);
-        }
-        else
-        {
-            commandPanel.Find("Item").gameObject.SetActive(false);
-        }
-        if (characterSkill.Exists(skill => skill.GetSkillType() == Skill.Type.MagicAttack)
-            || characterSkill.Find(skill => skill.GetSkillType() == Skill.Type.IncreaseAttackPowerMagic)
-            || characterSkill.Find(skill => skill.GetSkillType() == Skill.Type.IncreaseDefencePowerMagic)
-            || characterSkill.Find(skill => skill.GetSkillType() == Skill.Type.NumbnessRecoveryMagic)
-            || characterSkill.Find(skill => skill.GetSkillType() == Skill.Type.PoisonnouRecoveryMagic)
-            || characterSkill.Find(skill => skill.GetSkillType() == Skill.Type.RecoveryMagic))
-        {
+        currentCommand = CommandMode.SelectMagic;
 
-            var magicButtonObj = commandPanel.Find("Magic").gameObject;
-            var magicButton = magicButtonObj.GetComponent<Button>();
-            magicButton.onClick.RemoveAllListeners();
-            magicButton.onClick.AddListener(() => SelectMagic(character));
+        GameObject NoUseMPSkillIns;
+        GameObject UseMPSkillIns;
+        var skillList = character.GetComponent<CharacterBattleScript>().GetCharacterStatus().GetSkillList();
 
-            magicButtonObj.SetActive(true);
-        }
-        else
+        foreach (var skill in skillList)
         {
-            commandPanel.Find("Magic").gameObject.SetActive(false);
-        }
+            if (skill.GetSkillType() == Skill.Type.DirectAttack)
+            {
+                NoUseMPSkillIns = Instantiate<GameObject>(NoUseMPSkill, commandPanel);
+                NoUseMPSkillIns.transform.Find("SkillName").GetComponent<Text>().text = skill.GetKanjiName();
+                NoUseMPSkillIns.GetComponent<Button>().onClick.AddListener(() => SelectDirectAttacker(character));
+            }
+            if (skill.GetSkillType() == Skill.Type.Guard)
+            {
+                NoUseMPSkillIns = Instantiate<GameObject>(NoUseMPSkill, commandPanel);
+                NoUseMPSkillIns.transform.Find("SkillName").GetComponent<Text>().text = skill.GetKanjiName();
+                NoUseMPSkillIns.GetComponent<Button>().onClick.AddListener(() => Guard(character));
+            }
+            if (skill.GetSkillType() == Skill.Type.Item)
+            {
+                NoUseMPSkillIns = Instantiate<GameObject>(NoUseMPSkill, commandPanel);
+                NoUseMPSkillIns.transform.Find("SkillName").GetComponent<Text>().text = skill.GetKanjiName();
+                NoUseMPSkillIns.GetComponent<Button>().onClick.AddListener(() => SelectItem(character));
+            }
+            if (skill.GetSkillType() == Skill.Type.MagicAttack
+                || skill.GetSkillType() == Skill.Type.RecoveryMagic
+                || skill.GetSkillType() == Skill.Type.IncreaseAttackPowerMagic
+                || skill.GetSkillType() == Skill.Type.IncreaseDefencePowerMagic
+                || skill.GetSkillType() == Skill.Type.NumbnessRecoveryMagic
+                || skill.GetSkillType() == Skill.Type.PoisonnouRecoveryMagic
+                )
+            {
+                UseMPSkillIns = Instantiate<GameObject>(UseMPSkill, commandPanel);
+                UseMPSkillIns.transform.Find("SkillName").GetComponent<Text>().text = skill.GetKanjiName();
+                UseMPSkillIns.transform.Find("UseMagicPoints").GetComponent<Text>().text = ((Magic)skill).GetAmountToUseMagicPoints().ToString();
 
+                //　MPが足りない時はボタンを押しても何もせず魔法の名前を暗くする
+                if (character.GetComponent<CharacterBattleScript>().GetMp() < ((Magic)skill).GetAmountToUseMagicPoints())
+                {
+                    UseMPSkillIns.transform.Find("SkillName").GetComponent<Text>().color = new Color(0.4f, 0.4f, 0.4f);
+                }
+                else
+                {
+                    UseMPSkillIns.GetComponent<Button>().onClick.AddListener(() => SelectUseMagicTarget(character, skill));
+                }
+            }
+        }
+        
         EventSystem.current.SetSelectedGameObject(commandPanel.transform.GetChild(1).gameObject);
         commandPanel.gameObject.SetActive(true);
     }
@@ -560,7 +548,7 @@ public class BattleManager : MonoBehaviour
         Skill directAtatck = characterSkill.Find(skill => skill.GetSkillType() == Skill.Type.DirectAttack);
         attackCharacter.GetComponent<CharacterBattleScript>().ChooseAttackOptions(CharacterBattleScript.BattleState.DirectAttack, attackTarget, directAtatck);
         commandPanel.gameObject.SetActive(false);
-        selectCharacterPanel.gameObject.SetActive(false);
+        ResetCharacterPanel();
     }
 
     //　防御
@@ -569,76 +557,6 @@ public class BattleManager : MonoBehaviour
         guardCharacter.GetComponent<CharacterBattleScript>().Guard();
         commandPanel.gameObject.SetActive(false);
         ChangeNextChara();
-    }
-
-    //　使用する魔法の選択
-    public void SelectMagic(GameObject character)
-    {
-        currentCommand = CommandMode.SelectMagic;
-        commandPanel.GetComponent<CanvasGroup>().interactable = false;
-        selectedGameObjectStack.Push(EventSystem.current.currentSelectedGameObject);
-
-        GameObject battleMagicPanelButtonIns;
-        var skillList = character.GetComponent<CharacterBattleScript>().GetCharacterStatus().GetSkillList();
-
-        //　MagicOrItemPanelのスクロール値の初期化
-        //scrollManager.Reset();
-        int battleMagicPanelButtonNum = 0;
-
-        foreach (var skill in skillList)
-        {
-            if (skill.GetSkillType() == Skill.Type.MagicAttack
-                || skill.GetSkillType() == Skill.Type.RecoveryMagic
-                || skill.GetSkillType() == Skill.Type.IncreaseAttackPowerMagic
-                || skill.GetSkillType() == Skill.Type.IncreaseDefencePowerMagic
-                || skill.GetSkillType() == Skill.Type.NumbnessRecoveryMagic
-                || skill.GetSkillType() == Skill.Type.PoisonnouRecoveryMagic
-                )
-            {
-                battleMagicPanelButtonIns = Instantiate<GameObject>(battleMagicPanelButton, magicOrItemPanelContent);
-                battleMagicPanelButtonIns.transform.Find("MagicName").GetComponent<Text>().text = skill.GetKanjiName();
-                battleMagicPanelButtonIns.transform.Find("UseMagicPoints").GetComponent<Text>().text = ((Magic)skill).GetAmountToUseMagicPoints().ToString();
-
-                //　指定した番号のアイテムパネルボタンにアイテムスクロール用スクリプトを取り付ける
-                if (battleMagicPanelButtonNum != 0
-                    && (battleMagicPanelButtonNum % scrollDownButtonNum == 0
-                    || battleMagicPanelButtonNum % (scrollDownButtonNum + 1) == 0)
-                    )
-                {
-                    //　アイテムスクロールスクリプトの取り付けて設定値のセット
-                    //battleMagicPanelButtonIns.AddComponent<ScrollDownScript>();
-                }
-                else if (battleMagicPanelButtonNum != 0
-                  && (battleMagicPanelButtonNum % scrollUpButtonNum == 0
-                  || battleMagicPanelButtonNum % (scrollUpButtonNum + 1) == 0)
-                  )
-                {
-                    //battleMagicPanelButtonIns.AddComponent<ScrollUpScript>();
-                }
-
-                //　MPが足りない時はボタンを押しても何もせず魔法の名前を暗くする
-                if (character.GetComponent<CharacterBattleScript>().GetMp() < ((Magic)skill).GetAmountToUseMagicPoints())
-                {
-                    battleMagicPanelButtonIns.transform.Find("MagicName").GetComponent<Text>().color = new Color(0.4f, 0.4f, 0.4f);
-                }
-                else
-                {
-                    battleMagicPanelButtonIns.GetComponent<Button>().onClick.AddListener(() => SelectUseMagicTarget(character, skill));
-                }
-                //　ボタン番号を足す
-                battleMagicPanelButtonNum++;
-
-                if (battleMagicPanelButtonNum == scrollUpButtonNum + 2)
-                {
-                    battleMagicPanelButtonNum = 2;
-                }
-            }
-        }
-
-        magicOrItemPanel.GetComponent<CanvasGroup>().interactable = true;
-        EventSystem.current.SetSelectedGameObject(magicOrItemPanelContent.GetChild(0).gameObject);
-        magicOrItemPanel.gameObject.SetActive(true);
-
     }
 
     //　魔法を使う相手の選択
@@ -741,7 +659,7 @@ public class BattleManager : MonoBehaviour
         user.GetComponent<CharacterBattleScript>().ChooseAttackOptions(battleState, targetCharacter, skill);
         commandPanel.gameObject.SetActive(false);
         magicOrItemPanel.gameObject.SetActive(false);
-        selectCharacterPanel.gameObject.SetActive(false);
+        ResetCharacterPanel();
     }
 
     //　使用するアイテムの選択
@@ -889,7 +807,7 @@ public class BattleManager : MonoBehaviour
         userCharacterBattleScript.ChooseAttackOptions(battleState, targetCharacter, skill, item);
         commandPanel.gameObject.SetActive(false);
         magicOrItemPanel.gameObject.SetActive(false);
-        selectCharacterPanel.gameObject.SetActive(false);
+        ResetCharacterPanel();
     }
 
     //選択したコマンドをセットする
@@ -907,7 +825,7 @@ public class BattleManager : MonoBehaviour
         battleStatusScript.UpdateSelect(allyCharacterStatus, skill.GetKanjiName(), AllyAttack, allyCharacterInBattle);
         commandPanel.gameObject.SetActive(false);
         magicOrItemPanel.gameObject.SetActive(false);
-        selectCharacterPanel.gameObject.SetActive(false);
+        ResetCharacterPanel();
         //キャンセルボタンを使用不可能に
         cancelButton.interactable = false;
     }
