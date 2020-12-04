@@ -134,9 +134,7 @@ public class BattleManager : MonoBehaviour
     {
         SelectCommand,
         SelectDirectAttacker,
-        SelectMagic,
-        SelectMagicAttackTarget,
-        SelectUseMagicOnAlliesTarget,
+        SelectMagicTarget,
         SelectItem,
         SelectRecoveryItemTarget
     }
@@ -349,40 +347,16 @@ public class BattleManager : MonoBehaviour
     {
         if (!isStartTarn)
         {
-            commandPanel.gameObject.SetActive(false);
-            if (currentCommand == CommandMode.SelectDirectAttacker)
+            if (currentCommand == CommandMode.SelectCommand)
+            {
+                commandPanel.gameObject.SetActive(false);
+            }
+            else if (currentCommand == CommandMode.SelectDirectAttacker || currentCommand == CommandMode.SelectMagicTarget)
             {
                 ResetCharacterPanel();
                 commandPanel.GetComponent<CanvasGroup>().interactable = true;
                 EventSystem.current.SetSelectedGameObject(selectedGameObjectStack.Pop());
                 currentCommand = CommandMode.SelectCommand;
-            }
-            else if (currentCommand == CommandMode.SelectMagic)
-            {
-                // magicOrItemPanelにボタンがあれば全て削除
-                for (int i = magicOrItemPanelContent.transform.childCount - 1; i >= 0; i--)
-                {
-                    Destroy(magicOrItemPanelContent.transform.GetChild(i).gameObject);
-                }
-                magicOrItemPanel.GetComponent<CanvasGroup>().interactable = false;
-                magicOrItemPanel.gameObject.SetActive(false);
-                commandPanel.GetComponent<CanvasGroup>().interactable = true;
-                EventSystem.current.SetSelectedGameObject(selectedGameObjectStack.Pop());
-                currentCommand = CommandMode.SelectCommand;
-            }
-            else if (currentCommand == CommandMode.SelectMagicAttackTarget)
-            {
-                ResetCharacterPanel();
-                magicOrItemPanel.GetComponent<CanvasGroup>().interactable = true;
-                EventSystem.current.SetSelectedGameObject(selectedGameObjectStack.Pop());
-                currentCommand = CommandMode.SelectMagic;
-            }
-            else if (currentCommand == CommandMode.SelectUseMagicOnAlliesTarget)
-            {
-                ResetCharacterPanel();
-                magicOrItemPanel.GetComponent<CanvasGroup>().interactable = true;
-                EventSystem.current.SetSelectedGameObject(selectedGameObjectStack.Pop());
-                currentCommand = CommandMode.SelectMagic;
             }
             else if (currentCommand == CommandMode.SelectItem)
             {
@@ -400,7 +374,14 @@ public class BattleManager : MonoBehaviour
             else if (currentCommand == CommandMode.SelectRecoveryItemTarget)
             {
                 ResetCharacterPanel();
-                magicOrItemPanel.GetComponent<CanvasGroup>().interactable = true;
+                // magicOrItemPanelにボタンがあれば全て削除
+                for (int i = magicOrItemPanelContent.transform.childCount - 1; i >= 0; i--)
+                {
+                    Destroy(magicOrItemPanelContent.transform.GetChild(i).gameObject);
+                }
+                magicOrItemPanel.GetComponent<CanvasGroup>().interactable = false;
+                magicOrItemPanel.gameObject.SetActive(false);
+                commandPanel.GetComponent<CanvasGroup>().interactable = true;
                 EventSystem.current.SetSelectedGameObject(selectedGameObjectStack.Pop());
                 currentCommand = CommandMode.SelectItem;
             }
@@ -460,9 +441,8 @@ public class BattleManager : MonoBehaviour
         //commandPanel.Find("CharacterName/Text").GetComponent<Text>().text = character.gameObject.name;
 
         var characterSkill = character.GetComponent<CharacterBattleScript>().GetCharacterStatus().GetSkillList();
-        //　持っているスキルに応じてコマンドボタンの表示
-        currentCommand = CommandMode.SelectMagic;
 
+        //　持っているスキルに応じてコマンドボタンの表示
         GameObject NoUseMPSkillIns;
         GameObject UseMPSkillIns;
         var skillList = character.GetComponent<CharacterBattleScript>().GetCharacterStatus().GetSkillList();
@@ -562,7 +542,7 @@ public class BattleManager : MonoBehaviour
     //　魔法を使う相手の選択
     public void SelectUseMagicTarget(GameObject user, Skill skill)
     {
-        currentCommand = CommandMode.SelectUseMagicOnAlliesTarget;
+        currentCommand = CommandMode.SelectMagicTarget;
         magicOrItemPanel.GetComponent<CanvasGroup>().interactable = false;
         selectedGameObjectStack.Push(EventSystem.current.currentSelectedGameObject);
 
