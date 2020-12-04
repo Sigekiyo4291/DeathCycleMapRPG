@@ -415,7 +415,7 @@ public class CharacterBattleScript : MonoBehaviour
             Debug.LogError("直接攻撃でターゲットが設定されていない");
         }
 
-        Debug.Log(gameObject.name + "は" + currentTarget.name + "に" + currentSkill.GetKanjiName() + "をして" + damage + "を与えた。");
+        battleManager.ShowMessage(gameObject.name + "は" + currentTarget.name + "に" + currentSkill.GetKanjiName() + "をして" + damage + "を与えた。");
     }
 
     public void MagicAttack()
@@ -451,7 +451,7 @@ public class CharacterBattleScript : MonoBehaviour
             Debug.LogError("魔法攻撃でターゲットが設定されていない");
         }
 
-        Debug.Log(gameObject.name + "は" + currentTarget.name + "に" + currentSkill.GetKanjiName() + "をして" + damage + "を与えた。");
+        battleManager.ShowMessage(gameObject.name + "は" + currentTarget.name + "に" + currentSkill.GetKanjiName() + "をして" + damage + "を与えた。");
 
     }
 
@@ -473,31 +473,31 @@ public class CharacterBattleScript : MonoBehaviour
             {
                 targetCharacterBattleScript.SetHp(GetHp() + recoveryPoint);
             }
-            Debug.Log(gameObject.name + "は" + ((Magic)currentSkill).GetKanjiName() + "を使って" + currentTarget.name + "を" + recoveryPoint + "回復した。");
+            battleManager.ShowMessage(gameObject.name + "は" + ((Magic)currentSkill).GetKanjiName() + "を使って" + currentTarget.name + "を" + recoveryPoint + "回復した。");
         }
         else if (magicType == Skill.Type.IncreaseAttackPowerMagic)
         {
             increasePowerPoint = ((Magic)currentSkill).GetMagicPower() + characterStatus.GetMagicPower();
             targetCharacterBattleScript.SetAuxiliaryPower(targetCharacterBattleScript.GetAuxiliaryPower() + increasePowerPoint);
             targetCharacterBattleScript.SetIsIncreasePower(true);
-            Debug.Log(gameObject.name + "は" + ((Magic)currentSkill).GetKanjiName() + "を使って" + currentTarget.name + "の力を" + increasePowerPoint + "増やした。");
+            battleManager.ShowMessage(gameObject.name + "は" + ((Magic)currentSkill).GetKanjiName() + "を使って" + currentTarget.name + "の力を" + increasePowerPoint + "増やした。");
         }
         else if (magicType == Skill.Type.IncreaseDefencePowerMagic)
         {
             increaseStrikingStrengthPoint = ((Magic)currentSkill).GetMagicPower() + characterStatus.GetMagicPower();
             targetCharacterBattleScript.SetAuxiliaryStrikingStrength(targetCharacterBattleScript.GetAuxiliaryStrikingStrength() + increaseStrikingStrengthPoint);
             targetCharacterBattleScript.SetIsIncreaseStrikingStrength(true);
-            Debug.Log(gameObject.name + "は" + ((Magic)currentSkill).GetKanjiName() + "を使って" + currentTarget.name + "の打たれ強さを" + increaseStrikingStrengthPoint + "増やした。");
+            battleManager.ShowMessage(gameObject.name + "は" + ((Magic)currentSkill).GetKanjiName() + "を使って" + currentTarget.name + "の打たれ強さを" + increaseStrikingStrengthPoint + "増やした。");
         }
         else if (magicType == Skill.Type.NumbnessRecoveryMagic)
         {
             targetCharacterStatus.SetNumbness(false);
-            Debug.Log(gameObject.name + "は" + ((Magic)currentSkill).GetKanjiName() + "を使って" + currentTarget.name + "の痺れを消した");
+            battleManager.ShowMessage(gameObject.name + "は" + ((Magic)currentSkill).GetKanjiName() + "を使って" + currentTarget.name + "の痺れを消した");
         }
         else if (magicType == Skill.Type.PoisonnouRecoveryMagic)
         {
             targetCharacterStatus.SetPoisonState(false);
-            Debug.Log(gameObject.name + "は" + ((Magic)currentSkill).GetKanjiName() + "を使って" + currentTarget.name + "の毒を消した");
+            battleManager.ShowMessage(gameObject.name + "は" + ((Magic)currentSkill).GetKanjiName() + "を使って" + currentTarget.name + "の毒を消した");
         }
     }
 
@@ -514,7 +514,7 @@ public class CharacterBattleScript : MonoBehaviour
             var recoveryPoint = currentItem.GetAmount();
             targetCharacterBattleScript.SetHp(targetCharacterBattleScript.GetHp() + recoveryPoint);
             battleStatusScript.UpdateStatus(targetCharacterStatus, BattleStatusScript.Status.HP, targetCharacterBattleScript.GetHp());
-            Debug.Log(gameObject.name + "は" + currentItem.GetKanjiName() + "を使って" + currentTarget.name + "のHPを" + recoveryPoint + "回復した。");
+            battleManager.ShowMessage(gameObject.name + "は" + currentItem.GetKanjiName() + "を使って" + currentTarget.name + "のHPを" + recoveryPoint + "回復した。");
         }
         else if (currentItem.GetItemType() == Item.Type.MPRecovery)
         {
@@ -522,17 +522,17 @@ public class CharacterBattleScript : MonoBehaviour
             var recoveryPoint = currentItem.GetAmount();
             targetCharacterBattleScript.SetMp(targetCharacterBattleScript.GetMp() + recoveryPoint);
             battleStatusScript.UpdateStatus(targetCharacterStatus, BattleStatusScript.Status.MP, targetCharacterBattleScript.GetMp());
-            Debug.Log(gameObject.name + "は" + currentItem.GetKanjiName() + "を使って" + currentTarget.name + "のMPを" + recoveryPoint + "回復した。");
+            battleManager.ShowMessage(gameObject.name + "は" + currentItem.GetKanjiName() + "を使って" + currentTarget.name + "のMPを" + recoveryPoint + "回復した。");
         }
         else if (currentItem.GetItemType() == Item.Type.NumbnessRecovery)
         {
             targetCharacterStatus.SetNumbness(false);
-            Debug.Log(gameObject.name + "は" + currentItem.GetKanjiName() + "を使って" + currentTarget.name + "の痺れを消した。");
+            battleManager.ShowMessage(gameObject.name + "は" + currentItem.GetKanjiName() + "を使って" + currentTarget.name + "の痺れを消した。");
         }
         else if (currentItem.GetItemType() == Item.Type.PoisonRecovery)
         {
             targetCharacterStatus.SetPoisonState(false);
-            Debug.Log(gameObject.name + "は" + currentItem.GetKanjiName() + "を使って" + currentTarget.name + "の毒を消した。");
+            battleManager.ShowMessage(gameObject.name + "は" + currentItem.GetKanjiName() + "を使って" + currentTarget.name + "の毒を消した。");
         }
 
         //　アイテム数が0になったらItemDictionaryからそのアイテムを削除
@@ -586,7 +586,7 @@ public class CharacterBattleScript : MonoBehaviour
                 numOfTurnsSinceIncreasePower = 0;
                 SetAuxiliaryPower(GetAuxiliaryPower() - increasePowerPoint);
                 SetIsIncreasePower(false);
-                Debug.Log(gameObject.name + "の攻撃力アップの効果が消えた");
+                battleManager.ShowMessage(gameObject.name + "の攻撃力アップの効果が消えた");
             }
         }
     }
@@ -601,7 +601,7 @@ public class CharacterBattleScript : MonoBehaviour
                 numOfTurnsSinceIncreaseStrikingStrength = 0;
                 SetAuxiliaryStrikingStrength(GetAuxiliaryStrikingStrength() - increaseStrikingStrengthPoint);
                 SetIsIncreaseStrikingStrength(false);
-                Debug.Log(gameObject.name + "の防御力アップの効果が消えた");
+                battleManager.ShowMessage(gameObject.name + "の防御力アップの効果が消えた");
             }
         }
     }

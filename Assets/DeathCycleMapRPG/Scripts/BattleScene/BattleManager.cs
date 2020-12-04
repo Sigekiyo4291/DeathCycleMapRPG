@@ -406,7 +406,7 @@ public class BattleManager : MonoBehaviour
     }
 
     //　味方の攻撃処理
-    public void AllyAttack(GameObject character)
+    public void AllySelectCommand(GameObject character)
     {
         //キャンセルボタンを使用可能に
         cancelButton.interactable = true;
@@ -543,7 +543,7 @@ public class BattleManager : MonoBehaviour
     public void SelectUseMagicTarget(GameObject user, Skill skill)
     {
         currentCommand = CommandMode.SelectMagicTarget;
-        magicOrItemPanel.GetComponent<CanvasGroup>().interactable = false;
+        commandPanel.GetComponent<CanvasGroup>().interactable = false;
         selectedGameObjectStack.Push(EventSystem.current.currentSelectedGameObject);
 
         GameObject battleCharacterButtonIns;
@@ -555,7 +555,6 @@ public class BattleManager : MonoBehaviour
                 battleCharacterButtonIns = Instantiate<GameObject>(battleCharacterButton, selectCharacterPanel);
                 battleCharacterButtonIns.transform.Find("Text").GetComponent<Text>().text = enemy.gameObject.name;
                 battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => SetSelectCommand(user, skill, enemy));
-                //battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => UseMagic(user, enemy, skill));
             }
         }
         else
@@ -565,7 +564,6 @@ public class BattleManager : MonoBehaviour
                 battleCharacterButtonIns = Instantiate<GameObject>(battleCharacterButton, selectCharacterPanel);
                 battleCharacterButtonIns.transform.Find("Text").GetComponent<Text>().text = allyCharacter.gameObject.name;
                 battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => SetSelectCommand(user, skill, allyCharacter));
-                //battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => UseMagic(user, allyCharacter, skill));
             }
         }
 
@@ -796,16 +794,13 @@ public class BattleManager : MonoBehaviour
         CharacterStatus allyCharacterStatus = allyCharacterInBattle.GetComponent<CharacterBattleScript>().GetCharacterStatus();
         NextAct nextAct = new NextAct();
         nextAct.skill = skill;
-        if (!targetChara)
-        {
-            nextAct.targetChara = targetChara;
-        }
+        nextAct.targetChara = targetChara;
         if (!item)
         {
             nextAct.item = item;
         }
         nextActs[allyCharacterStatus.GetCharacterName()] = nextAct;
-        battleStatusScript.UpdateSelect(allyCharacterStatus, skill.GetKanjiName(), AllyAttack, allyCharacterInBattle);
+        battleStatusScript.UpdateSelect(allyCharacterStatus, skill.GetKanjiName(), AllySelectCommand, allyCharacterInBattle);
         commandPanel.gameObject.SetActive(false);
         magicOrItemPanel.gameObject.SetActive(false);
         ResetCharacterPanel();
