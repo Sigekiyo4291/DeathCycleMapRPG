@@ -345,20 +345,21 @@ public class BattleManager : MonoBehaviour
     //キャンセルボタンを押した時の処理
     public void OnClickCancelButton()
     {
-        if (!isStartTarn)
+        if (isStartTarn)
         {
-            if (currentCommand == CommandMode.SelectCommand)
+            return;
+        }
+        if (currentCommand == CommandMode.SelectCommand)
+        {
+            commandPanel.gameObject.SetActive(false);
+        }
+        else
+        {
+            if (currentCommand == CommandMode.SelectDirectAttacker || currentCommand == CommandMode.SelectMagicTarget)
             {
-                commandPanel.gameObject.SetActive(false);
-            }
-            else if (currentCommand == CommandMode.SelectDirectAttacker || currentCommand == CommandMode.SelectMagicTarget)
-            {
-                ResetCharacterPanel();
-                commandPanel.GetComponent<CanvasGroup>().interactable = true;
-                EventSystem.current.SetSelectedGameObject(selectedGameObjectStack.Pop());
                 currentCommand = CommandMode.SelectCommand;
             }
-            else if (currentCommand == CommandMode.SelectItem)
+            else
             {
                 // magicOrItemPanelにボタンがあれば全て削除
                 for (int i = magicOrItemPanelContent.transform.childCount - 1; i >= 0; i--)
@@ -367,24 +368,18 @@ public class BattleManager : MonoBehaviour
                 }
                 magicOrItemPanel.GetComponent<CanvasGroup>().interactable = false;
                 magicOrItemPanel.gameObject.SetActive(false);
-                commandPanel.GetComponent<CanvasGroup>().interactable = true;
-                EventSystem.current.SetSelectedGameObject(selectedGameObjectStack.Pop());
-                currentCommand = CommandMode.SelectCommand;
-            }
-            else if (currentCommand == CommandMode.SelectRecoveryItemTarget)
-            {
-                ResetCharacterPanel();
-                // magicOrItemPanelにボタンがあれば全て削除
-                for (int i = magicOrItemPanelContent.transform.childCount - 1; i >= 0; i--)
+                if (currentCommand == CommandMode.SelectItem)
                 {
-                    Destroy(magicOrItemPanelContent.transform.GetChild(i).gameObject);
+                    currentCommand = CommandMode.SelectCommand;
                 }
-                magicOrItemPanel.GetComponent<CanvasGroup>().interactable = false;
-                magicOrItemPanel.gameObject.SetActive(false);
-                commandPanel.GetComponent<CanvasGroup>().interactable = true;
-                EventSystem.current.SetSelectedGameObject(selectedGameObjectStack.Pop());
-                currentCommand = CommandMode.SelectItem;
+                else if (currentCommand == CommandMode.SelectRecoveryItemTarget)
+                {
+                    currentCommand = CommandMode.SelectItem;
+                }
             }
+            ResetCharacterPanel();
+            commandPanel.GetComponent<CanvasGroup>().interactable = true;
+            EventSystem.current.SetSelectedGameObject(selectedGameObjectStack.Pop());
         }
     }
 
