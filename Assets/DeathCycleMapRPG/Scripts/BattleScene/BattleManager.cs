@@ -459,7 +459,7 @@ public class BattleManager : MonoBehaviour
             {
                 NoUseMPSkillIns = Instantiate<GameObject>(NoUseMPSkill, commandPanel);
                 NoUseMPSkillIns.transform.Find("SkillName").GetComponent<Text>().text = skill.GetKanjiName();
-                NoUseMPSkillIns.GetComponent<Button>().onClick.AddListener(() => Guard(character));
+                NoUseMPSkillIns.GetComponent<Button>().onClick.AddListener(() => SetSelectCommand(character, skill));
             }
             if (skill.GetSkillType() == Skill.Type.Item)
             {
@@ -791,12 +791,15 @@ public class BattleManager : MonoBehaviour
     }
 
     //選択したコマンドをセットする
-    private void SetSelectCommand(GameObject allyCharacterInBattle, Skill skill, GameObject targetChara, Item item = null)
+    private void SetSelectCommand(GameObject allyCharacterInBattle, Skill skill, GameObject targetChara = null, Item item = null)
     {
         CharacterStatus allyCharacterStatus = allyCharacterInBattle.GetComponent<CharacterBattleScript>().GetCharacterStatus();
         NextAct nextAct = new NextAct();
         nextAct.skill = skill;
-        nextAct.targetChara = targetChara;
+        if (!targetChara)
+        {
+            nextAct.targetChara = targetChara;
+        }
         if (!item)
         {
             nextAct.item = item;
