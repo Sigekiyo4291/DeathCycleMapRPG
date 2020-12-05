@@ -98,7 +98,7 @@ public class CharacterBattleScript : MonoBehaviour
         guardPercentage = 1;
         //　コンポーネントの取得
         battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
-        battleStatusScript = GameObject.Find("BattleUICanvas/StatusPanel").GetComponent<BattleStatusScript>();
+        battleStatusScript = GameObject.Find("BattleUICanvas/PlayerUI/StatusPanel").GetComponent<BattleStatusScript>();
         //　既に死んでいる場合は倒れている状態にする
         if (characterStatus.GetHp() <= 0)
         {

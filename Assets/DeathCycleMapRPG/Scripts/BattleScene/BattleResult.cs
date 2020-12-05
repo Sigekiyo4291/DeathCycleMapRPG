@@ -311,12 +311,9 @@ public class BattleResult : MonoBehaviour
         yield return new WaitForSeconds(timeToDisplay);
         ranAway = true;
         resultPanel.SetActive(true);
-        resultText.text = "ユニティちゃん達は逃げ出した。";
+        resultText.text = "勇者たちは逃げ出した。";
         isDisplayResult = true;
         yield return new WaitForSeconds(timeToDisplay);
-        var finishText = resultPanel.transform.Find("FinishText");
-        finishText.GetComponent<Text>().text = "ワールドマップへ";
-        finishText.gameObject.SetActive(true);
         isFinishResult = true;
     }
 }

@@ -89,6 +89,7 @@
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\Item.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\LevelUpData.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\Player\AllyStatus.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\Player\InitialStatus.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\Player\PartyStatus.cs" />
     <Compile Include="Assets\SerializableDictionary\Example\SerializableDictionaryExample.cs" />
     <Compile Include="Assets\SerializableDictionary\Example\UserSerializableDictionaries.cs" />

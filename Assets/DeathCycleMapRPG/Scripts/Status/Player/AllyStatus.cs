@@ -19,6 +19,11 @@ public class AllyStatus : CharacterStatus
     //　装備している鎧
     [SerializeField]
     private Item equipArmor = null;
+    //装備しているアクセサリ
+    [SerializeField]
+    private Item equipAccessory1 = null;
+    [SerializeField]
+    private Item equipAccessory2 = null;
     //　アイテムと個数のDictionary
     [SerializeField]
     private ItemDictionary itemDictionary = null;
@@ -26,6 +31,10 @@ public class AllyStatus : CharacterStatus
     //　レベルアップデータ
     [SerializeField]
     private LevelUpData levelUpData = null;
+
+    //　初期ステータスデータ
+    [SerializeField]
+    private InitialStatus initialStatus = null;
 
     //　レベルアップデータを返す
     public LevelUpData GetLevelUpData()

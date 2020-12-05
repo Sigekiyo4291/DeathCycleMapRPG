@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: PlayerStatus
+  m_EditorClassIdentifier: Assembly-CSharp::AllyStatus
+  characterName: "\u305F\u3064\u307D\u3093"
+  isPoisonState: 0
+  isNumbnessState: 0
+  level: 5
+  agility: 9
+  power: 14
+  strikingStrength: 14
+  magicPower: 14
+  maxHp: 105
+  hp: 100
+  maxMp: 80
+  mp: 40
+  skillList:
+  - {fileID: 11400000, guid: 0bd8d242e5b28486385a2e99b22a6b20, type: 2}
+  - {fileID: 11400000, guid: 0f875a811cf74420183da23051f0474a, type: 2}
+  - {fileID: 11400000, guid: 699d2c371c54b45df8230ff9983c6913, type: 2}
+  - {fileID: 11400000, guid: 670e8952f2a99406da8d2e667a75500c, type: 2}
+  - {fileID: 11400000, guid: 57cdfcb685c8d4ee38018b183fb464f4, type: 2}
+  earnedExperience: 300
+  equipWeapon: {fileID: 0}
+  equipArmor: {fileID: 0}
+  equipAccessory1: {fileID: 0}
+  equipAccessory2: {fileID: 0}
+  itemDictionary:
+    m_keys:
+    - {fileID: 11400000, guid: 5cda25a4df5b8455c9c9f37d25c2c3a6, type: 2}
+    m_values: 0a000000
+  levelUpData: {fileID: 11400000, guid: 2dd86fb5637d3451b896f9530ad1bb3c, type: 2}
+  initialStatus: {fileID: 11400000, guid: 5d045bd71b0b14107beed49d5c3f9819, type: 2}

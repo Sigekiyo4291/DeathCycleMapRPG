@@ -52,7 +52,9 @@ public class BattleManager : MonoBehaviour
     // 現在のターン数
     private int turn;
 
-
+    // プレイヤー操作用のUI
+    [SerializeField]
+    private GameObject playerUI;
     // ターン開始ボタン
     [SerializeField]
     private Button attackButton = null;
@@ -213,7 +215,7 @@ public class BattleManager : MonoBehaviour
         isFailGetAway = false;
 
         //　最初の全データ表示
-        battleStatusScript = GameObject.Find("BattleUICanvas/StatusPanel").GetComponent<BattleStatusScript>();
+        battleStatusScript = GameObject.Find("BattleUICanvas/PlayerUI/StatusPanel").GetComponent<BattleStatusScript>();
         battleStatusScript.DisplayStatus();
         // 選択コマンドボタンを設定
         foreach (GameObject allyCharacterInBattle in allyCharacterInBattleList)
@@ -317,6 +319,7 @@ public class BattleManager : MonoBehaviour
             battleIsOver = true;
             commandPanel.gameObject.SetActive(false);
             //　戦闘終了
+            playerUI.SetActive(false);
             battleResult.InitialProcessingOfRanAwayResult();
         }
         else
@@ -869,6 +872,7 @@ public class BattleManager : MonoBehaviour
             ShowMessage("敵が全滅");
             battleIsOver = true;
             battleIsOver = true;
+            playerUI.SetActive(false);
             CharacterBattleScript characterBattleScript;
             foreach (var character in allCharacterList)
             {
