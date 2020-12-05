@@ -507,23 +507,11 @@ public class BattleManager : MonoBehaviour
             var characterSkill = attackCharacter.GetComponent<CharacterBattleScript>().GetCharacterStatus().GetSkillList();
             Skill directAtatck = characterSkill.Find(skill => skill.GetSkillType() == Skill.Type.DirectAttack);
             battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => SetSelectCommand(attackCharacter, directAtatck, enemy));
-            //battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => DirectAttack(attackCharacter, enemy));
         }
 
         selectCharacterPanel.GetComponent<CanvasGroup>().interactable = true;
         EventSystem.current.SetSelectedGameObject(selectCharacterPanel.GetChild(0).gameObject);
         selectCharacterPanel.gameObject.SetActive(true);
-    }
-
-    //　直接攻撃
-    public void DirectAttack(GameObject attackCharacter, GameObject attackTarget)
-    {
-        //　攻撃するキャラのDirectAttackスキルを取得する
-        var characterSkill = attackCharacter.GetComponent<CharacterBattleScript>().GetCharacterStatus().GetSkillList();
-        Skill directAtatck = characterSkill.Find(skill => skill.GetSkillType() == Skill.Type.DirectAttack);
-        attackCharacter.GetComponent<CharacterBattleScript>().ChooseAttackOptions(CharacterBattleScript.BattleState.DirectAttack, attackTarget, directAtatck);
-        commandPanel.gameObject.SetActive(false);
-        ResetCharacterPanel();
     }
 
     //　防御
@@ -712,13 +700,14 @@ public class BattleManager : MonoBehaviour
 
         GameObject battleCharacterButtonIns;
 
+        //　使用するキャラのItemスキルを取得する
+        var characterSkill = user.GetComponent<CharacterBattleScript>().GetCharacterStatus().GetSkillList();
+        Skill useItem = characterSkill.Find(skill => skill.GetSkillType() == Skill.Type.Item);
+
         foreach (var allyCharacter in allyCharacterInBattleList)
         {
             battleCharacterButtonIns = Instantiate<GameObject>(battleCharacterButton, selectCharacterPanel);
             battleCharacterButtonIns.transform.Find("Text").GetComponent<Text>().text = allyCharacter.gameObject.name;
-            //　攻撃するキャラのDirectAttackスキルを取得する
-            var characterSkill = allyCharacter.GetComponent<CharacterBattleScript>().GetCharacterStatus().GetSkillList();
-            Skill useItem = characterSkill.Find(skill => skill.GetSkillType() == Skill.Type.Item);
             battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => SetSelectCommand(user, useItem, allyCharacter, item));
             //battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => UseItem(user, allyCharacter, item));
         }
@@ -790,10 +779,7 @@ public class BattleManager : MonoBehaviour
         NextAct nextAct = new NextAct();
         nextAct.skill = skill;
         nextAct.targetChara = targetChara;
-        if (!item)
-        {
-            nextAct.item = item;
-        }
+        nextAct.item = item;
         nextActs[allyCharacterStatus.GetCharacterName()] = nextAct;
         battleStatusScript.UpdateSelect(allyCharacterStatus, skill.GetKanjiName(), AllySelectCommand, allyCharacterInBattle);
         commandPanel.gameObject.SetActive(false);
@@ -878,6 +864,7 @@ public class BattleManager : MonoBehaviour
         }
         else if (nowSkill.GetSkillType() == Skill.Type.Item)
         {
+            //characterBattleScript.ChooseAttackOptions(CharacterBattleScript.BattleState.UseHPRecoveryItem, targetChara, nowSkill, item);
             UseItem(character, targetChara, item);
         }
         else if (nowSkill.GetSkillType() == Skill.Type.Guard)
@@ -889,6 +876,7 @@ public class BattleManager : MonoBehaviour
             ShowMessage(character.name + "は" + nowSkill.GetKanjiName() + "を行った");
         }
     }
+
     //　敵の攻撃処理
     public void EnemyAttack(GameObject character)
     {
