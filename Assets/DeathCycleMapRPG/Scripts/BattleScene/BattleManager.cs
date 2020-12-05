@@ -390,9 +390,10 @@ public class BattleManager : MonoBehaviour
         //　EnemyStatusにキャスト出来る場合は敵の攻撃処理
         if (characterStatus as EnemyStatus != null)
         {
-            Debug.Log(character.gameObject.name + "の攻撃");
-            ShowMessage(character.gameObject.name + "の攻撃");
-            EnemyAttack(character);
+            //　敵の行動アルゴリズム
+            int randomValue = (int)(Random.value * characterStatus.GetSkillList().Count);
+            var targetNum = (int)(Random.value * allyCharacterInBattleList.Count); 
+            AttackProcess(character, characterStatus.GetSkillList()[randomValue], allyCharacterInBattleList[targetNum]);
         }
         else
         {            
@@ -555,74 +556,6 @@ public class BattleManager : MonoBehaviour
         selectCharacterPanel.gameObject.SetActive(true);
     }
 
-    //　魔法を使う
-    public void UseMagic(GameObject user, GameObject targetCharacter, Skill skill)
-    {
-        CharacterBattleScript.BattleState battleState = CharacterBattleScript.BattleState.Idle;
-        //　魔法を使う相手のCharacterBattleScriptを取得しておく
-        var targetCharacterBattleScript = targetCharacter.GetComponent<CharacterBattleScript>();
-
-        //　使う魔法の種類の設定と対象に使う必要がない場合の処理
-        if (skill.GetSkillType() == Skill.Type.MagicAttack)
-        {
-            battleState = CharacterBattleScript.BattleState.MagicAttack;
-        }
-        else if (skill.GetSkillType() == Skill.Type.RecoveryMagic)
-        {
-            if (targetCharacterBattleScript.GetHp() == targetCharacterBattleScript.GetCharacterStatus().GetMaxHp())
-            {
-                Debug.Log(targetCharacter.name + "は全快です。");
-                ShowMessage(targetCharacter.name + "は全快です。");
-                return;
-            }
-            battleState = CharacterBattleScript.BattleState.Healing;
-        }
-        else if (skill.GetSkillType() == Skill.Type.IncreaseAttackPowerMagic)
-        {
-            if (targetCharacterBattleScript.IsIncreasePower())
-            {
-                Debug.Log("既に攻撃力を上げています。");
-                ShowMessage("既に攻撃力を上げています。");
-                return;
-            }
-            battleState = CharacterBattleScript.BattleState.IncreaseAttackPowerMagic;
-        }
-        else if (skill.GetSkillType() == Skill.Type.IncreaseDefencePowerMagic)
-        {
-            if (targetCharacterBattleScript.IsIncreaseStrikingStrength())
-            {
-                Debug.Log("既に防御力を上げています。");
-                ShowMessage("既に防御力を上げています。");
-                return;
-            }
-            battleState = CharacterBattleScript.BattleState.IncreaseDefencePowerMagic;
-        }
-        else if (skill.GetSkillType() == Skill.Type.NumbnessRecoveryMagic)
-        {
-            if (!targetCharacterBattleScript.IsNumbness())
-            {
-                Debug.Log(targetCharacter.name + "は痺れ状態ではありません。");
-                ShowMessage(targetCharacter.name + "は痺れ状態ではありません。");
-                return;
-            }
-            battleState = CharacterBattleScript.BattleState.NumbnessRecoveryMagic;
-        }
-        else if (skill.GetSkillType() == Skill.Type.PoisonnouRecoveryMagic)
-        {
-            if (!targetCharacterBattleScript.IsPoison())
-            {
-                Debug.Log(targetCharacter.name + "は毒状態ではありません。");
-                ShowMessage(targetCharacter.name + "は毒状態ではありません。");
-                return;
-            }
-            battleState = CharacterBattleScript.BattleState.PoisonnouRecoveryMagic;
-        }
-        user.GetComponent<CharacterBattleScript>().ChooseAttackOptions(battleState, targetCharacter, skill);
-        commandPanel.gameObject.SetActive(false);
-        magicOrItemPanel.gameObject.SetActive(false);
-        ResetCharacterPanel();
-    }
-
     //　使用するアイテムの選択
     public void SelectItem(GameObject character)
     {
@@ -708,7 +641,7 @@ public class BattleManager : MonoBehaviour
         {
             battleCharacterButtonIns = Instantiate<GameObject>(battleCharacterButton, selectCharacterPanel);
             battleCharacterButtonIns.transform.Find("Text").GetComponent<Text>().text = allyCharacter.gameObject.name;
-            battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => SetSelectCommand(user, useItem, allyCharacter, item));
+            battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => SetSelectCommand(user, useItem, allyCharacter, item));　//回復アイテムのみ
             //battleCharacterButtonIns.GetComponent<Button>().onClick.AddListener(() => UseItem(user, allyCharacter, item));
         }
 
@@ -808,8 +741,8 @@ public class BattleManager : MonoBehaviour
         */
         character.GetComponent<CharacterBattleScript>().UnlockGuard();
 
-        //逃走失敗なら何もしない
-        if (isFailGetAway)
+        //味方で逃走失敗なら何もしない
+        if (isFailGetAway && characterStatus as AllyStatus != null)
         {
             ChangeNextChara();
             return;
@@ -866,91 +799,6 @@ public class BattleManager : MonoBehaviour
         {
             //characterBattleScript.ChooseAttackOptions(CharacterBattleScript.BattleState.UseHPRecoveryItem, targetChara, nowSkill, item);
             UseItem(character, targetChara, item);
-        }
-        else if (nowSkill.GetSkillType() == Skill.Type.Guard)
-        {
-            characterBattleScript.Guard();
-            // Guardアニメはboolなのでアニメーション遷移させたらすぐに次のキャラクターに移行させる
-            ChangeNextChara();
-            Debug.Log(character.name + "は" + nowSkill.GetKanjiName() + "を行った");
-            ShowMessage(character.name + "は" + nowSkill.GetKanjiName() + "を行った");
-        }
-    }
-
-    //　敵の攻撃処理
-    public void EnemyAttack(GameObject character)
-    {
-        CharacterBattleScript characterBattleScript = character.GetComponent<CharacterBattleScript>();
-        CharacterStatus characterStatus = characterBattleScript.GetCharacterStatus();
-
-        if (characterStatus.GetSkillList().Count <= 0)
-        {
-            return;
-        }
-        //　敵がガード状態であればガードを解く
-        /*
-        if (character.GetComponent<Animator>().GetBool("Guard"))
-        {
-            character.GetComponent<CharacterBattleScript>().UnlockGuard();
-        }
-        */
-        character.GetComponent<CharacterBattleScript>().UnlockGuard();
-
-        //　敵の行動アルゴリズム
-        int randomValue = (int)(Random.value * characterStatus.GetSkillList().Count);
-        var nowSkill = characterStatus.GetSkillList()[randomValue];
-
-        //　テスト用（特定のスキルで確認）
-        //nowSkill = characterStatus.GetSkillList()[0];
-
-        if (nowSkill.GetSkillType() == Skill.Type.DirectAttack)
-        {
-            var targetNum = (int)(Random.value * allyCharacterInBattleList.Count);
-            //　攻撃相手のCharacterBattleScript
-            characterBattleScript.ChooseAttackOptions(CharacterBattleScript.BattleState.DirectAttack, allyCharacterInBattleList[targetNum], nowSkill);
-            Debug.Log(character.name + "は" + nowSkill.GetKanjiName() + "を行った");
-            ShowMessage(character.name + "は" + nowSkill.GetKanjiName() + "を行った");
-        }
-        else if (nowSkill.GetSkillType() == Skill.Type.MagicAttack)
-        {
-            var targetNum = (int)(Random.value * allyCharacterInBattleList.Count);
-            if (characterBattleScript.GetMp() >= ((Magic)nowSkill).GetAmountToUseMagicPoints())
-            {
-                //　攻撃相手のCharacterBattleScript
-                characterBattleScript.ChooseAttackOptions(CharacterBattleScript.BattleState.MagicAttack, allyCharacterInBattleList[targetNum], nowSkill);
-                Debug.Log(character.name + "は" + nowSkill.GetKanjiName() + "を行った");
-                ShowMessage(character.name + "は" + nowSkill.GetKanjiName() + "を行った");
-            }
-            else
-            {
-                Debug.Log("MPが足りない！");
-                ShowMessage("MPが足りない！");
-                //　MPが足りない場合は直接攻撃を行う
-                characterBattleScript.ChooseAttackOptions(CharacterBattleScript.BattleState.DirectAttack, allyCharacterInBattleList[targetNum], characterStatus.GetSkillList().Find(skill => skill.GetSkillType() == Skill.Type.DirectAttack));
-                Debug.Log(character.name + "は攻撃を行った");
-                ShowMessage(character.name + "は攻撃を行った");
-            }
-        }
-        else if (nowSkill.GetSkillType() == Skill.Type.RecoveryMagic)
-        {
-            if (characterBattleScript.GetMp() >= ((Magic)nowSkill).GetAmountToUseMagicPoints())
-            {
-                var targetNum = (int)(Random.value * enemyCharacterInBattleList.Count);
-                //　回復相手のCharacterBattleScript
-                characterBattleScript.ChooseAttackOptions(CharacterBattleScript.BattleState.Healing, enemyCharacterInBattleList[targetNum], nowSkill);
-                Debug.Log(character.name + "は" + nowSkill.GetKanjiName() + "を行った");
-                ShowMessage(character.name + "は" + nowSkill.GetKanjiName() + "を行った");
-            }
-            else
-            {
-                Debug.Log("MPが足りない！");
-                ShowMessage("MPが足りない！");
-                var targetNum = (int)(Random.value * allyCharacterInBattleList.Count);
-                //　MPが足りない場合は直接攻撃を行う
-                characterBattleScript.ChooseAttackOptions(CharacterBattleScript.BattleState.DirectAttack, allyCharacterInBattleList[targetNum], characterStatus.GetSkillList().Find(skill => skill.GetSkillType() == Skill.Type.DirectAttack));
-                Debug.Log(character.name + "は攻撃を行った");
-                ShowMessage(character.name + "は攻撃を行った");
-            }
         }
         else if (nowSkill.GetSkillType() == Skill.Type.Guard)
         {
