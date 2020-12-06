@@ -25,6 +25,7 @@ public class CharacterBattleScript : MonoBehaviour
     }
 
     private BattleManager battleManager;
+    private PartyStatus partyStatus;
     private BattleStatusScript battleStatusScript;
     [SerializeField]
     private CharacterStatus characterStatus = null;
@@ -98,6 +99,7 @@ public class CharacterBattleScript : MonoBehaviour
         guardPercentage = 1;
         //　コンポーネントの取得
         battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
+        partyStatus = battleManager.GetPartyStatus();
         battleStatusScript = GameObject.Find("BattleUICanvas/PlayerUI/StatusPanel").GetComponent<BattleStatusScript>();
         //　既に死んでいる場合は倒れている状態にする
         if (characterStatus.GetHp() <= 0)
@@ -537,8 +539,8 @@ public class CharacterBattleScript : MonoBehaviour
     {
         //currentTarget.GetComponent<Animator>().SetTrigger("Damage");
 
-        //　キャラクターのアイテム数を減らす
-        ((AllyStatus)characterStatus).SetItemNum(currentItem, ((AllyStatus)characterStatus).GetItemNum(currentItem) - 1);
+        //　バーティののアイテム数を減らす
+        partyStatus.SetItemNum(currentItem, partyStatus.GetItemNum(currentItem) - 1);
 
         if (currentItem.GetItemType() == Item.Type.HPRecovery)
         {
@@ -568,9 +570,9 @@ public class CharacterBattleScript : MonoBehaviour
         }
 
         //　アイテム数が0になったらItemDictionaryからそのアイテムを削除
-        if (((AllyStatus)characterStatus).GetItemNum(currentItem) == 0)
+        if (partyStatus.GetItemNum(currentItem) == 0)
         {
-            ((AllyStatus)characterStatus).GetItemDictionary().Remove(currentItem);
+            partyStatus.GetItemDictionary().Remove(currentItem);
         }
     }
 

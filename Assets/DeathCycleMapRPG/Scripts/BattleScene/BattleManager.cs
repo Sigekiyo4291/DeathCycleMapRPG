@@ -10,6 +10,9 @@ public class BattleManager : MonoBehaviour
     //　戦闘データ
     [SerializeField]
     private BattleData battleData = null;
+    //　パーティの情報
+    [SerializeField]
+    private PartyStatus partyStatus = null;
     //　敵パーティーリスト
     [SerializeField]
     private EnemyPartyStatusList enemyPartyStatusList = null;
@@ -139,6 +142,11 @@ public class BattleManager : MonoBehaviour
         SelectMagicTarget,
         SelectItem,
         SelectRecoveryItemTarget
+    }
+
+    public PartyStatus GetPartyStatus()
+    {
+        return partyStatus;
     }
 
     // Start is called before the first frame update
@@ -563,7 +571,7 @@ public class BattleManager : MonoBehaviour
     public void SelectItem(GameObject character)
     {
 
-        var itemDictionary = ((AllyStatus)character.GetComponent<CharacterBattleScript>().GetCharacterStatus()).GetItemDictionary();
+        var itemDictionary = partyStatus.GetItemDictionary();
 
         //　MagicOrItemPanelのスクロール値の初期化
         //scrollManager.Reset();
@@ -581,7 +589,7 @@ public class BattleManager : MonoBehaviour
             {
                 battleItemPanelButtonIns = Instantiate<GameObject>(battleItemPanelButton, magicOrItemPanelContent);
                 battleItemPanelButtonIns.transform.Find("ItemName").GetComponent<Text>().text = item.GetKanjiName();
-                battleItemPanelButtonIns.transform.Find("Num").GetComponent<Text>().text = ((AllyStatus)character.GetComponent<CharacterBattleScript>().GetCharacterStatus()).GetItemNum(item).ToString();
+                battleItemPanelButtonIns.transform.Find("Num").GetComponent<Text>().text = partyStatus.GetItemNum(item).ToString();
                 battleItemPanelButtonIns.GetComponent<Button>().onClick.AddListener(() => SelectItemTarget(character, item));
 
                 //　指定した番号のアイテムパネルボタンにアイテムスクロール用スクリプトを取り付ける

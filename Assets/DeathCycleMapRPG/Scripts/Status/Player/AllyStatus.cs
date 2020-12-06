@@ -24,9 +24,6 @@ public class AllyStatus : CharacterStatus
     private Item equipAccessory1 = null;
     [SerializeField]
     private Item equipAccessory2 = null;
-    //　アイテムと個数のDictionary
-    [SerializeField]
-    private ItemDictionary itemDictionary = null;
 
     //　レベルアップデータ
     [SerializeField]
@@ -70,35 +67,5 @@ public class AllyStatus : CharacterStatus
     public Item GetEquipArmor()
     {
         return equipArmor;
-    }
-
-    public void CreateItemDictionary(ItemDictionary itemDictionary)
-    {
-        this.itemDictionary = itemDictionary;
-    }
-
-    public void SetItemDictionary(Item item, int num = 0)
-    {
-        itemDictionary.Add(item, num);
-    }
-
-    //　アイテムが登録された順番のItemDictionaryを返す
-    public ItemDictionary GetItemDictionary()
-    {
-        return itemDictionary;
-    }
-    //　平仮名の名前でソートしたItemDictionaryを返す
-    public IOrderedEnumerable<KeyValuePair<Item, int>> GetSortItemDictionary()
-    {
-        return itemDictionary.OrderBy(item => item.Key.GetHiraganaName());
-    }
-    public int SetItemNum(Item tempItem, int num)
-    {
-        return itemDictionary[tempItem] = num;
-    }
-    //　アイテムの数を返す
-    public int GetItemNum(Item item)
-    {
-        return itemDictionary[item];
     }
 }

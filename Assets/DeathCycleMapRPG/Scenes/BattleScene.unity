@@ -849,6 +849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleData: {fileID: 11400000, guid: 960cb907b08164358b01f5b20aaf3ba9, type: 2}
+  partyStatus: {fileID: 11400000, guid: 3687882e37b2c4b7d9ba1b162b7337ef, type: 2}
   enemyPartyStatusList: {fileID: 11400000, guid: 20e0868be389f4c039c5825e09c3e70a,
     type: 2}
   battleBasePosition: {fileID: 1863250109}

@@ -121,27 +121,21 @@ public class BattleResult : MonoBehaviour
         //　パーティーステータスにお金を反映する
         partyStatus.SetMoney(partyStatus.GetMoney() + earnedMoney);
 
-        //　intのランダム値
-        int randomInt;
-        AllyStatus allyStatus;
-
-        //　取得したアイテムを味方パーティーに分配する
+        //　取得したアイテムを取得する
         foreach (var item in getItemDictionary.Keys)
         {
-            //　パーティーメンバーの誰にアイテムを渡すか決定
-            randomInt = Random.Range(0, allyCharacterInBattleList.Count);
-            allyStatus = (AllyStatus)allyCharacterInBattleList[randomInt].GetComponent<CharacterBattleScript>().GetCharacterStatus();
-            //　キャラクターが既にアイテムを持っている時
-            if (allyStatus.GetItemDictionary().ContainsKey(item))
+            //　既にアイテムを持っている時
+            if (partyStatus.GetItemDictionary().ContainsKey(item))
             {
-                allyStatus.SetItemNum(item, allyStatus.GetItemNum(item) + getItemDictionary[item]);
+                partyStatus.SetItemNum(item, partyStatus.GetItemNum(item) + getItemDictionary[item]);
             }
             else
             {
-                allyStatus.SetItemDictionary(item, getItemDictionary[item]);
+                partyStatus.SetItemDictionary(item, getItemDictionary[item]);
             }
-            resultText.text += allyStatus.GetCharacterName() + "は" + item.GetKanjiName() + "を" + getItemDictionary[item] + "個手に入れた。\n";
+            resultText.text += item.GetKanjiName() + "を" + getItemDictionary[item] + "個手に入れた。\n";
             resultText.text += "\n";
+
         }
 
         //　上がったレベル
