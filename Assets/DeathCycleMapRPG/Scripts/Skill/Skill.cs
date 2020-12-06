@@ -14,12 +14,39 @@ public class Skill : ScriptableObject
         Guard,
         GetAway,
         Item,
+        SkillAttack,
         MagicAttack,
         RecoveryMagic,
         PoisonnouRecoveryMagic,
         NumbnessRecoveryMagic,
         IncreaseAttackPowerMagic,
         IncreaseDefencePowerMagic
+    }
+
+    public enum RangeType
+    {
+        None,
+        SingleUnit,
+        AllRange,
+        Random
+    }
+
+    public enum AttributeType
+    {
+        None,
+        Flame,
+        Thunder,
+        Ice
+    }
+
+    public enum SkillEffectType
+    {
+        None,
+        AttackDown,
+        DefenseDown,
+        paralysis,
+        poison,
+        confusion
     }
 
     [SerializeField]
@@ -30,6 +57,22 @@ public class Skill : ScriptableObject
     private string hiraganaName = "";
     [SerializeField]
     private string information = "";
+    // 対象範囲
+    [SerializeField]
+    private RangeType rangeType = RangeType.None;
+    // 属性
+    [SerializeField]
+    private AttributeType attributeType = AttributeType.None;
+    // 倍率
+    [SerializeField]
+    private float magnification = 1.0f;
+    // 実行回数
+    [SerializeField]
+    private int numOfExe = 1;
+    // スキル効果
+    [SerializeField]
+    private SkillEffectType skillEffectType = SkillEffectType.None;
+
     //　使用者のエフェクト
     [SerializeField]
     private GameObject skillUserEffect = null;
@@ -66,5 +109,36 @@ public class Skill : ScriptableObject
     public GameObject GetSkillReceivingSideEffect()
     {
         return skillReceivingSideEffect;
+    }
+
+    // 対象範囲を返す
+    [SerializeField]
+    private RangeType GetRangeType()
+    {
+        return rangeType;
+    }
+    // 属性を返す
+    [SerializeField]
+    private AttributeType GetAttributeType()
+    {
+        return attributeType;
+    }
+    // 倍率を返す
+    [SerializeField]
+    private float Magnification()
+    {
+        return magnification;
+    }
+    // 実行回数を返す
+    [SerializeField]
+    private int NumOfExe()
+    {
+        return numOfExe;
+    }
+    // スキル効果を返す
+    [SerializeField]
+    private SkillEffectType GetSkillEffectType()
+    {
+        return skillEffectType;
     }
 }
