@@ -1,18 +1,19 @@
 ﻿<Properties StartupConfiguration="{5C5C1117-23AD-5169-369F-B3232EEA117B}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/DeathCycleMapRPG/Scripts/BattleScene/BattleStatusScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/DeathCycleMapRPG/Scripts/Status/LevelUpData.cs">
     <Files>
       <File FileName="Assets/DeathCycleMapRPG/Scripts/Status/CharacterStatus.cs" Line="107" Column="26" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/Skill/Skill.cs" Line="14" Column="15" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/CharacterBattleScript.cs" Line="101" Column="71" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/Skill/Skill.cs" Line="142" Column="17" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/CharacterBattleScript.cs" Line="575" Column="24" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/BattleManager.cs" Line="763" Column="51" />
       <File FileName="Assets/DeathCycleMapRPG/Scripts/Status/Enemy/EnemyStatus.cs" Line="1" Column="1" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/BattleResult.cs" Line="314" Column="32" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/BattleManager.cs" Line="217" Column="21" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/BattleResult.cs" Line="127" Column="16" />
       <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/BattleData.cs" Line="1" Column="1" />
       <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/BattleStatusScript.cs" Line="21" Column="6" />
       <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/BattlePartyStatus.cs" Line="1" Column="1" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/Status/Player/AllyStatus.cs" Line="74" Column="1" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/Status/Player/AllyStatus.cs" Line="70" Column="6" />
       <File FileName="Assets/DeathCycleMapRPG/Scripts/Status/Player/InitialStatus.cs" Line="56" Column="6" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/Status/Player/PartyStatus.cs" Line="1" Column="1" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/Status/Player/PartyStatus.cs" Line="5" Column="19" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/Status/LevelUpData.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

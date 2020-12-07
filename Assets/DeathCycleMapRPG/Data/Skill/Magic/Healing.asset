@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f036a91f0ba549a589edfaa1676d73a, type: 3}
   m_Name: Healing
   m_EditorClassIdentifier: 
-  skillType: 5
+  skillType: 6
   kanjiName: "\u30D2\u30FC\u30EA\u30F3\u30B0"
   hiraganaName: "\u3072\u30FC\u308A\u3093\u3050"
   information: "\u56DE\u5FA9\u9B54\u6CD5"
+  rangeType: 0
+  attributeType: 0
+  magnification: 1
+  numOfExe: 1
+  skillEffectType: 0
   skillUserEffect: {fileID: 0}
   skillReceivingSideEffect: {fileID: 0}
   magicPower: 0

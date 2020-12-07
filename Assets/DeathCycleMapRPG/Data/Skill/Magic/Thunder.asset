@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f036a91f0ba549a589edfaa1676d73a, type: 3}
   m_Name: Thunder
   m_EditorClassIdentifier: 
-  skillType: 4
+  skillType: 5
   kanjiName: "\u30B5\u30F3\u30C0\u30FC"
   hiraganaName: "\u3055\u3093\u3060\u30FC"
   information: "\u96F7\u306E\u9B54\u6CD5"
+  rangeType: 0
+  attributeType: 0
+  magnification: 1
+  numOfExe: 1
+  skillEffectType: 0
   skillUserEffect: {fileID: 0}
   skillReceivingSideEffect: {fileID: 0}
   magicPower: 30

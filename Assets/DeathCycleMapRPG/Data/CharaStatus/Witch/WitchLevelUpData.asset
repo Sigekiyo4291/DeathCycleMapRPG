@@ -12,24 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3796ef10cc501459a89176de66214289, type: 3}
   m_Name: WitchLevelUpData
   m_EditorClassIdentifier: 
-  requiredExperience:
-    m_keys: 000000000100000002000000030000000400000005000000
-    m_values: 000000006400000064000000640000006400000064000000
-  probabilityToIncreaseMaxHP: 100
-  probabliityToIncreaseMaxMP: 100
-  probabilityToIncreaseAgility: 100
-  probabilityToIncreasePower: 100
-  probabilityToIncreaseStrikingStrength: 100
-  probabilityToIncreaseMagicPower: 100
-  minHPRisingLimit: 1
-  minMPRisingLimit: 1
-  minAgilityRisingLimit: 1
-  minPowerRisingLimit: 1
-  minStrikingStrengthRisingLimit: 1
-  minMagicPowerRisingLimit: 1
-  maxHPRisingLimit: 50
-  maxMPRisingLimit: 50
-  maxAgilityRisingLimit: 2
-  maxPowerRisingLimit: 2
-  maxStrikingStrengthRisingLimit: 2
-  maxMagicPowerRisingLimit: 2
+  isRaiseArbitrarily: 0
+  agilityRisingTable: 0000000000000000010000000000000001000000
+  powerRisingTable: 0000000001000000000000000000000001000000
+  strikingStrengthRisingTable: 0100000001000000010000000100000000000000
+  magicPowerRisingTable: 0200000001000000010000000100000001000000

@@ -29,14 +29,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 699d2c371c54b45df8230ff9983c6913, type: 2}
   - {fileID: 11400000, guid: 57cdfcb685c8d4ee38018b183fb464f4, type: 2}
   - {fileID: 11400000, guid: bea536ca64f824acf86ce2981044bdc8, type: 2}
-  earnedExperience: 285
+  earnedExperience: 335
   equipWeapon: {fileID: 0}
   equipArmor: {fileID: 0}
   equipAccessory1: {fileID: 0}
   equipAccessory2: {fileID: 0}
-  itemDictionary:
-    m_keys:
-    - {fileID: 11400000, guid: 5cda25a4df5b8455c9c9f37d25c2c3a6, type: 2}
-    m_values: 01000000
   levelUpData: {fileID: 11400000, guid: 698b17cd082484d868b5e3e7b114bd02, type: 2}
   initialStatus: {fileID: 11400000, guid: c310d8389b6eb457ab58e03eef4a2fa8, type: 2}

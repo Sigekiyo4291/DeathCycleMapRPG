@@ -25,7 +25,9 @@ public class BattleResult : MonoBehaviour
     private bool won;
     //　逃げたかどうか
     private bool ranAway;
-   
+    //　レベルアップに必要な経験値
+    private const int LEVEL_UP_POINT = 100;
+
     //　MusicManager
     //[SerializeField]
     //private MusicManager musicManager;
@@ -84,13 +86,15 @@ public class BattleResult : MonoBehaviour
         CharacterStatus characterStatus;
         //　敵のアイテムディクショナリー
         ItemDictionary enemyItemDictionary;
+        // プレイヤーのレベル
+        int playerLv = allyCharacterInBattleList[0].GetComponent<CharacterBattleScript>().GetCharacterStatus().GetLevel();
 
         foreach (var character in allCharacterList)
         {
             characterStatus = character.GetComponent<CharacterBattleScript>().GetCharacterStatus();
             if (characterStatus as EnemyStatus != null)
             {
-                earnedExperience += ((EnemyStatus)characterStatus).GetGettingExperience();
+                earnedExperience += LevelDifferenceCorrection(((EnemyStatus)characterStatus).GetLevel(), playerLv, ((EnemyStatus)characterStatus).GetGettingExperience());
                 earnedMoney += ((EnemyStatus)characterStatus).GetGettingMoney();
                 enemyItemDictionary = ((EnemyStatus)characterStatus).GetDropItemDictionary();
                 //　敵が持っているアイテムの種類の数だけ繰り返し
@@ -140,10 +144,6 @@ public class BattleResult : MonoBehaviour
 
         //　上がったレベル
         var levelUpCount = 0;
-        //　上がったHP
-        var raisedHp = 0;
-        //　上がったMP
-        var raisedMp = 0;
         //　上がった素早さ
         var raisedAgility = 0;
         //　上がった力
@@ -154,6 +154,11 @@ public class BattleResult : MonoBehaviour
         var raisedMagicPower = 0;
         //　LevelUpData
         LevelUpData levelUpData;
+        // レベルアップのテーブル
+        List<int> agilityRisingTable;
+        List<int> powerRisingTable;
+        List<int> strikingStrengthRisingTable;
+        List<int> magicPowerRisingTable;
 
         //　レベルアップ等の計算
         foreach (var characterObj in allyCharacterInBattleList)
@@ -161,74 +166,41 @@ public class BattleResult : MonoBehaviour
             var character = (AllyStatus)characterObj.GetComponent<CharacterBattleScript>().GetCharacterStatus();
             //　変数を初期化
             levelUpCount = 0;
-            raisedHp = 0;
-            raisedMp = 0;
             raisedAgility = 0;
             raisedPower = 0;
             raisedStrikingStrength = 0;
             raisedMagicPower = 0;
             levelUpData = character.GetLevelUpData();
 
+            agilityRisingTable = levelUpData.GetAgilityRisingTable();
+            powerRisingTable = levelUpData.GetPowerRisingTable();
+            strikingStrengthRisingTable = levelUpData.GetStrikingStrengthRisingTable();
+            magicPowerRisingTable = levelUpData.GetMagicPowerRisingTable();
+
             //　キャラクターに経験値を反映
             character.SetEarnedExperience(character.GetEarnedExperience() + earnedExperience);
 
             //　そのキャラクターの経験値で何レベルアップしたかどうか
-            for (int i = 1; i < levelUpData.GetLevelUpDictionary().Count; i++)
-            {
-                //　レベルアップに必要な経験値を満たしていたら
-                if (character.GetEarnedExperience() >= levelUpData.GetRequiredExperience(character.GetLevel() + i))
-                {
-                    levelUpCount++;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            //　レベルを反映
-            character.SetLevel(character.GetLevel() + levelUpCount);
-
+            levelUpCount = character.GetEarnedExperience() / LEVEL_UP_POINT;
+            character.SetEarnedExperience(character.GetEarnedExperience() % LEVEL_UP_POINT);
+            
             //　レベルアップ分のステータスアップを計算し反映する
-            for (int i = 0; i < levelUpCount; i++)
+            for (int i = 1; i <= levelUpCount; i++)
             {
-                if (Random.Range(0f, 100f) <= levelUpData.GetProbabilityToIncreaseMaxHP())
-                {
-                    raisedHp += Random.Range(levelUpData.GetMinHPRisingLimit(), levelUpData.GetMaxHPRisingLimit());
-                }
-                if (Random.Range(0f, 100f) <= levelUpData.GetProbabilityToIncreaseMaxMP())
-                {
-                    raisedMp += Random.Range(levelUpData.GetMinMPRisingLimit(), levelUpData.GetMaxMPRisingLimit());
-                }
-                if (Random.Range(0f, 100f) <= levelUpData.GetProbabilityToIncreaseAgility())
-                {
-                    raisedAgility += Random.Range(levelUpData.GetMinAgilityRisingLimit(), levelUpData.GetMaxAgilityRisingLimit());
-                }
-                if (Random.Range(0f, 100f) <= levelUpData.GetProbabilityToIncreasePower())
-                {
-                    raisedPower += Random.Range(levelUpData.GetMinPowerRisingLimit(), levelUpData.GetMaxPowerRisingLimit());
-                }
-                if (Random.Range(0f, 100f) <= levelUpData.GetProbabilityToIncreaseStrikingStrength())
-                {
-                    raisedStrikingStrength += Random.Range(levelUpData.GetMinStrikingStrengthRisingLimit(), levelUpData.GetMaxStrikingStrengthRisingLimit());
-                }
-                if (Random.Range(0f, 100f) <= levelUpData.GetProbabilityToIncreaseMagicPower())
-                {
-                    raisedMagicPower += Random.Range(levelUpData.GetMinMagicPowerRisingLimit(), levelUpData.GetMaxMagicPowerRisingLimit());
-                }
+                //　レベルを反映
+                character.SetLevel(character.GetLevel() + 1);
+
+                raisedAgility += agilityRisingTable[character.GetLevel() % agilityRisingTable.Count()];
+                raisedPower += powerRisingTable[character.GetLevel() % powerRisingTable.Count()];
+                raisedStrikingStrength += strikingStrengthRisingTable[character.GetLevel() % strikingStrengthRisingTable.Count()];
+                raisedMagicPower += magicPowerRisingTable[character.GetLevel() % strikingStrengthRisingTable.Count];
             }
+            character.SetMaxHp();
+            character.SetMaxMp();
+
             if (levelUpCount > 0)
             {
                 resultText.text += character.GetCharacterName() + "は" + levelUpCount + "レベル上がってLv" + character.GetLevel() + "になった。\n";
-                if (raisedHp > 0)
-                {
-                    resultText.text += "最大HPが" + raisedHp + "上がった。\n";
-                    character.SetMaxHp();
-                }
-                if (raisedMp > 0)
-                {
-                    resultText.text += "最大MPが" + raisedMp + "上がった。\n";
-                    character.SetMaxMp();
-                }
                 if (raisedAgility > 0)
                 {
                     resultText.text += "素早さが" + raisedAgility + "上がった。\n";
@@ -263,6 +235,17 @@ public class BattleResult : MonoBehaviour
         //　戦闘から抜け出す
         //resultPanel.transform.Find("FinishText").gameObject.SetActive(true);
         isFinishResult = true;
+    }
+
+    //　取得Expのレベル差の補正
+    private int LevelDifferenceCorrection(int enemyLv, int playerLv, int Exp)
+    {
+        int levelDifference = playerLv - enemyLv;
+        if (levelDifference > 5)
+        {
+            Exp = Mathf.Max(1, (int)(Exp*(float)((10-levelDifference)/10)));
+        }
+        return Exp;
     }
 
     //　敗戦時の初期処理

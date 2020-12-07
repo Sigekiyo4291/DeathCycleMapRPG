@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f036a91f0ba549a589edfaa1676d73a, type: 3}
   m_Name: Fire
   m_EditorClassIdentifier: 
-  skillType: 4
+  skillType: 5
   kanjiName: "\u30D5\u30A1\u30A4\u30E4"
   hiraganaName: "\u3075\u3041\u3044\u3084"
   information: "\u708E\u306E\u9B54\u6CD5"
+  rangeType: 0
+  attributeType: 0
+  magnification: 1
+  numOfExe: 1
+  skillEffectType: 0
   skillUserEffect: {fileID: 0}
   skillReceivingSideEffect: {fileID: 0}
   magicPower: 30

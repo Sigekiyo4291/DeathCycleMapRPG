@@ -86,7 +86,7 @@ public class CharacterStatus : ScriptableObject
 
     public void SetMaxHp()
     {
-        this.maxHp = 50 + level + strikingStrength * 5;
+        this.maxHp = 50 + this.level + this.strikingStrength * 5;
     }
 
     public int GetMaxHp()
