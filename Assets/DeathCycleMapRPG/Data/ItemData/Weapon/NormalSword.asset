@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c39f25369fac74129b380757c291630b, type: 3}
+  m_Script: {fileID: 11500000, guid: 25362d36c622446eda2c73f839fc2366, type: 3}
   m_Name: NormalSword
   m_EditorClassIdentifier: 
   itemType: 4
@@ -17,3 +17,13 @@ MonoBehaviour:
   hiraganaName: "\u3075\u3064\u3046\u306E\u3051\u3093"
   information: "\u3042\u308A\u3075\u308C\u305F\u666E\u901A\u306E\u5263"
   amount: 5
+  skill: {fileID: 0}
+  HitRate: 100
+  upPower: 0
+  upAgility: 0
+  upMagic: 0
+  upStrikingStrength: 0
+  cutFlame: 0
+  cutThunder: 0
+  cutIce: 0
+  weaponType: 4

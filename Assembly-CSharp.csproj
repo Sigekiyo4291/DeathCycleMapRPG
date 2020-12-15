@@ -73,7 +73,12 @@
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\BattleScene\CommandSelectButton.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\Dictionary\ItemDictionary.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\Dictionary\LevelUpDictionary.cs" />
-    <Compile Include="Assets\DeathCycleMapRPG\Scripts\FormScene\FormManager.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\FormScene\TopManager.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Item\Accessory.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Item\Armor.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Item\Equipment.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Item\Item.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Item\Weapon.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\LoadSceneManager.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\MapScene\ArrowButtonManager.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\MapScene\CameraManager.cs" />
@@ -86,7 +91,6 @@
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\Enemy\EnemyPartyStatus.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\Enemy\EnemyPartyStatusList.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\Enemy\EnemyStatus.cs" />
-    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\Item.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\LevelUpData.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\Player\AllyStatus.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\Status\Player\InitialStatus.cs" />

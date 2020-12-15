@@ -152,6 +152,10 @@ public class BattleResult : MonoBehaviour
         var raisedStrikingStrength = 0;
         //　上がった魔法力
         var raisedMagicPower = 0;
+        //　レベルアップ前のHP
+        var nowMaxHP = 0;
+        //　レベルアップ前のMP
+        var nowMaxMP = 0;
         //　LevelUpData
         LevelUpData levelUpData;
         // レベルアップのテーブル
@@ -170,6 +174,8 @@ public class BattleResult : MonoBehaviour
             raisedPower = 0;
             raisedStrikingStrength = 0;
             raisedMagicPower = 0;
+            nowMaxHP = character.GetMaxHp();
+            nowMaxMP = character.GetMaxMp();
             levelUpData = character.GetLevelUpData();
 
             agilityRisingTable = levelUpData.GetAgilityRisingTable();
@@ -195,34 +201,32 @@ public class BattleResult : MonoBehaviour
                 raisedStrikingStrength += strikingStrengthRisingTable[character.GetLevel() % strikingStrengthRisingTable.Count()];
                 raisedMagicPower += magicPowerRisingTable[character.GetLevel() % strikingStrengthRisingTable.Count];
             }
-            character.SetMaxHp();
-            character.SetMaxMp();
-
+            
             if (levelUpCount > 0)
             {
                 resultText.text += character.GetCharacterName() + "は" + levelUpCount + "レベル上がってLv" + character.GetLevel() + "になった。\n";
                 if (raisedAgility > 0)
                 {
                     resultText.text += "素早さが" + raisedAgility + "上がった。\n";
-                    character.SetAgility(character.GetAgility() + raisedAgility);
                 }
                 if (raisedPower > 0)
                 {
                     resultText.text += "力が" + raisedPower + "上がった。\n";
-                    character.SetPower(character.GetPower() + raisedPower);
                 }
                 if (raisedStrikingStrength > 0)
                 {
                     resultText.text += "打たれ強さが" + raisedStrikingStrength + "上がった。\n";
-                    character.SetStrikingStrength(character.GetStrikingStrength() + raisedStrikingStrength);
                 }
                 if (raisedMagicPower > 0)
                 {
                     resultText.text += "魔法力が" + raisedMagicPower + "上がった。\n";
-                    character.SetMagicPower(character.GetMagicPower() + raisedMagicPower);
                 }
                 resultText.text += "\n";
             }
+            character.StatusUpdate(raisedPower, raisedAgility, raisedStrikingStrength, raisedMagicPower);
+            //レベルの上がった分だけHP、MPを回復
+            character.SetHp(character.GetHp() + (character.GetMaxHp() - nowMaxHP));
+            character.SetMp(character.GetMp() + (character.GetMaxMp() - nowMaxMP));
         }
         //　結果を計算し終わった
         isDisplayResult = true;
@@ -266,7 +270,7 @@ public class BattleResult : MonoBehaviour
         finishText.GetComponent<Text>().text = "タイトルへ";
         finishText.gameObject.SetActive(true);
 
-        //　味方が全滅したのでユニティちゃんのHPだけ少し回復しておく
+        //　味方が全滅したのでHPを回復しておく
         var unityChanStatus = partyStatus.GetAllyStatus().Find(character => character.GetCharacterName() == "たつぽん");
         if (unityChanStatus != null)
         {

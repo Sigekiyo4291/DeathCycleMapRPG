@@ -72,6 +72,9 @@ public class Skill : ScriptableObject
     // スキル効果
     [SerializeField]
     private SkillEffectType skillEffectType = SkillEffectType.None;
+    //　命中率
+    [SerializeField]
+    private int hitRate = 100;
 
     //　使用者のエフェクト
     [SerializeField]
@@ -112,33 +115,33 @@ public class Skill : ScriptableObject
     }
 
     // 対象範囲を返す
-    [SerializeField]
-    private RangeType GetRangeType()
+    public RangeType GetRangeType()
     {
         return rangeType;
     }
     // 属性を返す
-    [SerializeField]
-    private AttributeType GetAttributeType()
+    public AttributeType GetAttributeType()
     {
         return attributeType;
     }
     // 倍率を返す
-    [SerializeField]
-    private float Magnification()
+    public float GetMagnification()
     {
         return magnification;
     }
     // 実行回数を返す
-    [SerializeField]
-    private int NumOfExe()
+    public int GetNumOfExe()
     {
         return numOfExe;
     }
     // スキル効果を返す
-    [SerializeField]
-    private SkillEffectType GetSkillEffectType()
+    public SkillEffectType GetSkillEffectType()
     {
         return skillEffectType;
+    }
+    // 実行回数を返す
+    public int GetHitRate()
+    {
+        return hitRate;
     }
 }

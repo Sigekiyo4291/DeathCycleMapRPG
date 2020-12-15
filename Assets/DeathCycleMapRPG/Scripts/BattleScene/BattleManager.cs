@@ -326,6 +326,19 @@ public class BattleManager : MonoBehaviour
             ShowMessage("逃げるのに成功した。");
             battleIsOver = true;
             commandPanel.gameObject.SetActive(false);
+            CharacterBattleScript characterBattleScript;
+            foreach (var character in allCharacterList)
+            {
+                //　味方キャラクターの戦闘で増減したHPとMPを通常のステータスに反映させる
+                characterBattleScript = character.GetComponent<CharacterBattleScript>();
+                if (characterBattleScript.GetCharacterStatus() as AllyStatus != null)
+                {
+                    characterBattleScript.GetCharacterStatus().SetHp(characterBattleScript.GetHp());
+                    characterBattleScript.GetCharacterStatus().SetMp(characterBattleScript.GetMp());
+                    characterBattleScript.GetCharacterStatus().SetNumbness(characterBattleScript.IsNumbness());
+                    characterBattleScript.GetCharacterStatus().SetPoisonState(characterBattleScript.IsPoison());
+                }
+            }
             //　戦闘終了
             playerUI.SetActive(false);
             battleResult.InitialProcessingOfRanAwayResult();
@@ -415,6 +428,10 @@ public class BattleManager : MonoBehaviour
     //　味方の攻撃処理
     public void AllySelectCommand(GameObject character)
     {
+        //攻撃ボタンを使用不可能に
+        attackButton.interactable = false;
+        //逃げるボタンを使用不可能に
+        getAwayButton.interactable = false;
         //キャンセルボタンを使用可能に
         cancelButton.interactable = true;
 
@@ -731,6 +748,10 @@ public class BattleManager : MonoBehaviour
         ResetCharacterPanel();
         //キャンセルボタンを使用不可能に
         cancelButton.interactable = false;
+        //攻撃ボタンを使用可能に
+        attackButton.interactable = true;
+        //逃げるボタンを使用可能に
+        getAwayButton.interactable = true;
     }
 
     //　攻撃処理
