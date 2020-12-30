@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39f25369fac74129b380757c291630b, type: 3}
   m_Name: NomalArmor
   m_EditorClassIdentifier: 
-  itemType: 7
+  itemType: 5
   kanjiName: "\u666E\u901A\u306E\u93A7"
   hiraganaName: "\u3075\u3064\u3046\u306E\u3088\u308D\u3044"
   information: "\u3042\u308A\u3075\u308C\u305F\u666E\u901A\u306E\u3088\u308D\u3044"

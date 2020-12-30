@@ -20,16 +20,19 @@ MonoBehaviour:
   power: 14
   strikingStrength: 14
   magicPower: 14
-  maxHp: 105
-  hp: 52
-  maxMp: 80
-  mp: 50
+  maxHp: 91
+  hp: 59
+  maxMp: 47
+  mp: 0
   skillList:
   - {fileID: 11400000, guid: 0bd8d242e5b28486385a2e99b22a6b20, type: 2}
   - {fileID: 11400000, guid: 699d2c371c54b45df8230ff9983c6913, type: 2}
   - {fileID: 11400000, guid: 57cdfcb685c8d4ee38018b183fb464f4, type: 2}
   - {fileID: 11400000, guid: bea536ca64f824acf86ce2981044bdc8, type: 2}
-  earnedExperience: 335
+  cutFlame: 0
+  cutThunder: 0
+  cutIce: 0
+  earnedExperience: 57
   equipWeapon: {fileID: 0}
   equipArmor: {fileID: 0}
   equipAccessory1: {fileID: 0}

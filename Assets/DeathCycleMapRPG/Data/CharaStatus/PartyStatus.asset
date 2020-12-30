@@ -19,4 +19,6 @@ MonoBehaviour:
   itemDictionary:
     m_keys:
     - {fileID: 11400000, guid: 5cda25a4df5b8455c9c9f37d25c2c3a6, type: 2}
-    m_values: 07000000
+    - {fileID: 11400000, guid: faa567cca6c8944b89827abce461ec3d, type: 2}
+    - {fileID: 11400000, guid: 0261f678817804a959e5ff8cb86ec4a5, type: 2}
+    m_values: 1c0000000100000001000000

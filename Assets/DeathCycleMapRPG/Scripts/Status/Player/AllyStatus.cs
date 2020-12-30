@@ -118,19 +118,19 @@ public class AllyStatus : CharacterStatus
         if (weapon!=null)
         {
             int baseAttackPower = weapon.GetAmount();
-            if (weapon.GetWeaponType() == Weapon.WeaponType.Power)
+            if (weapon.GetWeaponAttackType() == Weapon.WeaponAttackType.Power)
             {
                 attackPower = baseAttackPower + this.GetPower() * 3;
             }
-            else if (weapon.GetWeaponType() == Weapon.WeaponType.Agility)
+            else if (weapon.GetWeaponAttackType() == Weapon.WeaponAttackType.Agility)
             {
                 attackPower = baseAttackPower + this.GetAgility();
             }
-            else if (weapon.GetWeaponType() == Weapon.WeaponType.Balance)
+            else if (weapon.GetWeaponAttackType() == Weapon.WeaponAttackType.Balance)
             {
                 attackPower = baseAttackPower + this.GetPower() + this.GetStrikingStrength() / 2;
             }
-            else if (weapon.GetWeaponType() == Weapon.WeaponType.Magic)
+            else if (weapon.GetWeaponAttackType() == Weapon.WeaponAttackType.Magic)
             {
                 attackPower = baseAttackPower + this.GetMagicPower() * 3;
             }
