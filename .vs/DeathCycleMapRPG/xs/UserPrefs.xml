@@ -1,14 +1,14 @@
 ﻿<Properties StartupConfiguration="{5C5C1117-23AD-5169-369F-B3232EEA117B}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/DeathCycleMapRPG/Scripts/Dictionary/ItemDictionary.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/DeathCycleMapRPG/Scripts/FormScene/FormCanvas/FormManager.cs">
     <Files>
       <File FileName="Assets/DeathCycleMapRPG/Scripts/Skill/Skill.cs" Line="39" Column="12" />
       <File FileName="Assets/DeathCycleMapRPG/Scripts/Status/Enemy/EnemyStatus.cs" />
       <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/BattleResult.cs" />
       <File FileName="Assets/DeathCycleMapRPG/Scripts/Status/LevelUpData.cs" />
       <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/BattleData.cs" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/BattleStatusScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/BattleStatusScript.cs" Line="64" Column="6" />
       <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/BattlePartyStatus.cs" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/Status/Player/PartyStatus.cs" Line="1" Column="1" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/Status/Player/PartyStatus.cs" Line="66" Column="6" />
       <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/CharacterBattleScript.cs" Line="1" Column="1" />
       <File FileName="Assets/DeathCycleMapRPG/Scripts/Item/Weapon.cs" Line="1" Column="1" />
       <File FileName="Assets/DeathCycleMapRPG/Scripts/Item/Item.cs" />
@@ -17,11 +17,12 @@
       <File FileName="Assets/DeathCycleMapRPG/Scripts/Item/Armor.cs" />
       <File FileName="Assets/DeathCycleMapRPG/Scripts/Item/Equipment.cs" Line="1" Column="1" />
       <File FileName="Assets/DeathCycleMapRPG/Scripts/Item/Accessory.cs" Line="1" Column="1" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/BattleManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/BattleManager.cs" Line="226" Column="62" />
       <File FileName="Assets/DeathCycleMapRPG/Scripts/FormScene/ItemCanvas/ItemButton.cs" Line="14" Column="38" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/FormScene/ItemCanvas/ItemManager.cs" Line="491" Column="43" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/FormScene/ItemCanvas/ItemManager.cs" Line="317" Column="98" />
       <File FileName="../../../../../Applications/Unity/Hub/Editor/2019.3.14f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/UI/Core/Selectable.cs" Line="523" Column="1" />
       <File FileName="Assets/DeathCycleMapRPG/Scripts/Dictionary/ItemDictionary.cs" Line="1" Column="1" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/FormScene/FormCanvas/FormManager.cs" Line="6" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

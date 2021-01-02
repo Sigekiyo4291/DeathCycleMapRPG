@@ -21,7 +21,7 @@ MonoBehaviour:
   strikingStrength: 26
   magicPower: 26
   maxHp: 141
-  hp: 47
+  hp: 57
   maxMp: 85
   mp: 63
   skillList:
@@ -34,7 +34,7 @@ MonoBehaviour:
   cutThunder: 0
   cutIce: 0
   earnedExperience: 12
-  equipWeapon: {fileID: 0}
+  equipWeapon: {fileID: 11400000, guid: dcc19a6bb14e94067b6a0fcd41c0d3fc, type: 2}
   equipArmor: {fileID: 0}
   equipAccessory1: {fileID: 0}
   equipAccessory2: {fileID: 0}

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25362d36c622446eda2c73f839fc2366, type: 3}
+  m_Name: FireSword
+  m_EditorClassIdentifier: 
+  itemType: 4
+  kanjiName: "\u708E\u306E\u5263"
+  hiraganaName: "\u307B\u306E\u304A\u306E\u3051\u3093"
+  information: "\u706B\u306E\u529B\u3092\u5E2F\u3073\u305F\u5263\u3002"
+  amount: 10
+  skill: {fileID: 11400000, guid: 57cdfcb685c8d4ee38018b183fb464f4, type: 2}
+  HitRate: 100
+  upPower: 0
+  upAgility: 0
+  upMagic: 0
+  upStrikingStrength: 0
+  cutFlame: 0
+  cutThunder: 0
+  cutIce: 0
+  weaponType: 3
+  weaponAttackType: 4

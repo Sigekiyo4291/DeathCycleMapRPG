@@ -9,11 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c39f25369fac74129b380757c291630b, type: 3}
+  m_Script: {fileID: 11500000, guid: baad1356a7ff4494592ef4216e4a3787, type: 3}
   m_Name: NomalArmor
   m_EditorClassIdentifier: 
   itemType: 5
   kanjiName: "\u666E\u901A\u306E\u93A7"
   hiraganaName: "\u3075\u3064\u3046\u306E\u3088\u308D\u3044"
-  information: "\u3042\u308A\u3075\u308C\u305F\u666E\u901A\u306E\u3088\u308D\u3044"
+  information: "\u3042\u308A\u3075\u308C\u305F\u666E\u901A\u306E\u93A7"
   amount: 5
+  skill: {fileID: 11400000, guid: 699d2c371c54b45df8230ff9983c6913, type: 2}
+  HitRate: 100
+  upPower: 0
+  upAgility: 0
+  upMagic: 0
+  upStrikingStrength: 0
+  cutFlame: 0
+  cutThunder: 0
+  cutIce: 0
+  armorType: 0

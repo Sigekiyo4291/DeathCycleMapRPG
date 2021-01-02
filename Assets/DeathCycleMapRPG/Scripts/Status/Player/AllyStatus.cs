@@ -111,7 +111,7 @@ public class AllyStatus : CharacterStatus
     }
 
     // 装備後の攻撃力の計算
-    private void SetEquippedAttackPower()
+    public void SetEquippedAttackPower()
     {
         Weapon weapon = this.equipWeapon;
         int attackPower;
@@ -147,7 +147,7 @@ public class AllyStatus : CharacterStatus
     }
 
     // 装備後の防御力の計算
-    private void SetEquippedDefencePower()
+    public void SetEquippedDefencePower()
     {
         Armor armor = this.equipArmor;
         int defencePower;

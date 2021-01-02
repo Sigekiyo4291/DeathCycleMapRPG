@@ -73,6 +73,7 @@
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\BattleScene\CommandSelectButton.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\Dictionary\ItemDictionary.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\Dictionary\LevelUpDictionary.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\FormScene\FormCanvas\FormManager.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\FormScene\ItemCanvas\ItemButtonScript.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\FormScene\ItemCanvas\ItemManager.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\FormScene\TopManager.cs" />
