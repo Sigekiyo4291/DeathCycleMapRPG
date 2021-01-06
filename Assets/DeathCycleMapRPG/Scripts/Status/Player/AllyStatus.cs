@@ -72,42 +72,105 @@ public class AllyStatus : CharacterStatus
 
     public void SetEquipWeapon(Weapon weaponItem)
     {
+        //何か装備をしているならば
+        if (this.equipWeapon != null)
+        {
+            RemoveSkill(this.equipWeapon.GetSkill());
+        }
         this.equipWeapon = weaponItem;
+        // 装備を外す時でなければ
+        if (this.equipWeapon != null)
+        {
+            AddSkill(this.equipWeapon.GetSkill());
+        }
     }
 
-    public Item GetEquipWeapon()
+    public Weapon GetEquipWeapon()
     {
         return equipWeapon;
     }
 
     public void SetEquipArmor(Armor armorItem)
     {
+        //何か装備をしているならば
+        if (this.equipArmor != null)
+        {
+            RemoveSkill(this.equipArmor.GetSkill());
+        }
         this.equipArmor = armorItem;
+        // 装備を外す時でなければ
+        if (this.equipArmor != null)
+        {
+            AddSkill(this.equipArmor.GetSkill());
+        }
     }
 
-    public Item GetEquipArmor()
+    public Armor GetEquipArmor()
     {
         return equipArmor;
     }
 
     public void SetEquipAccessory1(Accessory equipAccessory1)
     {
+        //何か装備をしているならば
+        if (this.equipAccessory1 != null)
+        {
+            RemoveSkill(this.equipAccessory1.GetSkill());
+        }
         this.equipAccessory1 = equipAccessory1;
+        // 装備を外す時でなければ
+        if (this.equipAccessory1 != null)
+        {
+            AddSkill(this.equipAccessory1.GetSkill());
+        }
     }
 
-    public Item GetEquipAccessory1()
+    public Accessory GetEquipAccessory1()
     {
         return equipAccessory1;
     }
 
     public void SetEquipAccessory2(Accessory equipAccessory2)
     {
+        //何か装備をしているならば
+        if (this.equipAccessory2 != null)
+        {
+            RemoveSkill(this.equipAccessory2.GetSkill());
+        }
         this.equipAccessory2 = equipAccessory2;
+        // 装備を外す時でなければ
+        if (this.equipAccessory2 != null)
+        {
+            AddSkill(this.equipAccessory2.GetSkill());
+        }
     }
 
-    public Item GetEquipAccessory2()
+    public Accessory GetEquipAccessory2()
     {
         return equipAccessory2;
+    }
+
+    // スキルの追加
+    public void AddSkill(Skill skill)
+    {
+        if (skill == null)
+        {
+            return;
+        }
+        List<Skill> newSkillList = this.GetSkillList();
+        newSkillList.Add(skill);
+        this.SetSkillList(newSkillList);
+    }
+    // スキルの削除
+    public void RemoveSkill(Skill skill)
+    {
+        if (skill == null)
+        {
+            return;
+        }
+        List<Skill> newSkillList = this.GetSkillList();
+        newSkillList.Remove(skill);
+        this.SetSkillList(newSkillList);
     }
 
     // 装備後の攻撃力の計算

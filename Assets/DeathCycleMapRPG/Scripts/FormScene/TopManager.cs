@@ -27,6 +27,20 @@ public class TopManager : MonoBehaviour
     [SerializeField]
     public PartyStatus partyStatus = null;
 
+    // Top画面
+    [SerializeField]
+    private GameObject TopCanvas;
+    // Item画面
+    [SerializeField]
+    private GameObject ItemCanvas;
+    // Form画面
+    [SerializeField]
+    private GameObject FormCanvas;
+    // システム画面
+    [SerializeField]
+    private GameObject SystemCanvas;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +59,11 @@ public class TopManager : MonoBehaviour
         statusParam1Text.Add(statusPanel[1].transform.Find("StatusParamPanel/Param1").GetComponent<Text>());
         statusParam2Text.Add(statusPanel[1].transform.Find("StatusParamPanel/Param2").GetComponent<Text>());
         ShowStatus(partyStatus.GetAllyStatus()[1], statusPanel[1], characterNameText[1], statusTitleText[1], statusParam1Text[1], statusParam2Text[1]);
+
+        // 各画面への移動ボタンに関数をセット
+        GameObject.Find("ToItemButton").GetComponent<Button>().onClick.AddListener(() => MoveToAnotherCanvas(TopCanvas, ItemCanvas));
+        GameObject.Find("ToFormButton").GetComponent<Button>().onClick.AddListener(() => MoveToAnotherCanvas(TopCanvas, FormCanvas));
+        GameObject.Find("ToSystemButton").GetComponent<Button>().onClick.AddListener(() => MoveToAnotherCanvas(TopCanvas, SystemCanvas));
     }
 
     // Update is called once per frame
@@ -127,5 +146,21 @@ public class TopManager : MonoBehaviour
         text += allyStatus.GetPower() + (allyStatus.GetEquipWeapon()?.GetAmount() ?? 0) + "\n";
         text += allyStatus.GetStrikingStrength() + (allyStatus.GetEquipArmor()?.GetAmount() ?? 0) + "\n";
         statusParam2Text.text = text;
+    }
+
+    // top画面に戻る
+    public void ReturnTopCanvas()
+    {
+        TopCanvas.SetActive(true);
+        ItemCanvas.SetActive(false);
+        FormCanvas.SetActive(false);
+        SystemCanvas.SetActive(false);
+    }
+
+    // 別の画面に移る
+    public void MoveToAnotherCanvas(GameObject fromCanvas, GameObject toCanvas)
+    {
+        toCanvas.SetActive(true);
+        fromCanvas.SetActive(false);
     }
 }

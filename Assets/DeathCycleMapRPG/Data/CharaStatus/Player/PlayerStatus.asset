@@ -21,15 +21,13 @@ MonoBehaviour:
   strikingStrength: 26
   magicPower: 26
   maxHp: 141
-  hp: 57
+  hp: 67
   maxMp: 85
   mp: 63
   skillList:
   - {fileID: 11400000, guid: 0bd8d242e5b28486385a2e99b22a6b20, type: 2}
   - {fileID: 11400000, guid: 0f875a811cf74420183da23051f0474a, type: 2}
-  - {fileID: 11400000, guid: 699d2c371c54b45df8230ff9983c6913, type: 2}
   - {fileID: 11400000, guid: 670e8952f2a99406da8d2e667a75500c, type: 2}
-  - {fileID: 11400000, guid: 57cdfcb685c8d4ee38018b183fb464f4, type: 2}
   cutFlame: 0
   cutThunder: 0
   cutIce: 0
@@ -37,6 +35,6 @@ MonoBehaviour:
   equipWeapon: {fileID: 11400000, guid: dcc19a6bb14e94067b6a0fcd41c0d3fc, type: 2}
   equipArmor: {fileID: 0}
   equipAccessory1: {fileID: 0}
-  equipAccessory2: {fileID: 0}
+  equipAccessory2: {fileID: 11400000, guid: 9130aed7b9293401dbd5779a22d11ee2, type: 2}
   levelUpData: {fileID: 11400000, guid: 2dd86fb5637d3451b896f9530ad1bb3c, type: 2}
   initialStatus: {fileID: 11400000, guid: 5d045bd71b0b14107beed49d5c3f9819, type: 2}

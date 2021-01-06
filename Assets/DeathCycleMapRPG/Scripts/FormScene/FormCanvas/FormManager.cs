@@ -26,6 +26,9 @@ public class FormManager : MonoBehaviour
     // 装備選択画面
     [SerializeField]
     private GameObject equipmentSelectPanel = null;
+    // トップ画面に戻るボタン
+    [SerializeField]
+    private GameObject ReturnToTopButton = null;
     // 装備更新のokボタン
     [SerializeField]
     private GameObject okButton = null;
@@ -39,6 +42,9 @@ public class FormManager : MonoBehaviour
     private Equipment selectEquipment;
     // 装備変更中のキャラクター
     private AllyStatus changingEquipmentCharacter;
+    // 装備解除ボタンのプレハブ
+    [SerializeField]
+    private GameObject unequipButtonPrefab = null;
     // 装備選択ボタンのプレハブ
     [SerializeField]
     private GameObject equipmentPanelButtonPrefab = null;
@@ -103,7 +109,7 @@ public class FormManager : MonoBehaviour
     //　変更する装備の選択
     public void SelectEquip(AllyStatus allyStatus, EquipType equipType)
     {
-        Debug.Log("start");
+        ReturnToTopButton.GetComponent<Button>().interactable = false;
         chengingEquipType = equipType;
         changingEquipmentCharacter = allyStatus;
         content = formCampas.transform.Find("EquipmentSelectPanel/EquipmentPanel/Mask/Content").gameObject;
@@ -122,14 +128,15 @@ public class FormManager : MonoBehaviour
         //　アイテムパネルボタンを何個作成したかどうか
         int itemPanelButtonNum = 0;
         GameObject itemButtonIns;
-        //　選択したキャラクターのアイテム数分アイテムパネルボタンを作成
+        // 装備解除ボタンのセット
+        itemButtonIns = Instantiate<GameObject>(unequipButtonPrefab, content.transform);
+        itemButtonIns.GetComponent<Button>().onClick.AddListener(() => CheckUpdateEquip());
         //　持っているアイテム分のボタンの作成とクリック時の実行メソッドの設定
         foreach (var item in partyStatus.GetItemDictionary().Keys)
         {
             // 変更しようとしている装備とアイテムの種類が一致している1個以上ある物を表示
             if (item.GetItemType() == itemType && item as Equipment && partyStatus.GetItemDictionary()[item] > 0)
             {
-                Debug.Log(itemPanelButtonNum);
                 Equipment equipment = item as Equipment;
                 itemButtonIns = Instantiate<GameObject>(equipmentPanelButtonPrefab, content.transform);
                 itemButtonIns.transform.Find("ItemNameText").GetComponent<Text>().text = item.GetKanjiName();
@@ -149,9 +156,8 @@ public class FormManager : MonoBehaviour
     }
 
     // 変更する装備候補の更新
-    public void CheckUpdateEquip(Equipment item)
+    public void CheckUpdateEquip(Equipment item = null)
     {
-        Debug.Log(item.GetKanjiName());
         selectEquipment = item;
         okButton.GetComponent<Button>().interactable = true;
     }
@@ -159,45 +165,79 @@ public class FormManager : MonoBehaviour
     // 装備の更新
     public void UpdateEquip()
     {
-        Debug.Log(changingEquipmentCharacter.name + " " + selectEquipment.GetKanjiName());
         //　装備の種類ごとに装備を更新する
         if (chengingEquipType == EquipType.Weapon)
         {
+            UnequipItemNumSet(changingEquipmentCharacter.GetEquipWeapon());
             changingEquipmentCharacter.SetEquipWeapon(selectEquipment as Weapon);
         }
         else if (chengingEquipType == EquipType.Armor)
         {
+            UnequipItemNumSet(changingEquipmentCharacter.GetEquipArmor());
             changingEquipmentCharacter.SetEquipArmor(selectEquipment as Armor);
         }
         else if (chengingEquipType == EquipType.Accessory1)
         {
+            UnequipItemNumSet(changingEquipmentCharacter.GetEquipAccessory1());
             changingEquipmentCharacter.SetEquipAccessory1(selectEquipment as Accessory);
         }
         else if (chengingEquipType == EquipType.Accessory2)
         {
+            UnequipItemNumSet(changingEquipmentCharacter.GetEquipAccessory2());
             changingEquipmentCharacter.SetEquipAccessory2(selectEquipment as Accessory);
         }
         // 防御力と攻撃力を更新
         changingEquipmentCharacter.SetEquippedAttackPower();
         changingEquipmentCharacter.SetEquippedDefencePower();
-        // 装備時のアイテム数の増減
-
+        //　装備したアイテム数を減らす
+        EquipItemNumSet(selectEquipment);
         // 装備変更ボタンの更新
         UpdateEquipButton(changingEquipmentCharacter);
         //選択アイテム一覧の子要素を全て削除
         EquipmentItemClear();
         equipmentSelectPanel.SetActive(false);
+        okButton.GetComponent<Button>().interactable = false;
+        ReturnToTopButton.GetComponent<Button>().interactable = true;
     }
 
-    // 対象のアイテム数を増やす
-
-    // 対象のアイテム数を減らす
+    // 外した装備の数の調整
+    private void UnequipItemNumSet(Item item)
+    {
+        // 装備していないなら何もしない
+        if (item == null)
+        {
+            return;
+        }
+        if (partyStatus.GetItemDictionary().ContainsKey(item))
+        {
+            partyStatus.SetItemNum(item, partyStatus.GetItemNum(item) + 1);
+        }
+        else
+        {
+            partyStatus.SetItemDictionary(item, 1);
+        }
+    }
+    // 装備したアイテムの数の調整
+    private void EquipItemNumSet(Item item)
+    {
+        // 装備するものがないなら何もしない
+        if (item == null)
+        {
+            return;
+        }
+        partyStatus.SetItemNum(item, partyStatus.GetItemNum(item) - 1);
+        //　アイテム数が0だったらキャラクターステータスからアイテムを削除
+        if (partyStatus.GetItemNum(item) == 0)
+        {
+            partyStatus.GetItemDictionary().Remove(item);
+        }
+    }
 
     // アイテム一覧表示のクリア
     private void EquipmentItemClear()
     {
         //　アイテム選択ボタンがあれば全て削除
-        for (int i = content.transform.childCount - 1; i >= 1; i--)
+        for (int i = content.transform.childCount - 1; i >= 0; i--)
         {
             Destroy(content.transform.GetChild(i).gameObject);
         }
