@@ -2339,7 +2339,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &425096581
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6248,7 +6248,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1151619377
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8621,7 +8621,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &1509649664
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9311,6 +9311,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1656631364}
         m_MethodName: ReturnTopCanvas
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1060300179}
+        m_MethodName: ResetSelectButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11020,7 +11031,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1808796140
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11183,7 +11194,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &1837915399
 CanvasRenderer:
   m_ObjectHideFlags: 0

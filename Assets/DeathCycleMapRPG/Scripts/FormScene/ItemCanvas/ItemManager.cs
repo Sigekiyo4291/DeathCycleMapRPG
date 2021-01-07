@@ -73,92 +73,6 @@ public class ItemManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //アイテムボタン一覧の作成
-        CreateItemPanelButton();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        //　アイテムを装備、装備を外す情報表示後の処理
-        if (currentCommand == CommandMode.UseItemPanelToItemPanel)
-        {
-            if (Input.anyKeyDown
-                || !Mathf.Approximately(Input.GetAxis("Horizontal"), 0f)
-                || !Mathf.Approximately(Input.GetAxis("Vertical"), 0f)
-                )
-            {
-                currentCommand = CommandMode.ItemPanel;
-                useItemInformationPanel.SetActive(false);
-                itemPanel.transform.SetAsLastSibling();
-                itemPanelCanvasGroup.interactable = true;
-
-                EventSystem.current.SetSelectedGameObject(selectedGameObjectStack.Pop());
-
-            }
-            //　アイテムを使用する相手のキャラクター選択からアイテムをどうするかに移行する時
-        }
-        else if (currentCommand == CommandMode.UseItemSelectCharacterPanelToUseItemPanel)
-        {
-            if (Input.anyKeyDown
-                || !Mathf.Approximately(Input.GetAxis("Horizontal"), 0f)
-                || !Mathf.Approximately(Input.GetAxis("Vertical"), 0f)
-                )
-            {
-                currentCommand = CommandMode.UseItemPanel;
-                useItemInformationPanel.SetActive(false);
-                useItemPanel.transform.SetAsLastSibling();
-                useItemPanelCanvasGroup.interactable = true;
-
-                EventSystem.current.SetSelectedGameObject(selectedGameObjectStack.Pop());
-            }
-            //　アイテムを捨てるを選択した後の状態
-        }
-        else if (currentCommand == CommandMode.UseItemPanelToUseItemPanel)
-        {
-            if (Input.anyKeyDown
-                || !Mathf.Approximately(Input.GetAxis("Horizontal"), 0f)
-                || !Mathf.Approximately(Input.GetAxis("Vertical"), 0f)
-                )
-            {
-                currentCommand = CommandMode.UseItemPanel;
-                useItemInformationPanel.SetActive(false);
-                useItemPanel.transform.SetAsLastSibling();
-                useItemPanelCanvasGroup.interactable = true;
-            }
-            //　アイテムを使用、渡す、捨てるを選択した後にそのアイテムの数が0になった時
-        }
-        else if (currentCommand == CommandMode.NoItemPassed)
-        {
-            if (Input.anyKeyDown
-                || !Mathf.Approximately(Input.GetAxis("Horizontal"), 0f)
-                || !Mathf.Approximately(Input.GetAxis("Vertical"), 0f)
-                )
-            {
-                currentCommand = CommandMode.ItemPanel;
-                useItemInformationPanel.SetActive(false);
-                useItemPanel.SetActive(false);
-                itemPanel.transform.SetAsLastSibling();
-                itemPanelCanvasGroup.interactable = true;
-
-                //　アイテムパネルボタンがあれば最初のアイテムパネルボタンを選択
-                if (content.transform.childCount != 0)
-                {
-                    EventSystem.current.SetSelectedGameObject(content.transform.GetChild(0).gameObject);
-                }
-                else
-                {
-                    //　アイテムパネルボタンがなければ（アイテムを持っていない）ItemSelectPanelに戻る
-                    currentCommand = CommandMode.ItemPanelSelectCharacter;
-                    EventSystem.current.SetSelectedGameObject(selectedGameObjectStack.Pop());
-                }
-            }
-        }
-    }
-
-    private void Awake()
-    {
         itemPanel = itemCanvas.transform.Find("ItemPanel").gameObject;
         content = itemPanel.transform.Find("Mask/Content").gameObject;
         useItemPanel = itemCanvas.transform.Find("UseItemPanel").gameObject;
@@ -174,8 +88,11 @@ public class ItemManager : MonoBehaviour
         informationTitleText = itemInformationPanel.transform.Find("TitleText").GetComponent<Text>();
         informationText = itemInformationPanel.transform.Find("InfoText").GetComponent<Text>();
 
+        //アイテムボタン一覧の作成
+        CreateItemPanelButton();
     }
 
+    /*
     private void OnEnable()
     {
         useItemPanel.SetActive(false);
@@ -196,8 +113,31 @@ public class ItemManager : MonoBehaviour
 
         itemPanelButtonList.Clear();
 
-        itemPanelCanvasGroup.interactable = false;
+        itemPanelCanvasGroup.interactable = true;
         useItemPanelCanvasGroup.interactable = false;
+        useItemSelectCharacterPanelCanvasGroup.interactable = false;
+    }
+    */
+
+    // 選択用のボタンをリセットする
+    public void ResetSelectButton()
+    {
+        useItemPanel.SetActive(false);
+        useItemSelectCharacterPanel.SetActive(false);
+        //itemInformationPanel.SetActive(false);
+
+        //　アイテムを使うキャラクター選択ボタンがあれば全て削除
+        for (int i = useItemPanel.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(useItemPanel.transform.GetChild(i).gameObject);
+        }
+        //　アイテムを使う相手のキャラクター選択ボタンがあれば全て削除
+        for (int i = useItemSelectCharacterPanel.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(useItemSelectCharacterPanel.transform.GetChild(i).gameObject);
+        }
+
+        useItemPanelCanvasGroup.interactable = true;
         useItemSelectCharacterPanelCanvasGroup.interactable = false;
     }
 
@@ -259,7 +199,6 @@ public class ItemManager : MonoBehaviour
                 Destroy(useItemPanel.transform.GetChild(i).gameObject);
             }
 
-            EventSystem.current.SetSelectedGameObject(selectedGameObjectStack.Pop());
             itemPanelCanvasGroup.interactable = true;
             currentCommand = CommandMode.ItemPanel;
             //　アイテムを使用する相手のキャラクターを選択している時
@@ -280,13 +219,17 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+
+
     //　アイテムをどうするかの選択
     public void SelectItem(Item item)
     {
+        ResetSelectButton();
         GameObject itemMenuButtonIns;
         //　アイテムの種類に応じて出来る項目を変更する
-        if (item.GetItemType() == Item.Type.ArmorAll
-            || item.GetItemType() == Item.Type.WeaponAll
+        if (item.GetItemType() == Item.Type.ArmorAll ||
+            item.GetItemType() == Item.Type.WeaponAll ||
+            item.GetItemType() == Item.Type.AccessoryAll
             )
         {
             itemMenuButtonIns = Instantiate<GameObject>(useItemPanelButtonPrefab, useItemPanel.transform);
@@ -326,16 +269,11 @@ public class ItemManager : MonoBehaviour
         if (item.GetItemType() != Item.Type.Valuables)
         {
             useItemPanel.SetActive(true);
-            itemPanelCanvasGroup.interactable = false;
             currentCommand = CommandMode.UseItemPanel;
-            //　ItemPanelで最後にどれを選択していたか？
-            selectedGameObjectStack.Push(EventSystem.current.currentSelectedGameObject);
-
+          
             useItemPanel.transform.SetAsLastSibling();
-            EventSystem.current.SetSelectedGameObject(useItemPanel.transform.GetChild(0).gameObject);
+            //EventSystem.current.SetSelectedGameObject(useItemPanel.transform.GetChild(0).gameObject);
             useItemPanelCanvasGroup.interactable = true;
-            Input.ResetInputAxes();
-
         }
     }
 
@@ -355,12 +293,12 @@ public class ItemManager : MonoBehaviour
             characterButtonIns.GetComponentInChildren<Text>().text = member.GetCharacterName();
             characterButtonIns.GetComponent<Button>().onClick.AddListener(() => UseItemToCharacter(member, item));
         }
+        characterButtonIns = Instantiate<GameObject>(characterPanelButtonPrefab, useItemSelectCharacterPanel.transform);
+        characterButtonIns.GetComponentInChildren<Text>().text = "やめる";
+        characterButtonIns.GetComponent<Button>().onClick.AddListener(() => OnCancelButton());
         //　UseItemSelectCharacterPanelに移行する
         currentCommand = CommandMode.UseItemSelectCharacterPanel;
-        useItemSelectCharacterPanel.transform.SetAsLastSibling();
-        EventSystem.current.SetSelectedGameObject(useItemSelectCharacterPanel.transform.GetChild(0).gameObject);
         useItemSelectCharacterPanelCanvasGroup.interactable = true;
-        Input.ResetInputAxes();
     }
 
     public void UseItemToCharacter(AllyStatus toChara, Item item)
@@ -430,11 +368,6 @@ public class ItemManager : MonoBehaviour
             }
         }
 
-        //　アイテムを使用したらアイテムを使用する相手のUseItemSelectCharacterPanelの子要素のボタンを全削除
-        for (int i = useItemSelectCharacterPanel.transform.childCount - 1; i >= 0; i--)
-        {
-            Destroy(useItemSelectCharacterPanel.transform.GetChild(i).gameObject);
-        }
         //　itemPanleButtonListから該当するアイテムを探し数を更新する
         var itemButton = itemPanelButtonList.Find(obj => obj.transform.Find("ItemNameText").GetComponent<Text>().text == item.GetKanjiName());
         itemButton.transform.Find("NumText").GetComponent<Text>().text = partyStatus.GetItemNum(item).ToString();
@@ -442,31 +375,14 @@ public class ItemManager : MonoBehaviour
         //　アイテム数が0だったらボタンとキャラクターステータスからアイテムを削除
         if (partyStatus.GetItemNum(item) == 0)
         {
-            //　アイテムが0になったら一気にItemPanelに戻す為、UseItemPanel内とUseItemSelectCharacterPanel内でのオブジェクト登録を削除
-            selectedGameObjectStack.Pop();
-            selectedGameObjectStack.Pop();
-            //　itemPanelButtonListからアイテムパネルボタンを削除
-            itemPanelButtonList.Remove(itemButton);
-            //　アイテムパネルボタン自身の削除
-            Destroy(itemButton);
-            //　アイテムを渡したキャラクター自身のItemDictionaryからそのアイテムを削除
-            partyStatus.GetItemDictionary().Remove(item);
-            //　ItemPanelに戻る為、UseItemPanel内に作ったボタンを全削除
-            for (int i = useItemPanel.transform.childCount - 1; i >= 0; i--)
-            {
-                Destroy(useItemPanel.transform.GetChild(i).gameObject);
-            }
-            //　アイテム数が0になったのでCommandMode.NoItemPassedに変更
-            currentCommand = CommandMode.NoItemPassed;
-            useItemInformationPanel.transform.SetAsLastSibling();
-            Input.ResetInputAxes();
+            DeleteLostItem(item, itemButton);
+            //　ItemPanelに戻る為UseItemPanelの子要素のボタンを全削除
+            ResetSelectButton();
         }
         else
         {
             //　アイテム数が残っている場合はUseItemPanelでアイテムをどうするかの選択に戻る
             currentCommand = CommandMode.UseItemSelectCharacterPanelToUseItemPanel;
-            useItemInformationPanel.transform.SetAsLastSibling();
-            Input.ResetInputAxes();
         }
     }
 
@@ -475,27 +391,7 @@ public class ItemManager : MonoBehaviour
     {
         //　アイテム数を減らす
         partyStatus.SetItemNum(item, partyStatus.GetItemNum(item) - 1);
-        /*
-        //　アイテム数が0になった時
-        if (partyStatus.GetItemNum(item) == 0)
-        {
-            //　装備している武器を捨てる場合の処理
-            if (item == partyStatus.GetEquipArmor())
-            {
-                var equipArmorButton = itemPanelButtonList.Find(itemPanelButton => itemPanelButton.transform.Find("ItemName").GetComponent<Text>().text == item.GetKanjiName());
-                equipArmorButton.transform.Find("Equip").GetComponent<Text>().text = "";
-                equipArmorButton = null;
-                partyStatus.SetEquipArmor(null);
-            }
-            else if (item == partyStatus.GetEquipWeapon())
-            {
-                var equipWeaponButton = itemPanelButtonList.Find(itemPanelButton => itemPanelButton.transform.Find("ItemName").GetComponent<Text>().text == item.GetKanjiName());
-                equipWeaponButton.transform.Find("Equip").GetComponent<Text>().text = "";
-                equipWeaponButton = null;
-                partyStatus.SetEquipWeapon(null);
-            }
-        }
-        */
+ 
         //　ItemPanelの子要素のアイテムパネルボタンから該当するアイテムのボタンを探して数を更新する
         var itemButton = itemPanelButtonList.Find(obj => obj.transform.Find("ItemNameText").GetComponent<Text>().text == item.GetKanjiName());
         itemButton.transform.Find("NumText").GetComponent<Text>().text = partyStatus.GetItemNum(item).ToString();
@@ -504,31 +400,25 @@ public class ItemManager : MonoBehaviour
         //　アイテム数が0だったらボタンとキャラクターステータスからアイテムを削除
         if (partyStatus.GetItemNum(item) == 0)
         {
-            selectedGameObjectStack.Pop();
-            itemPanelButtonList.Remove(itemButton);
-            Destroy(itemButton);
-            partyStatus.GetItemDictionary().Remove(item);
-
-            currentCommand = CommandMode.NoItemPassed;
-            useItemPanelCanvasGroup.interactable = false;
-            useItemPanel.SetActive(false);
-            useItemInformationPanel.transform.SetAsLastSibling();
-            useItemInformationPanel.SetActive(true);
+            DeleteLostItem(item, itemButton);
             //　ItemPanelに戻る為UseItemPanelの子要素のボタンを全削除
-            for (int i = useItemPanel.transform.childCount - 1; i >= 0; i--)
-            {
-                Destroy(useItemPanel.transform.GetChild(i).gameObject);
-            }
+            ResetSelectButton();
         }
         else
         {
             useItemPanelCanvasGroup.interactable = false;
-            useItemInformationPanel.transform.SetAsLastSibling();
             useItemInformationPanel.SetActive(true);
             currentCommand = CommandMode.UseItemPanelToUseItemPanel;
         }
+    }
 
-        Input.ResetInputAxes();
+    // ０個になったアイテムとアイテムボタンの削除
+    public void DeleteLostItem(Item item, GameObject itemButton)
+    {
+        itemPanelButtonList.Remove(itemButton);
+        Destroy(itemButton);
+        partyStatus.GetItemDictionary().Remove(item);
 
+        currentCommand = CommandMode.NoItemPassed;
     }
 }
