@@ -1,0 +1,33 @@
+CreatingDocuments.txtは下記サイトを参考に必要な文字をピックアップしています。
+
+----------------------------------------
+
+■Unicode Basic Latin(ASCII)
+http://www.unicode.org/charts/PDF/UFF00.pdf
+
+■Unicode 平仮名
+https://www.unicode.org/charts/PDF/U3040.pdf
+
+■Unicode 片仮名
+http://www.unicode.org/charts/PDF/U30A0.pdf
+
+■Unicode 半角・全角
+http://www.unicode.org/charts/PDF/UFF00.pdf
+
+■Unicode CJK Letters and Months
+http://www.unicode.org/charts/PDF/U3200.pdf
+
+■Unicode CJK Compatibility Forms
+http://www.unicode.org/charts/PDF/UFE30.pdf
+
+■Unicode CJK Symbols and Punctuation
+http://www.unicode.org/charts/PDF/U3000.pdf
+
+■常用漢字
+http://kanji.jitenon.jp/cat/joyo.html
+
+■JIS 第一水準
+http://kanji.jitenon.jp/cat/jisdai1.html
+
+■JIS 第二水準
+http://kanji.jitenon.jp/cat/jisdai2.html

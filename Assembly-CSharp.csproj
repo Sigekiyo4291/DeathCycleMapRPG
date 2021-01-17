@@ -64,6 +64,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Animation\TextAnimationData.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Animation\TextAnimator.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\Animation\TextSimpleAnimator.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\BattleScene\BattleData.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\BattleScene\BattleManager.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\BattleScene\BattlePartyStatus.cs" />
@@ -73,6 +76,18 @@
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\BattleScene\CommandSelectButton.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\Dictionary\ItemDictionary.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\Dictionary\LevelUpDictionary.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\EventScene\GameSystem.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\EventScene\NovelCommand.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\EventScene\NovelData.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\EventScene\NovelExecuter.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\EventScene\NovelHistory.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\EventScene\NovelMetaData.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\EventScene\NovelSystem.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\EventScene\NovelUtility.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\EventScene\NovelView.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\EventScene\Omake\PageController.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\EventScene\Omake\TextEventHandler.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Scripts\EventScene\Omake\TextEventReceiver.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\FormScene\FormCanvas\FormManager.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\FormScene\ItemCanvas\ItemButtonScript.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Scripts\FormScene\ItemCanvas\ItemManager.cs" />
@@ -101,6 +116,27 @@
     <Compile Include="Assets\SerializableDictionary\Example\SerializableDictionaryExample.cs" />
     <Compile Include="Assets\SerializableDictionary\Example\UserSerializableDictionaries.cs" />
     <Compile Include="Assets\SerializableDictionary\SerializableDictionary.cs" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\DeathCycleMapRPG\Fonts\Document\ReferenceDocuments.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\DeathCycleMapRPG\Fonts\Document\Readme.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\DeathCycleMapRPG\Fonts\Document\CreatingDocuments.txt" />
+    <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <Reference Include="UnityEngine">
       <HintPath>/Applications/Unity/Hub/Editor/2019.3.14f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

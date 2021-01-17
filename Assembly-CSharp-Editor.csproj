@@ -64,6 +64,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\DeathCycleMapRPG\Editor\NovelCommandEditor.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Editor\NovelDataEditor.cs" />
+    <Compile Include="Assets\DeathCycleMapRPG\Editor\NovelUtilityEditor.cs" />
     <Compile Include="Assets\DeathCycleMapRPG\Editor\SerializableDictionary.cs" />
     <Compile Include="Assets\SerializableDictionary\Editor\SerializableDictionaryPropertyDrawer.cs" />
     <Compile Include="Assets\SerializableDictionary\Example\Editor\UserSerializableDictionaryPropertyDrawers.cs" />
