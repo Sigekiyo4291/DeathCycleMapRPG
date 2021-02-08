@@ -477,7 +477,7 @@ public class NovelCommandEditor
 	/// <summary>
 	/// 2Dイメージの表示
 	/// </summary>
-	[NovelCommandEditorAttribute(NovelCommandType.Image, parameterCount = 6)]
+	[NovelCommandEditorAttribute(NovelCommandType.Image, parameterCount = 7)]
 	public class Image : NovelCommandPropertyDrawerBase
 	{
 		protected override void OnDrawProperties(ref Rect position, NovelDataEditor editor, SerializedProperty serializedParameters, bool isActive, bool isFocused)
@@ -487,7 +487,9 @@ public class NovelCommandEditor
 			var serializedXRatio = serializedParameters.GetArrayElementAtIndex(2);
 			var serializedYRatio = serializedParameters.GetArrayElementAtIndex(3);
 			var serializedTime = serializedParameters.GetArrayElementAtIndex(4);
-			var serializedIsStandBy = serializedParameters.GetArrayElementAtIndex(5);
+			var serializedIsReverse = serializedParameters.GetArrayElementAtIndex(5);
+			var serializedIsStandBy = serializedParameters.GetArrayElementAtIndex(6);
+
 
 			position.x += NovelDataEditor.CommandPropertyWidth;
 			position.width -= NovelDataEditor.CommandPropertyWidth;
@@ -505,6 +507,8 @@ public class NovelCommandEditor
 			serializedXRatio.stringValue = EditorGUI.Slider(position, "X座標", serializedXRatio.stringValue.ParseFloat(), -1.0f, 1.0f).ToString();
 			position.y += position.height;
 			serializedYRatio.stringValue = EditorGUI.Slider(position, "Y座標", serializedYRatio.stringValue.ParseFloat(), -1.0f, 1.0f).ToString();
+			position.y += position.height;
+			serializedIsReverse.stringValue = EditorGUI.Toggle(position, "左右反転", serializedIsReverse.stringValue.ParseBool()).ToString();
 			position.y += position.height;
 
 			if (isStandBy)
@@ -720,6 +724,17 @@ public class NovelCommandEditor
 	/// </summary>
 	[NovelCommandEditorAttribute(NovelCommandType.Pause)]
 	public class Pause : NovelCommandPropertyDrawerBase
+	{
+		protected override void OnDrawProperties(ref Rect position, NovelDataEditor editor, SerializedProperty serializedParameters, bool isActive, bool isFocused)
+		{
+		}
+	}
+
+	/// <summary>
+	/// スキップ可能な入力待ち
+	/// </summary>
+	[NovelCommandEditorAttribute(NovelCommandType.PauseSkippable)]
+	public class PauseSkippable : NovelCommandPropertyDrawerBase
 	{
 		protected override void OnDrawProperties(ref Rect position, NovelDataEditor editor, SerializedProperty serializedParameters, bool isActive, bool isFocused)
 		{

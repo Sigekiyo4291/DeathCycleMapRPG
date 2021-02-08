@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/DeathCycleMapRPG/Scenes/TitleScene.unity
     guid: e670b6e442c5a4b8ab192e8e0d8cb466
+  - enabled: 1
+    path: Assets/DeathCycleMapRPG/Scenes/EventScene.unity
+    guid: cea663ff8e65e4bb38fb55617bce81ca
   m_configObjects: {}

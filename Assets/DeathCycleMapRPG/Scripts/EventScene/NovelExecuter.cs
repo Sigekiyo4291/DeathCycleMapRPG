@@ -160,6 +160,9 @@ public class NovelExecuter
 
 		sharedVariable = variable;
 
+		// スキップ機能をオフに
+		sharedVariable.isSkip = false;
+
 		// handlesが存在する場合は引き継いでいる想定
 		// (最初には存在しなかった余計なオブジェクトも取得してしまうので処理しない)
 		if (sharedVariable.handles.Count() <= 0)

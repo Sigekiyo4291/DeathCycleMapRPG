@@ -1,0 +1,197 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d6958cc337b402499459dc069cedb3, type: 3}
+  m_Name: test_NovelData
+  m_EditorClassIdentifier: 
+  comment: 
+  commands:
+  - id: 1
+    parameters:
+    - 
+  - id: 4
+    parameters:
+    - '#TextNameWrite'
+    - 2
+    - 3
+    - '@name'
+    - 4
+    - '@text'
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - id: 101002
+    parameters: []
+  - id: 102002
+    parameters: []
+  - id: 102001
+    parameters:
+    - '@name'
+  - id: 101001
+    parameters:
+    - '@text'
+  - id: 101102
+    parameters: []
+  - id: 5
+    parameters: []
+  - id: 1
+    parameters:
+    - 
+  - id: 4
+    parameters:
+    - '#TextWrite'
+    - 1
+    - 4
+    - '@text'
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - id: 101002
+    parameters: []
+  - id: 101001
+    parameters:
+    - '@text'
+  - id: 101102
+    parameters: []
+  - id: 5
+    parameters: []
+  - id: 1
+    parameters:
+    - 
+  - id: 4
+    parameters:
+    - '#Title'
+    - 1
+    - 4
+    - '@titletext'
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - id: 101101
+    parameters:
+    - TitleAnimation
+  - id: 6
+    parameters:
+    - '#TextNameWrite'
+    - 2
+    - '@name'
+    - 
+    - '@text'
+    - '@titletext'
+    - DefaultAnimation
+    - DefaultAnimation
+    - DefaultAnimation
+    - DefaultAnimation
+    - DefaultAnimation
+    - DefaultAnimation
+    - DefaultAnimation
+  - id: 101101
+    parameters:
+    - DefaultAnimation
+  - id: 5
+    parameters: []
+  - id: 1
+    parameters:
+    - 
+  - id: 99000002
+    parameters:
+    - Prologue
+  - id: 99001001
+    parameters:
+    - 0.5
+  - id: 101002
+    parameters: []
+  - id: 102002
+    parameters: []
+  - id: 101003
+    parameters: []
+  - id: 102003
+    parameters: []
+  - id: 6
+    parameters:
+    - '#Title'
+    - 1
+    - '@titletext'
+    - "\n<align=\"center\">\uFF5E\u30CE\u30D9\u30EB\u30B2\u30FC\u30E0\u30C7\u30E2\uFF5E</align>"
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - id: 99001003
+    parameters: []
+  - id: 201001
+    parameters:
+    - yuusya
+    - yuusya_game
+    - 0
+    - 0
+    - 0.25
+    - False
+    - False
+  - id: 6
+    parameters:
+    - '#TextNameWrite'
+    - 2
+    - '@name'
+    - <color=#33ddee>? ? ?</color>
+    - '@text'
+    - "\u3053\u3053\u306F\uFF1F"
+    - False
+    - False
+    - False
+    - False
+    - False
+    - False
+    - False
+  - id: 99001003
+    parameters: []

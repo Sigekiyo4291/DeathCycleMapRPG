@@ -85,6 +85,7 @@ public enum NovelCommandType
 	WaitTime = _System + 1001,
 	WaitEvent = _System + 1002,
 	Pause = _System + 1003,
+	PauseSkippable = _System + 1004,
 
 	ValueAssign = _System + 2001,
 	ValueAdd = _System + 2002,
@@ -168,6 +169,11 @@ public class NovelCommand
 		/// Undoで巻き戻した時に適応するGroupのスキップ履歴
 		/// </summary>
 		public Queue<NovelHistory.GroupData> groupHistory;
+
+		/// <summary>
+		/// スキップ機能のオンオフの確認
+		/// </summary>
+		public bool isSkip;
 
 
 		public string GetValue(string name)
@@ -635,6 +641,7 @@ public class NovelCommand
 			var xRatio = share.command.parameters[2].ParseFloat();
 			var yRatio = share.command.parameters[3].ParseFloat();
 			var time = share.command.parameters[4].ParseFloat();
+			var isReverse = share.command.parameters[5].ParseBool();
 
 			var request = Resources.LoadAsync<Sprite>(NovelUtility.ResourcesImagePath + fileName);
 			yield return request;
@@ -646,6 +653,12 @@ public class NovelCommand
 			var transform = gameObject.transform;
 			transform.SetParent(share.view.Stage, false);
 			transform.localPosition = new Vector3(Screen.width * xRatio, Screen.height * yRatio, 0.0f);
+			if (isReverse)
+			{
+				Vector3 lscale = transform.localScale;
+				lscale.x *= -1;
+				transform.localScale = lscale;
+			}
 
 			variable.handles[handleName] = gameObject;
 
@@ -1111,8 +1124,8 @@ public class NovelCommand
 	[NovelCommandAttribute(NovelCommandType.Pause)]
 	public class Pause : NovelCommandInterface
 	{
-		private bool isNext = false;
-		public IEnumerator Do(SharedData share, SharedVariable variable)
+		protected bool isNext = false;
+		public virtual IEnumerator Do(SharedData share, SharedVariable variable)
 		{
 			share.view.NextIconImage.gameObject.SetActive(true);
 			yield return new WaitUntil(() => { return isNext || Input.GetKeyDown(KeyCode.Z); });
@@ -1120,7 +1133,7 @@ public class NovelCommand
 			yield break;
 		}
 		public IEnumerator Undo(SharedData share, SharedVariable variable) { yield break; }
-		public IEnumerator Event(SharedData share, SharedVariable variable, EventData e)
+		public virtual IEnumerator Event(SharedData share, SharedVariable variable, EventData e)
 		{
 			// TouchScreenに触れた
 			if (e.intParameter == 0)
@@ -1138,6 +1151,25 @@ public class NovelCommand
 				isNext = true;
 			}
 			yield break;
+		}
+	}
+
+	/// <summary>
+	/// スキップ可能な入力待ち
+	/// </summary>
+	[NovelCommandAttribute(NovelCommandType.PauseSkippable)]
+	public class PauseSkippable : Pause
+	{
+		public override IEnumerator Do(SharedData share, SharedVariable variable)
+		{
+			if (variable.isSkip) { yield break; }
+			yield return base.Do(share, variable);
+		}
+
+		public override IEnumerator Event(SharedData share, SharedVariable variable, EventData e)
+		{
+			if (variable.isSkip) { yield break; }
+			yield return base.Event(share, variable, e);
 		}
 	}
 
