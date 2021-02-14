@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2773455494101359740}
   - component: {fileID: 7101126331245435899}
-  - component: {fileID: 1727476909967958737}
   m_Layer: 0
   m_Name: yuusya_game
   m_TagString: Untagged
@@ -82,16 +81,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1727476909967958737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8072876657919884432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf5edd5b196e34b54ab4a68031a9524d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterStatus: {fileID: 11400000, guid: 45f43017b985b416a95e632f4c674f73, type: 2}

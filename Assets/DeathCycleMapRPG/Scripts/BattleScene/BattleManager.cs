@@ -7,15 +7,14 @@ using System.Linq;
 
 public class BattleManager : MonoBehaviour
 {
-    //　戦闘データ
-    [SerializeField]
-    private BattleData battleData = null;
     //　パーティの情報
     [SerializeField]
-    private PartyStatus partyStatus = null;
+    public PartyStatus partyStatus = null;
     //　敵パーティーリスト
     [SerializeField]
-    private EnemyPartyStatusList enemyPartyStatusList = null;
+    public EnemyPartyStatusList enemyPartyStatusList = null;
+    // 敵パーティ
+    private EnemyPartyStatus enemyPartyStatus;
     //　キャラクターのベース位置
     [SerializeField]
     private Transform battleBasePosition;
@@ -144,49 +143,45 @@ public class BattleManager : MonoBehaviour
         SelectRecoveryItemTarget
     }
 
-    public PartyStatus GetPartyStatus()
-    {
-        return partyStatus;
-    }
-
     // Start is called before the first frame update
     void Start()
     {
         magicOrItemPanelContent = magicOrItemPanel;
         int size = enemyPartyStatusList.GetPartyMembersList().Count;
-        battleData.SetEnemyPartyStatus(enemyPartyStatusList.GetPartyMembersList()[(int)(Random.value*100)%size]);
-
+        enemyPartyStatus = enemyPartyStatusList.GetPartyMembersList()[(int)(Random.value * 100) % size];
         //　同じ名前の敵がいた場合の処理に使うリスト
         List<string> enemyNameList = new List<string>();
 
         Transform characterTransform;
         List<GameObject> instances = new List<GameObject>();
         GameObject ins;
-        CharacterBattleScript characterBattleScript;
         string characterName;
 
+        int positionNum = 0;
         //　味方パーティーのプレハブをインスタンス化
-        for (int i = 0; i < battleData.GetAllyPartyStatus().GetAllyGameObject().Count; i++)
+        foreach(AllyStatus allyChara in partyStatus.GetAllyStatus())
         {
-            characterTransform = battleBasePosition.Find("AllyPos" + i).transform;
-            ins = Instantiate<GameObject>(battleData.GetAllyPartyStatus().GetAllyGameObject()[i], characterTransform.position, characterTransform.rotation);        
-            characterBattleScript = ins.GetComponent<CharacterBattleScript>();
-            ins.name = characterBattleScript.GetCharacterStatus().GetCharacterName();
-            if (characterBattleScript.GetCharacterStatus().GetHp() > 0)
+            characterTransform = battleBasePosition.Find("AllyPos" + positionNum).transform;
+            ins = Instantiate<GameObject>(allyChara.GetBattleObject(), characterTransform.position, characterTransform.rotation);        
+            ins.AddComponent<CharacterBattleScript>();
+            ins.GetComponent<CharacterBattleScript>().characterStatus = allyChara;
+            ins.name = allyChara.GetCharacterName();
+            if (allyChara.GetHp() > 0)
             {
                 allyCharacterInBattleList.Add(ins);
                 allCharacterList.Add(ins);
             }
+            positionNum++;
         }
-        if (battleData.GetEnemyPartyStatus() == null)
+        if (enemyPartyStatus == null)
         {
             Debug.LogError("敵パーティーデータが設定されていません。");
         }
         //　敵パーティーのプレハブをインスタンス化
-        for (int i = 0; i < battleData.GetEnemyPartyStatus().GetEnemyGameObjectList().Count; i++)
+        for (int i = 0; i < enemyPartyStatus.GetEnemyGameObjectList().Count; i++)
         {
             characterTransform = battleBasePosition.Find("EnemyPos" + i).transform;
-            ins = Instantiate<GameObject>(battleData.GetEnemyPartyStatus().GetEnemyGameObjectList()[i], characterTransform.position, characterTransform.rotation);
+            ins = Instantiate<GameObject>(enemyPartyStatus.GetEnemyGameObjectList()[i], characterTransform.position, characterTransform.rotation);
             //　既に同じ敵が存在したら文字を付加する
             characterName = ins.GetComponent<CharacterBattleScript>().GetCharacterStatus().GetCharacterName();
             if (!enemyNameList.Contains(characterName))

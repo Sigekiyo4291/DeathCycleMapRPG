@@ -9,32 +9,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: aab4cfaffb90c4b48a9a5b4906bc05e2, type: 3}
   m_Name: PlayerStatus
-  m_EditorClassIdentifier: Assembly-CSharp::AllyStatus
+  m_EditorClassIdentifier: 
   characterName: "\u305F\u3064\u307D\u3093"
   isPoisonState: 0
   isNumbnessState: 0
-  level: 7
-  agility: 21
-  power: 26
-  strikingStrength: 26
-  magicPower: 26
-  maxHp: 141
-  hp: 67
-  maxMp: 85
-  mp: 63
+  level: 1
+  agility: 5
+  power: 5
+  strikingStrength: 5
+  magicPower: 5
+  maxHp: 100
+  hp: 50
+  maxMp: 50
+  mp: 50
   skillList:
   - {fileID: 11400000, guid: 0bd8d242e5b28486385a2e99b22a6b20, type: 2}
   - {fileID: 11400000, guid: 0f875a811cf74420183da23051f0474a, type: 2}
-  - {fileID: 11400000, guid: 670e8952f2a99406da8d2e667a75500c, type: 2}
   cutFlame: 0
   cutThunder: 0
   cutIce: 0
-  earnedExperience: 12
-  equipWeapon: {fileID: 11400000, guid: dcc19a6bb14e94067b6a0fcd41c0d3fc, type: 2}
+  earnedExperience: 0
+  equipWeapon: {fileID: 0}
   equipArmor: {fileID: 0}
   equipAccessory1: {fileID: 0}
-  equipAccessory2: {fileID: 11400000, guid: 9130aed7b9293401dbd5779a22d11ee2, type: 2}
-  levelUpData: {fileID: 11400000, guid: 2dd86fb5637d3451b896f9530ad1bb3c, type: 2}
-  initialStatus: {fileID: 11400000, guid: 5d045bd71b0b14107beed49d5c3f9819, type: 2}
+  equipAccessory2: {fileID: 0}
+  levelUpData: {fileID: 0}
+  initialStatus: {fileID: 0}
+  BattleObject: {fileID: 8072876657919884432, guid: 7478358658da44249804131d9e83d042,
+    type: 3}

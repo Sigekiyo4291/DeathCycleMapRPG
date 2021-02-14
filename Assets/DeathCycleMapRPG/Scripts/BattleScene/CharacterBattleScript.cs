@@ -27,12 +27,9 @@ public class CharacterBattleScript : MonoBehaviour
     private BattleManager battleManager;
     private PartyStatus partyStatus;
     private BattleStatusScript battleStatusScript;
-    [SerializeField]
-    private CharacterStatus characterStatus = null;
+    public CharacterStatus characterStatus = null;
     private Animator animator;
     private BattleState battleState;
-
-    //　元のステータスからコピー
 
     //　HP
     private int hp = 0;
@@ -99,7 +96,7 @@ public class CharacterBattleScript : MonoBehaviour
         guardPercentage = 1;
         //　コンポーネントの取得
         battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
-        partyStatus = battleManager.GetPartyStatus();
+        partyStatus = battleManager.partyStatus;
         battleStatusScript = GameObject.Find("BattleUICanvas/PlayerUI/StatusPanel").GetComponent<BattleStatusScript>();
         //　既に死んでいる場合は倒れている状態にする
         if (characterStatus.GetHp() <= 0)

@@ -14,4 +14,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partyMembers:
   - {fileID: 8072876657919884432, guid: 7478358658da44249804131d9e83d042, type: 3}
-  - {fileID: 9110552013070586454, guid: cdfbe3d078514495d85861fbf46c7692, type: 3}

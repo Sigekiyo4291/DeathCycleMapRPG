@@ -810,4 +810,29 @@ public class NovelCommandEditor
 			position.width *= 2.0f;
 		}
 	}
+
+	/// <summary>
+	/// マップシーンへの移動
+	/// </summary>
+	[NovelCommandEditorAttribute(NovelCommandType.LoadMapScene)]
+	public class LoadMapScene : NovelCommandPropertyDrawerBase
+	{
+		protected override void OnDrawProperties(ref Rect position, NovelDataEditor editor, SerializedProperty serializedParameters, bool isActive, bool isFocused)
+		{
+		}
+	}
+
+	/// <summary>
+	/// バトルシーンへの移動
+	/// </summary>
+	[NovelCommandEditorAttribute(NovelCommandType.LoadBattleScene, parameterCount = 1)]
+	public class LoadBattleScene : NovelCommandPropertyDrawerBase
+	{
+		protected override void OnDrawProperties(ref Rect position, NovelDataEditor editor, SerializedProperty serializedParameters, bool isActive, bool isFocused)
+		{
+			position.y += position.height;
+			var serializedName = serializedParameters.GetArrayElementAtIndex(0);
+			serializedName.stringValue = EditorGUI.TextField(position, serializedName.stringValue);
+		}
+	}
 }

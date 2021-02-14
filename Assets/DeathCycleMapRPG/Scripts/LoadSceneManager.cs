@@ -4,10 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LoadSceneManager : MonoBehaviour
+public class LoadSceneManager 
 {
     // 使うノベルデータ
     private NovelData novelData;
+
+    //　使うバトルシーンにおける敵のリスト
+    private EnemyPartyStatusList enemyPartyStatusList;
 
     //　ノベルシーンの読み込み、使用するノベルデータ名を渡す
     public void LoadEventScene(string novelDataName)
@@ -32,5 +35,30 @@ public class LoadSceneManager : MonoBehaviour
 
         // イベントから削除
         SceneManager.sceneLoaded -= EventSceneLoaded;
+    }
+
+    //　バトルシーンの読み込み、使用する敵データを渡す
+    public void LoadBattleScene(string enemyPartyStatusListName)
+    {
+        //使用する敵のリストデータを取得
+        enemyPartyStatusList = Resources.Load<EnemyPartyStatusList>("BattleEnemyData/" + enemyPartyStatusListName);
+
+        // イベントに登録
+        SceneManager.sceneLoaded += BattleSceneLoaded;
+
+        // シーン切り替え
+        SceneManager.LoadScene("BattleScene");
+    }
+
+    private void BattleSceneLoaded(Scene next, LoadSceneMode mode)
+    {
+        // シーン切り替え後のスクリプトを取得
+        var gameManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
+
+        // データを渡す処理
+        gameManager.enemyPartyStatusList = enemyPartyStatusList;
+
+        // イベントから削除
+        SceneManager.sceneLoaded -= BattleSceneLoaded;
     }
 }

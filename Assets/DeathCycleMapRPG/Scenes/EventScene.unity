@@ -1510,7 +1510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAutoRunning: 1
-  novelData: {fileID: 11400000, guid: cf59c37005df34fe4acce7f7b3a45812, type: 2}
+  novelData: {fileID: 11400000, guid: 9fb91b19bc4fe4154b68669186bffb33, type: 2}
 --- !u!114 &1496138334
 MonoBehaviour:
   m_ObjectHideFlags: 0

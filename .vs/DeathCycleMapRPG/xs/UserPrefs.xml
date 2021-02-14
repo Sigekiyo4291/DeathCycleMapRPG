@@ -1,23 +1,31 @@
 ﻿<Properties StartupConfiguration="{5C5C1117-23AD-5169-369F-B3232EEA117B}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/DeathCycleMapRPG/Scripts/EventScene/NovelCommand.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/DeathCycleMapRPG/Scripts/BattleScene/BattleData.cs">
     <Files>
       <File FileName="Assets/DeathCycleMapRPG/Scripts/EventScene/NovelSystem.cs" Line="158" Column="1" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/EventScene/NovelExecuter.cs" Line="161" Column="29" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/EventScene/NovelCommand.cs" Line="763" Column="19" />
-      <File FileName="Assets/DeathCycleMapRPG/Editor/NovelCommandEditor.cs" Line="511" Column="30" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/Animation/TextAnimator.cs" Line="1" Column="1" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/EventScene/Omake/TextEventHandler.cs" Line="1" Column="1" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/EventScene/GameSystem.cs" Line="110" Column="23" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/EventScene/NovelUtility.cs" Line="1" Column="1" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/EventScene/NovelHistory.cs" Line="1" Column="1" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/EventScene/NovelData.cs" Line="1" Column="1" />
-      <File FileName="Assets/DeathCycleMapRPG/Scripts/LoadSceneManager.cs" Line="22" Column="14" />
-      <File FileName="Assets/DeathCycleMapRPG/Editor/NovelDataEditor.cs" Line="87" Column="58" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/EventScene/NovelExecuter.cs" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/EventScene/NovelCommand.cs" />
+      <File FileName="Assets/DeathCycleMapRPG/Editor/NovelCommandEditor.cs" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/Animation/TextAnimator.cs" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/EventScene/Omake/TextEventHandler.cs" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/EventScene/GameSystem.cs" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/EventScene/NovelUtility.cs" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/EventScene/NovelHistory.cs" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/EventScene/NovelData.cs" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/LoadSceneManager.cs" />
+      <File FileName="Assets/DeathCycleMapRPG/Editor/NovelDataEditor.cs" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/Data/SystemData.cs" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/Data/SaveData.cs" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/Data/Status/Player/PartyStatus.cs" Line="36" Column="6" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/BattleManager.cs" Line="152" Column="6" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/CharacterBattleScript.cs" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/MapScene/StatusUIManager.cs" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/Data/Status/Player/AllyStatus.cs" />
+      <File FileName="Assets/DeathCycleMapRPG/Scripts/BattleScene/BattleData.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="65934e80-5778-449a-b30a-1957b9526ccb" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="8f92b29b-caac-40b6-ab0f-ed5cb50218c3" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

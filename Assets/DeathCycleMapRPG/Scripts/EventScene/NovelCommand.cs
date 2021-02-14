@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -105,6 +106,9 @@ public enum NovelCommandType
 	FadeOutStage = _System + 4004,
 	FadeInBackground = _System + 4005,
 	FadeOutBackground = _System + 4006,
+
+	LoadMapScene = _System + 5001,
+	LoadBattleScene = _System + 5002,
 }
 
 
@@ -1274,5 +1278,47 @@ public class NovelCommand
 		{
 			yield break;
 		}
+	}
+
+	/// <summary>
+	/// マップシーンへの移動
+	/// </summary>
+	[NovelCommandAttribute(NovelCommandType.LoadMapScene)]
+	public class LoadMapScene : NovelCommandInterface
+	{
+		public IEnumerator Do(SharedData share, SharedVariable variable)
+		{
+			//とりあえず,後でマップの場所等詳しく設定
+			SceneManager.LoadScene("MapScene");
+			yield break;
+		}
+
+		public IEnumerator Undo(SharedData share, SharedVariable variable)
+		{
+			yield break;
+		}
+
+		public IEnumerator Event(SharedData share, SharedVariable variable, EventData e)
+		{
+			yield break;
+		}
+	}
+
+	/// <summary>
+	/// バトルシーンへの移動
+	/// </summary>
+	[NovelCommandAttribute(NovelCommandType.LoadBattleScene)]
+	public class LoadBattleScene : NovelCommandInterface
+	{
+		public IEnumerator Do(SharedData share, SharedVariable variable)
+		{
+			//敵データを指定してロード
+			LoadSceneManager loadSceneManager = new LoadSceneManager();
+			loadSceneManager.LoadBattleScene(variable.FindValue(share.command.parameters[0]));
+			yield break;
+		}
+
+		public IEnumerator Undo(SharedData share, SharedVariable variable) { yield break; }
+		public IEnumerator Event(SharedData share, SharedVariable variable, EventData e) { yield break; }
 	}
 }
