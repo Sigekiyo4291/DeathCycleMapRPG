@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LoadSceneManager 
+public class LoadSceneManager : MonoBehaviour
 {
     // 使うノベルデータ
     private NovelData novelData;
