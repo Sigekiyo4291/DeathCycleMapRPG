@@ -24,7 +24,9 @@ MonoBehaviour:
   hp: 100
   maxMp: 50
   mp: 50
-  skillList: []
+  skillList:
+  - {fileID: 11400000, guid: 0bd8d242e5b28486385a2e99b22a6b20, type: 2}
+  - {fileID: 11400000, guid: 57cdfcb685c8d4ee38018b183fb464f4, type: 2}
   cutFlame: 0
   cutThunder: 0
   cutIce: 0

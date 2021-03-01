@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f86da082d9344fb7bd66fb83eeb93c6, type: 3}
   m_Name: PartyStatus
   m_EditorClassIdentifier: 
-  money: 800
+  money: 2300
   partyMembers:
   - {fileID: 11400000, guid: 23fc8b2fdfd244831af385508a90194e, type: 2}
+  - {fileID: 11400000, guid: 328eaddc196eb489c8e3294862584e8c, type: 2}
   itemDictionary:
     m_keys:
     - {fileID: 11400000, guid: 5cda25a4df5b8455c9c9f37d25c2c3a6, type: 2}
     - {fileID: 11400000, guid: dcc19a6bb14e94067b6a0fcd41c0d3fc, type: 2}
     - {fileID: 11400000, guid: 7e8dd0c15431b4fa497e037dd8599b4c, type: 2}
-    m_values: 190000000100000002000000
+    m_values: 190000000300000002000000

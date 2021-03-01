@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aab4cfaffb90c4b48a9a5b4906bc05e2, type: 3}
-  m_Name: PlayerInitlalStatuss
+  m_Name: PlayerInitlalStatus
   m_EditorClassIdentifier: 
   characterName: 
   isPoisonState: 0
@@ -24,7 +24,9 @@ MonoBehaviour:
   hp: 100
   maxMp: 50
   mp: 50
-  skillList: []
+  skillList:
+  - {fileID: 11400000, guid: 0bd8d242e5b28486385a2e99b22a6b20, type: 2}
+  - {fileID: 11400000, guid: 0f875a811cf74420183da23051f0474a, type: 2}
   cutFlame: 0
   cutThunder: 0
   cutIce: 0

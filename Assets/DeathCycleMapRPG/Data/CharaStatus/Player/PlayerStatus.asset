@@ -35,7 +35,7 @@ MonoBehaviour:
   equipArmor: {fileID: 0}
   equipAccessory1: {fileID: 0}
   equipAccessory2: {fileID: 0}
-  levelUpData: {fileID: 0}
-  initialStatus: {fileID: 0}
+  levelUpData: {fileID: 11400000, guid: 2dd86fb5637d3451b896f9530ad1bb3c, type: 2}
+  initialStatus: {fileID: 11400000, guid: a1543f6314e1c46dcb1ef015cec6d1c9, type: 2}
   BattleObject: {fileID: 8072876657919884432, guid: 7478358658da44249804131d9e83d042,
     type: 3}

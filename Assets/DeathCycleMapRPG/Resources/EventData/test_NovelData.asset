@@ -15,6 +15,7 @@ MonoBehaviour:
   comment: 
   enemyPartyStatusLists: []
   items: []
+  allyList: []
   commands:
   - id: 1
     parameters:

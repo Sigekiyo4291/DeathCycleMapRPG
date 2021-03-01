@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: test_EventBattle
   m_EditorClassIdentifier: 
   comment: "\u30D0\u30C8\u30EB\u30B7\u30FC\u30F3\u3078\u306E\u30ED\u30FC\u30C9\u306E\u30C6\u30B9\u30C8"
-  enemyPartyStatusLists: []
+  enemyPartyStatusLists:
+  - {fileID: 11400000, guid: 20e0868be389f4c039c5825e09c3e70a, type: 2}
   items: []
+  allyList: []
   commands:
   - id: 101002
     parameters: []
@@ -30,4 +32,4 @@ MonoBehaviour:
     - EnemyPartyStatusList
   - id: 99005002
     parameters:
-    - EnemyPartyStatusList
+    - 0

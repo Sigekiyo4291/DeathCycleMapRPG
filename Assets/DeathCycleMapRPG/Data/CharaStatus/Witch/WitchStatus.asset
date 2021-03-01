@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab4cfaffb90c4b48a9a5b4906bc05e2, type: 3}
   m_Name: WitchStatus
   m_EditorClassIdentifier: 
-  characterName: 
+  characterName: "\u30A6\u30A4\u30C3\u30C1"
   isPoisonState: 0
   isNumbnessState: 0
   level: 1
@@ -20,11 +20,13 @@ MonoBehaviour:
   power: 5
   strikingStrength: 5
   magicPower: 5
-  maxHp: 100
-  hp: 100
-  maxMp: 50
-  mp: 50
-  skillList: []
+  maxHp: 51
+  hp: 51
+  maxMp: 16
+  mp: 16
+  skillList:
+  - {fileID: 11400000, guid: 0bd8d242e5b28486385a2e99b22a6b20, type: 2}
+  - {fileID: 11400000, guid: 57cdfcb685c8d4ee38018b183fb464f4, type: 2}
   cutFlame: 0
   cutThunder: 0
   cutIce: 0
@@ -33,7 +35,7 @@ MonoBehaviour:
   equipArmor: {fileID: 0}
   equipAccessory1: {fileID: 0}
   equipAccessory2: {fileID: 0}
-  levelUpData: {fileID: 0}
-  initialStatus: {fileID: 0}
+  levelUpData: {fileID: 11400000, guid: 698b17cd082484d868b5e3e7b114bd02, type: 2}
+  initialStatus: {fileID: 11400000, guid: c310d8389b6eb457ab58e03eef4a2fa8, type: 2}
   BattleObject: {fileID: 9110552013070586454, guid: cdfbe3d078514495d85861fbf46c7692,
     type: 3}

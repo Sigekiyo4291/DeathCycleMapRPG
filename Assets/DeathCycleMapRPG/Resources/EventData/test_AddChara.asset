@@ -15,5 +15,20 @@ MonoBehaviour:
   comment: 
   enemyPartyStatusLists: []
   items: []
-  allyList: []
-  commands: []
+  allyList:
+  - {fileID: 11400000, guid: 328eaddc196eb489c8e3294862584e8c, type: 2}
+  commands:
+  - id: 101002
+    parameters: []
+  - id: 102002
+    parameters: []
+  - id: 101003
+    parameters: []
+  - id: 600003
+    parameters:
+    - 0
+  - id: 101001
+    parameters:
+    - "\u30A6\u30A4\u30C3\u30C1\u304C\u4EF2\u9593\u306B\u306A\u3063\u305F"
+  - id: 99001003
+    parameters: []
