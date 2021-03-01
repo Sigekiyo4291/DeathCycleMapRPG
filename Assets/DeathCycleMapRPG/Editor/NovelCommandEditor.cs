@@ -619,6 +619,55 @@ public class NovelCommandEditor
 	}
 
 	/// <summary>
+	///  アイテムの取得
+	/// </summary>
+	[NovelCommandEditorAttribute(NovelCommandType.GetItem, parameterCount = 2)]
+	public class GetItem : NovelCommandPropertyDrawerBase
+	{
+		protected override void OnDrawProperties(ref Rect position, NovelDataEditor editor, SerializedProperty serializedParameters, bool isActive, bool isFocused)
+		{
+			position.y += position.height;
+			//取得するアイテムのインデックス
+			var serializedItemIndex = serializedParameters.GetArrayElementAtIndex(0);
+			serializedItemIndex.stringValue = EditorGUI.IntField(position, "アイテム番号", serializedItemIndex.stringValue.ParseInt()).ToString();
+
+			position.y += position.height;
+			//アイテムの個数
+			var serializedItemNum = serializedParameters.GetArrayElementAtIndex(1);
+			serializedItemNum.stringValue = EditorGUI.IntField(position, "取得個数",serializedItemNum.stringValue.ParseInt()).ToString();
+		}
+	}
+
+	/// <summary>
+	///  お金の取得
+	/// </summary>
+	[NovelCommandEditorAttribute(NovelCommandType.GetMoney, parameterCount = 1)]
+	public class GetMoney : NovelCommandPropertyDrawerBase
+	{
+		protected override void OnDrawProperties(ref Rect position, NovelDataEditor editor, SerializedProperty serializedParameters, bool isActive, bool isFocused)
+		{
+			position.y += position.height;
+			var serializedMoneyNum = serializedParameters.GetArrayElementAtIndex(0);
+			serializedMoneyNum.stringValue = EditorGUI.IntField(position, serializedMoneyNum.stringValue.ParseInt()).ToString();
+		}
+	}
+
+	/// <summary>
+	///  キャラクターの追加
+	/// </summary>
+	[NovelCommandEditorAttribute(NovelCommandType.AddCharacter, parameterCount = 1)]
+	public class AddCharacter : NovelCommandPropertyDrawerBase
+	{
+		protected override void OnDrawProperties(ref Rect position, NovelDataEditor editor, SerializedProperty serializedParameters, bool isActive, bool isFocused)
+		{
+			position.y += position.height;
+			//追加するキャラクターのインデックス
+			var serializedCharaIndex = serializedParameters.GetArrayElementAtIndex(0);
+			serializedCharaIndex.stringValue = EditorGUI.IntField(position, "キャラクター番号", serializedCharaIndex.stringValue.ParseInt()).ToString();
+		}
+	}
+
+	/// <summary>
 	/// ジャンプ
 	/// </summary>
 	[NovelCommandEditorAttribute(NovelCommandType.Jump, 0.3f, 0.3f, 0.4f, 0.5f, parameterCount = 1)]
@@ -831,8 +880,8 @@ public class NovelCommandEditor
 		protected override void OnDrawProperties(ref Rect position, NovelDataEditor editor, SerializedProperty serializedParameters, bool isActive, bool isFocused)
 		{
 			position.y += position.height;
-			var serializedName = serializedParameters.GetArrayElementAtIndex(0);
-			serializedName.stringValue = EditorGUI.TextField(position, serializedName.stringValue);
+			var serializedIndex = serializedParameters.GetArrayElementAtIndex(0);
+			serializedIndex.stringValue = EditorGUI.IntField(position, serializedIndex.stringValue.ParseInt()).ToString();
 		}
 	}
 }

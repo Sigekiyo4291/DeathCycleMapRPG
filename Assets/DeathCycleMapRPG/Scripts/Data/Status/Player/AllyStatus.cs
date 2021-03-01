@@ -31,7 +31,7 @@ public class AllyStatus : CharacterStatus
 
     //　初期ステータスデータ
     [SerializeField]
-    private InitialStatus initialStatus = null;
+    private AllyStatus initialStatus = null;
 
     //　バトル時のオブジェクト
     [SerializeField]
@@ -48,6 +48,40 @@ public class AllyStatus : CharacterStatus
         this.SetStrikingStrength(this.GetStrikingStrength() + raisedStrikingStrength);
         // 魔力を反映
         this.SetMagicPower(this.GetMagicPower() + raisedMagicPower);
+        // 最大HPの計算
+        this.SetMaxHp();
+        // 最大MPの計算
+        this.SetMaxMp();
+        // 攻撃力の計算
+        this.SetEquippedAttackPower();
+        // 防御力の計算
+        this.SetEquippedDefencePower();
+    }
+
+    //ステータスの初期化
+    public void StatusInit()
+    {
+        //レベルを初期化
+        this.SetLevel(1);
+        //スキルを初期化
+        this.SetSkillList(this.initialStatus.GetSkillList());
+        // 力を初期化
+        this.SetPower(this.initialStatus.GetPower());
+        // 素早さを初期化
+        this.SetAgility(this.initialStatus.GetAgility());
+        // 体力を初期化
+        this.SetStrikingStrength(this.initialStatus.GetStrikingStrength());
+        // 魔力を初期化
+        this.SetMagicPower(this.initialStatus.GetMagicPower());
+        //経験値をゼロに
+        this.SetEarnedExperience(0);
+        //武器を初期化
+        this.SetEquipWeapon(this.initialStatus.GetEquipWeapon());
+        //防具を初期化
+        this.SetEquipArmor(this.initialStatus.GetEquipArmor());
+        //アクセサリーを反映
+        this.SetEquipAccessory1(this.initialStatus.GetEquipAccessory1());
+        this.SetEquipAccessory2(this.initialStatus.GetEquipAccessory2());
         // 最大HPの計算
         this.SetMaxHp();
         // 最大MPの計算

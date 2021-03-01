@@ -190,6 +190,15 @@ public class NovelDataEditor : Editor
 		var property = serializedObject.FindProperty("comment");
 		property.stringValue = EditorGUILayout.TextArea(property.stringValue);
 
+		SerializedProperty enemyListsProperty = serializedObject.FindProperty("enemyPartyStatusLists");
+		EditorGUILayout.PropertyField(enemyListsProperty, true);
+
+		SerializedProperty itemsProperty = serializedObject.FindProperty("items");
+		EditorGUILayout.PropertyField(itemsProperty, true);
+
+		SerializedProperty allyListProperty = serializedObject.FindProperty("allyList");
+		EditorGUILayout.PropertyField(allyListProperty, true);
+
 		reorderableList.DoLayoutList();
 		serializedObject.ApplyModifiedProperties();
 	}

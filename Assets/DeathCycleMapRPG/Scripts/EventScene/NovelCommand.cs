@@ -78,6 +78,12 @@ public enum NovelCommandType
 	AnimationRotation = _Animation + 6002,
 	AnimationScale = _Animation + 6003,
 
+	_ChangePartyStatus = 600000,
+	GetItem = _ChangePartyStatus + 1,
+	GetMoney = _ChangePartyStatus + 2,
+	AddCharacter = _ChangePartyStatus + 3,
+	SetFlag = _ChangePartyStatus + 4,
+
 	_System = 99000000,
 	Jump = _System + 1,
 	Label = _System + 2,
@@ -142,6 +148,7 @@ public class NovelCommand
 		public NovelData data;
 		public NovelData.Command command;
 		public NovelMetaData meta = new NovelMetaData();
+		public EnemyPartyStatusList enemyPartyStatusList;
 	}
 
 	/// <summary>
@@ -971,6 +978,93 @@ public class NovelCommand
 	}
 
 	/// <summary>
+	/// アイテムの取得
+	/// </summary>
+	[NovelCommandAttribute(NovelCommandType.GetItem)]
+	public class GetItem : NovelCommandInterface
+	{
+		int itemIndex;
+		int itemNum;
+
+		public IEnumerator Do(SharedData share, SharedVariable variable)
+		{
+			itemIndex = share.command.parameters[0].ParseInt();
+			itemNum = share.command.parameters[1].ParseInt();
+			var partyStatus = share.data.PartyStatus;
+			var item = share.data.items[itemIndex];
+			//　既にアイテムを持っている時
+			if (partyStatus.GetItemDictionary().ContainsKey(item))
+			{
+				partyStatus.SetItemNum(item, partyStatus.GetItemNum(item) + itemNum);
+			}
+			else
+			{
+				partyStatus.SetItemDictionary(item, itemNum);
+			}
+			yield break;
+		}
+
+		public IEnumerator Undo(SharedData share, SharedVariable variable)
+		{
+			var partyStatus = share.data.PartyStatus;
+			var item = share.data.items[itemIndex];
+			partyStatus.SetItemNum(item, partyStatus.GetItemNum(item) - itemNum);
+			yield break;
+		}
+		public IEnumerator Event(SharedData share, SharedVariable variable, EventData e) { yield break; }
+	}
+
+	/// <summary>
+	/// お金の取得
+	/// </summary>
+	[NovelCommandAttribute(NovelCommandType.GetMoney)]
+	public class GetMoney : NovelCommandInterface
+	{
+		int money;
+
+		public IEnumerator Do(SharedData share, SharedVariable variable)
+		{
+			money = share.command.parameters[0].ParseInt();
+			share.data.PartyStatus.SetMoney(share.data.PartyStatus.GetMoney() + money);
+			yield break;
+		}
+
+		public IEnumerator Undo(SharedData share, SharedVariable variable)
+		{
+			share.data.PartyStatus.SetMoney(share.data.PartyStatus.GetMoney() - money);
+			yield break;
+		}
+		public IEnumerator Event(SharedData share, SharedVariable variable, EventData e) { yield break; }
+	}
+
+	/// <summary>
+	/// 味方の加入
+	/// </summary>
+	[NovelCommandAttribute(NovelCommandType.AddCharacter)]
+	public class AddCharacter : NovelCommandInterface
+	{
+		int charaIndex;
+
+		public IEnumerator Do(SharedData share, SharedVariable variable)
+		{
+			charaIndex = share.command.parameters[0].ParseInt();
+			var partyStatus = share.data.PartyStatus;
+			var chara = share.data.allyList[charaIndex];
+			partyStatus.SetAllyStatus(chara);
+			yield break;
+		}
+
+		public IEnumerator Undo(SharedData share, SharedVariable variable)
+		{
+			var partyStatus = share.data.PartyStatus;
+			var chara = share.data.allyList[charaIndex];
+			partyStatus.RemoveAllyStatus(chara);
+			yield break;
+		}
+		public IEnumerator Event(SharedData share, SharedVariable variable, EventData e) { yield break; }
+	}
+
+	/// <summary>
 	/// ジャンプ
 	/// </summary>
 	[NovelCommandAttribute(NovelCommandType.Jump)]
@@ -1314,7 +1408,9 @@ public class NovelCommand
 		{
 			//敵データを指定してロード
 			LoadSceneManager loadSceneManager = new LoadSceneManager();
-			loadSceneManager.LoadBattleScene(variable.FindValue(share.command.parameters[0]));
+			//指定された番号の敵のリストを使用
+			int index = share.command.parameters[0].ParseInt();
+			loadSceneManager.LoadBattleScene(share.data.enemyPartyStatusLists[index]);
 			yield break;
 		}
 

@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/DeathCycleMapRPG/Scenes/BattleScene.unity
+- path: Assets/DeathCycleMapRPG/Scenes/EventScene.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

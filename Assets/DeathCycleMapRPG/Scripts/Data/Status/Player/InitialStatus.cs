@@ -24,34 +24,4 @@ public class InitialStatus : CharacterStatus
     private Item equipAccessory1 = null;
     [SerializeField]
     private Item equipAccessory2 = null;
-
-    public void SetEarnedExperience(int earnedExperience)
-    {
-        this.earnedExperience = earnedExperience;
-    }
-
-    public int GetEarnedExperience()
-    {
-        return earnedExperience;
-    }
-
-    public void SetEquipWeapon(Item weaponItem)
-    {
-        this.equipWeapon = weaponItem;
-    }
-
-    public Item GetEquipWeapon()
-    {
-        return equipWeapon;
-    }
-
-    public void SetEquipArmor(Item armorItem)
-    {
-        this.equipArmor = armorItem;
-    }
-
-    public Item GetEquipArmor()
-    {
-        return equipArmor;
-    }
 }

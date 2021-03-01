@@ -38,10 +38,11 @@ public class LoadSceneManager
     }
 
     //　バトルシーンの読み込み、使用する敵データを渡す
-    public void LoadBattleScene(string enemyPartyStatusListName)
+    public void LoadBattleScene(EnemyPartyStatusList useEnemyPartyStatusList)
     {
         //使用する敵のリストデータを取得
-        enemyPartyStatusList = Resources.Load<EnemyPartyStatusList>("BattleEnemyData/" + enemyPartyStatusListName);
+        //enemyPartyStatusList = Resources.Load<EnemyPartyStatusList>("BattleEnemyData/" + enemyPartyStatusListName);
+        enemyPartyStatusList = useEnemyPartyStatusList;
 
         // イベントに登録
         SceneManager.sceneLoaded += BattleSceneLoaded;

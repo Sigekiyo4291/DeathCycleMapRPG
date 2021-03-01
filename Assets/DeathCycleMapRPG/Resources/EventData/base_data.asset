@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: base_data
   m_EditorClassIdentifier: 
   comment: 
+  enemyPartyStatusLists: []
+  items: []
   commands:
   - id: 1
     parameters:
