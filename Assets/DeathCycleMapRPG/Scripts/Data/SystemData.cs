@@ -9,18 +9,9 @@ using System.Linq;
 public class SystemData : ScriptableObject
 {
     [SerializeField]
-    private List<SaveData> SaveDatas = null;
+    private int　bgm_volume = 1;
 
-    public void SetSaveData(SaveData PlayerStatus)
-    {
-        if (!SaveDatas.Contains(PlayerStatus))
-        {
-            SaveDatas.Add(PlayerStatus);
-        }
-    }
-
-    public List<SaveData> GetSaveData()
-    {
-        return SaveDatas;
-    }
+    [SerializeField]
+    private int se_volume = 1;
+    
 }

@@ -5,11 +5,20 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 仲間の識別番号
+public enum AllyId
+{
+    Player,
+    Witch
+}
+
 [Serializable]
 [CreateAssetMenu(fileName = "AllyStatus", menuName = "CreateAllyStatus")]
 public class AllyStatus : CharacterStatus
 {
-
+    // 識別番号
+    [SerializeField]
+    private AllyId id = 0;
     //　獲得経験値
     [SerializeField]
     private int earnedExperience = 0;
@@ -284,5 +293,51 @@ public class AllyStatus : CharacterStatus
         }
         
         this.SetDefencePower(defencePower);
+    }
+
+    // ステータスをセーブ用にコピー
+    public void StatusLoad(SaveAllyStatus saveAllyStatus)
+    {
+        //　キャラクターの名前
+        SetCharacterName(saveAllyStatus.GetCharacterName());
+        SetPoisonState(saveAllyStatus.IsPoisonState());
+        SetNumbness(saveAllyStatus.IsNumbnessState());
+        //　キャラクターのレベル
+        SetLevel(saveAllyStatus.GetLevel());
+        //　素早さ
+        SetAgility(saveAllyStatus.GetAgility());
+        //　力
+        SetPower(saveAllyStatus.GetPower());
+        //　打たれ強さ
+        SetStrikingStrength(saveAllyStatus.GetStrikingStrength());
+        //　魔法力
+        SetMagicPower(saveAllyStatus.GetMagicPower());
+        //　最大HP
+        SetMaxHp();
+        //　HP
+        SetHp(saveAllyStatus.GetHp());
+        //　最大MP
+        SetMaxMp();
+        //　MP
+        SetMp(saveAllyStatus.GetMp());
+        //　持っているスキル
+        SetSkillList(saveAllyStatus.GetSkillList());
+        //属性カット率
+        SetCutFlame(saveAllyStatus.GetCutFlame());
+        SetCutThunder(saveAllyStatus.GetCutThunder());
+        SetCutIce(saveAllyStatus.GetcutIce());
+        //　獲得経験値
+        SetEarnedExperience(saveAllyStatus.GetEarnedExperience());
+        //　装備している武器
+        SetEquipWeapon(saveAllyStatus.GetEquipWeapon());
+        //　装備している鎧
+        SetEquipArmor(saveAllyStatus.GetEquipArmor());
+        //装備しているアクセサリ
+        SetEquipAccessory1(saveAllyStatus.GetEquipAccessory1());
+        SetEquipAccessory2(saveAllyStatus.GetEquipAccessory2());
+        // 攻撃力
+        SetAttackPower(saveAllyStatus.GetAttackPower());
+        // 守備力
+        SetDefencePower(saveAllyStatus.GetDefencePower());
     }
 }
